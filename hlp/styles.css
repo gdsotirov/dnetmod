@@ -1,0 +1,93 @@
+/* $Id: styles.css,v 1.1 2002/12/15 09:31:39 gsotirov Exp $ */
+/*************************************************************
+ * Styles for DeviceNet Module Documentation                 *
+ *  Author (c) 2002 George D. Sotirov, gds@sd-bul.bg         *
+ * Media: Screen                                             *
+ *************************************************************/
+
+a {
+    font: normal normal normal 12pt Arial, Helvetica, sans-serif;
+}
+a:link {
+    color: #0000A0;
+    background-color: transparent;
+    font: normal normal normal 12pt Arial, Helvetica, sans-serif;
+    text-decoration: underline;
+}
+a:visited {
+    color: #800080;
+    background-color: transparent;
+    font: normal normal normal 12pt Arial, Helvetica, sans-serif;
+    text-decoration: underline;
+}
+body {
+    color: #000000;
+    background: #FFFFFF;
+    margin: 2% 5% 2% 5%;
+}
+table {
+    border-style: none;
+    font: normal normal normal 12pt Arial, Helvetica, sans-serif;
+}
+table.tbTable {
+    border-style: solid;
+    border-width: 1px 1px 0px 0px;
+    border-color: #C6D3DE;
+}
+table.tbTable th {
+    border-style: solid;
+    border-width: 0px 0px 1px 1px;
+    border-color: #C6D3DE;
+    background: #EBEDF6;
+    color: #000000;
+    font-weight: normal;
+    padding: 5px 5px 5px 5px;
+    text-align: left;
+}
+table.tbTable td {
+    border-style: solid;
+    border-width: 0px 0px 1px 1px;
+    border-color: #C6D3DE;
+    background: transparent;
+    color: #000000;
+    padding: 5px 5px 5px 5px;
+}
+img {
+    border: none 0px #FFFFFF;
+}
+.hdr-big {
+    font: normal normal bold 24pt Arial, Helvetica, sans-serif;
+}
+.hdr-mdl {
+    font: normal normal bold 16pt Arial, Helvetica, sans-serif;
+}
+.hdr-sml {
+    font: normal normal bold 12pt Arial, Helvetica, sans-serif;
+}
+.arial10 {
+    font: normal normal normal 12pt Arial, Helvetica, sans-serif;
+}
+.arial12 {
+    font: normal normal normal 12pt Arial, Helvetica, sans-serif;
+}
+.text {
+    font: normal normal normal 12pt Arial, Helvetica, sans-serif;
+    text-align: justify;
+}
+.code {
+    background-color: #EBEDF6;
+    border: solid 1px #C6D3DE;
+    color: #000000;
+    font: normal normal normal 10pt "Courier New", Courier, monospace;
+    padding: 10px 10px 10px 10px;
+    text-align: left;
+}
+.note {
+    background-color: #FFFFE0;
+    border: none 0px #FFFFFF;
+    color: #000000;
+    font: italic normal normal 12pt Arial, Helvetica, sans-serif;
+    padding: 10px 10px 10px 10px;
+    text-align: justify;
+}
+

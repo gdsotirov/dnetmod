@@ -1,0 +1,79 @@
+<!-- $Id: cdevice_setattr.html,v 1.1 2002/12/15 09:31:39 gsotirov Exp $ //-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Member CDevice::SetAttribute</title>
+<meta name="Author" content="George D. Sotirov, gds@sd-bul.bg">
+<meta name="Copyright" content="Author © 2002 George D. Sotirov">
+<meta name="Date" content="2002-12-09T12:30:00Z">
+<meta name="Keywords" content="DeviceNet Module, CDevice, SetAttribute">
+<meta http-equiv="Content-Type" content="text/html">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="Header">
+<p align="left" class="hdr-mdl">CDevice::SetAttribute</p>
+</div>
+
+<div id="Declaration">
+<p align="left" class="hdr-sml">Declaration</p>
+<pre class="code"><b>virtual int</b> SetAttribute(
+    <b>unsigned short</b> usClsId,
+    <b>unsigned short</b> usInstId,
+    <b>unsigned char</b>  ucAttrId,
+    <b>unsigned short</b> usDataSz,
+    <b>void</b>           *pvData) = 0;</pre>
+</div>
+
+<div id="Description">
+<p align="left" class="hdr-sml">Description</p>
+<p class="text">This function must allow the user to set device's attribute.</p>
+</div>
+
+<div id="Parameters">
+<p align="left" class="hdr-sml">Parameters</p>
+<table width="100%">
+<tr>
+<td valign="top" width="30%"><i>usClsId</i></td>
+<td>Class identificator of the parameter.</td>
+</tr>
+<tr>
+<td valign="top"><i>usInstId</i></td>
+<td>Instance identificator of the parameter.</td>
+</tr>
+<tr>
+<td valign="top"<i>ucAtrrId</i></td>
+<td>Parameter identificator.</td>
+</tr>
+<tr>
+<td valign="top"><i>usDataSz</i></td>
+<td>Length of the parameter data in bytes.</td>
+</tr>
+<tr>
+<td valign="top"<i>pvData</i></td>
+<td>Pointer to a buffer where to copy parameter data.</td>
+</tr>
+</table>
+</div>
+
+<div id="Return">
+<p align="left" class="hdr-sml">Return values</p>
+<p class="text">Function must return a value and to format an error message
+when error detected in the process of setting device's attribute. Error must
+be returned if <code>usDataSz</code> is less or greater than actual size of
+attribute data.</p>
+</div>
+
+<div id="Validated">
+<p><a href="http://validator.w3.org/check/referer">
+<img border="0" src="http://www.w3.org/Icons/valid-html401"
+alt="Valid HTML 4.01!" height="31" width="88"></a></p>
+</div>
+
+</body>
+</html>
+

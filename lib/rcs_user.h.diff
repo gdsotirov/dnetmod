@@ -1,0 +1,151 @@
+30c32
+< }
+---
+> extern "C" {
+36a39,46
+> #ifdef __GNUC__
+> #ifndef PACKED
+> #define PACKED __attribute__ ((packed, aligned(1)))
+> #endif
+> #else
+> #define PACKED
+> #endif
+> 
+158,165c168,175
+<    unsigned char        rx;             /* receiver                         */
+<    unsigned char        tx;             /* transmitter                      */
+<    unsigned char        ln;             /* lenght                           */
+<    unsigned char        nr;             /* number                           */
+<    unsigned char        a;              /* answer                           */
+<    unsigned char        f;              /* fault                            */
+<    unsigned char        b;              /* command                          */
+<    unsigned char        e;              /* extension                        */
+---
+>    unsigned char        rx PACKED;      /* receiver                         */
+>    unsigned char        tx PACKED;      /* transmitter                      */
+>    unsigned char        ln PACKED;      /* lenght                           */
+>    unsigned char        nr PACKED;      /* number                           */
+>    unsigned char        a  PACKED;      /* answer                           */
+>    unsigned char        f  PACKED;      /* fault                            */
+>    unsigned char        b  PACKED;      /* command                          */
+>    unsigned char        e  PACKED;      /* extension                        */
+169,177c179,187
+<    unsigned char        rx;             /* receiver                         */
+<    unsigned char        tx;             /* transmitter                      */
+<    unsigned char        ln;             /* lenght                           */
+<    unsigned char        nr;             /* number                           */
+<    unsigned char        a;              /* answer                           */
+<    unsigned char        f;              /* fault                            */
+<    unsigned char        b;              /* command                          */
+<    unsigned char        e;              /* extension                        */
+<    unsigned char        d[ RCS_SEGMENT_LEN-RCS_MESSAGEHEADER_LEN ]; /* data */
+---
+>    unsigned char        rx PACKED;      /* receiver                         */
+>    unsigned char        tx PACKED;      /* transmitter                      */
+>    unsigned char        ln PACKED;      /* lenght                           */
+>    unsigned char        nr PACKED;      /* number                           */
+>    unsigned char        a  PACKED;      /* answer                           */
+>    unsigned char        f  PACKED;      /* fault                            */
+>    unsigned char        b  PACKED;      /* command                          */
+>    unsigned char        e  PACKED;      /* extension                        */
+>    unsigned char        d[ RCS_SEGMENT_LEN-RCS_MESSAGEHEADER_LEN ] PACKED;
+185,191c195,201
+<    unsigned char        device_adr;     /* device address                   */
+<    unsigned char        data_area;      /* data area                        */
+<    unsigned short       data_adr;       /* data address                     */
+<    unsigned char        data_idx;       /* data index                       */
+<    unsigned char        data_cnt;       /* data count                       */
+<    unsigned char        data_type;      /* data type                        */
+<    unsigned char        function;       /* function                         */
+---
+>    unsigned char        device_adr PACKED; /* device address                */
+>    unsigned char        data_area  PACKED; /* data area                     */
+>    unsigned short       data_adr   PACKED; /* data address                  */
+>    unsigned char        data_idx   PACKED; /* data index                    */
+>    unsigned char        data_cnt   PACKED; /* data count                    */
+>    unsigned char        data_type  PACKED; /* data type                     */
+>    unsigned char        function   PACKED; /* function                      */
+195,209c205,219
+<    unsigned char        rx;             /* receiver                         */
+<    unsigned char        tx;             /* transmitter                      */
+<    unsigned char        ln;             /* lenght                           */
+<    unsigned char        nr;             /* number                           */
+<    unsigned char        a;              /* answer                           */
+<    unsigned char        f;              /* fault                            */
+<    unsigned char        b;              /* command                          */
+<    unsigned char        e;              /* extension                        */
+<    unsigned char        device_adr;     /* device address                   */
+<    unsigned char        data_area;      /* data area                        */
+<    unsigned short       data_adr;       /* data address                     */
+<    unsigned char        data_idx;       /* data index                       */
+<    unsigned char        data_cnt;       /* data count                       */
+<    unsigned char        data_type;      /* data type                        */
+<    unsigned char        function;       /* function                         */
+---
+>    unsigned char        rx         PACKED; /* receiver                      */
+>    unsigned char        tx         PACKED; /* transmitter                   */
+>    unsigned char        ln         PACKED; /* lenght                        */
+>    unsigned char        nr         PACKED; /* number                        */
+>    unsigned char        a          PACKED; /* answer                        */
+>    unsigned char        f          PACKED; /* fault                         */
+>    unsigned char        b          PACKED; /* command                       */
+>    unsigned char        e          PACKED; /* extension                     */
+>    unsigned char        device_adr PACKED; /* device address                */
+>    unsigned char        data_area  PACKED; /* data area                     */
+>    unsigned short       data_adr   PACKED; /* data address                  */
+>    unsigned char        data_idx   PACKED; /* data index                    */
+>    unsigned char        data_cnt   PACKED; /* data count                    */
+>    unsigned char        data_type  PACKED; /* data type                     */
+>    unsigned char        function   PACKED; /* function                      */
+213,220c223,230
+<    unsigned char        device_adr;
+<    unsigned char        data_area;
+<    unsigned short       data_adr;
+<    unsigned char        data_idx;
+<    unsigned char        data_cnt;
+<    unsigned char        data_type;
+<    unsigned char        function;
+<    unsigned char        d[ RCS_SEGMENT_LEN-RCS_MESSAGEHEADER_LEN-RCS_TELEGRAMHEADER_LEN];
+---
+>    unsigned char        device_adr PACKED;
+>    unsigned char        data_area  PACKED;
+>    unsigned short       data_adr   PACKED;
+>    unsigned char        data_idx   PACKED;
+>    unsigned char        data_cnt   PACKED;
+>    unsigned char        data_type  PACKED;
+>    unsigned char        function   PACKED;
+>    unsigned char        d[ RCS_SEGMENT_LEN-RCS_MESSAGEHEADER_LEN-RCS_TELEGRAMHEADER_LEN] PACKED;
+224,239c234,249
+<    unsigned char        rx;             /* receiver                         */
+<    unsigned char        tx;             /* transmitter                      */
+<    unsigned char        ln;             /* lenght                           */
+<    unsigned char        nr;             /* number                           */
+<    unsigned char        a;              /* answer                           */
+<    unsigned char        f;              /* fault                            */
+<    unsigned char        b;              /* command                          */
+<    unsigned char        e;              /* extension                        */
+<    unsigned char        device_adr;     /* device address                   */
+<    unsigned char        data_area;      /* data area                        */
+<    unsigned short       data_adr;       /* data address                     */
+<    unsigned char        data_idx;       /* data index                       */
+<    unsigned char        data_cnt;       /* data count                       */
+<    unsigned char        data_type;      /* data type                        */
+<    unsigned char        function;       /* function                         */
+<    unsigned char        d[ RCS_SEGMENT_LEN-RCS_MESSAGEHEADER_LEN-RCS_TELEGRAMHEADER_LEN];
+---
+>    unsigned char        rx         PACKED; /* receiver                      */
+>    unsigned char        tx         PACKED; /* transmitter                   */
+>    unsigned char        ln         PACKED; /* lenght                        */
+>    unsigned char        nr         PACKED; /* number                        */
+>    unsigned char        a          PACKED; /* answer                        */
+>    unsigned char        f          PACKED; /* fault                         */
+>    unsigned char        b          PACKED; /* command                       */
+>    unsigned char        e          PACKED; /* extension                     */
+>    unsigned char        device_adr PACKED; /* device address                */
+>    unsigned char        data_area  PACKED; /* data area                     */
+>    unsigned short       data_adr   PACKED; /* data address                  */
+>    unsigned char        data_idx   PACKED; /* data index                    */
+>    unsigned char        data_cnt   PACKED; /* data count                    */
+>    unsigned char        data_type  PACKED; /* data type                     */
+>    unsigned char        function   PACKED; /* function                      */
+>    unsigned char        d[ RCS_SEGMENT_LEN-RCS_MESSAGEHEADER_LEN-RCS_TELEGRAMHEADER_LEN] PACKED;

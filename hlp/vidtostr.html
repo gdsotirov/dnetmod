@@ -1,0 +1,120 @@
+<!-- $Id: vidtostr.html,v 1.1 2002/12/15 09:31:39 gsotirov Exp $ //-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Function VendIdToStr</title>
+<meta name="Author" content="George D. Sotirov, gds@sd-bul.bg">
+<meta name="Copyright" content="Author © 2002 George D. Sotirov">
+<meta name="Date" content="2002-12-09T08:10:00Z">
+<meta name="Keywords" content="DeviceNet Module, VendIdToStr">
+<meta http-equiv="Content-Type" content="text/html">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div id="Header">
+<p align="left" class="hdr-mdl">VendIdToStr</p>
+</div>
+
+<div id="Declaration">
+<p align="left" class="hdr-sml">Declaration</p>
+<pre class="code">DNETMOD_API <b>int</b> DNETMOD_CC
+VendIdToString(<b>unsigned short</b> usVendId, <b>unsigned long</b> ulStrSz, <b>char</b> *strName);
+</pre>
+</div>
+
+<div id="Description">
+<p align="left" class="hdr-sml">Description</p>
+<p class="text">This function translates between vendor identificator and
+vendor name. Vendor names are taken form <a href="http://www.odva.org">ODVA
+web site</a> and are updated before build of the module. So any newly
+registered vendors after this date will not be present.</p>
+</div>
+
+<div id="Parameters">
+<p align="left" class="hdr-sml">Parameters</p>
+<table width="100%">
+<tr>
+<td width="30%" valign="top"><i>usVendId</i></td>
+<td>Vendor identificator.</td>
+</tr>
+<tr>
+<td valign="top"><i>ulStrSz</i></td>
+<td>Size of the C type string passed as next parameter.</td>
+</tr>
+<tr>
+<td valign="top"><i>strName</i></td>
+<td>Pointer to a C type string where to copy vendor name.</td>
+</tr>
+</table>
+</div>
+
+<div id="Return">
+<p align="left" class="hdr-sml">Return values</p>
+<table width="100%">
+<tr>
+<td valign="top" width="30%">ERR_NOERROR</td>
+<td>0 = successful translation made.</td>
+</tr>
+<tr>
+<td valign="top">ERR_NOSUCH_VENDID</td>
+<td>When function didn't find the vendor id passed.</td>
+</tr>
+</table>
+</div>
+
+<div id="Requirements">
+<p align="left" class="hdr-sml">Requirements</p>
+<p class="code">#include "dnetmod.h"</p>
+<table cellspacing="0" class="tbTable" width="100%">
+<tr>
+<th width="16%"><b>OS\Libraries</b></th>
+<th width="28%"><b>Static (CT)</b></th>
+<th width="28%"><b>Import library (CT)</b></th>
+<th width="28%"><b>Shared (RT)</b></th>
+</tr>
+<tr>
+<th><b>Linux</b></th>
+<td>libdnetmod.a</td>
+<td>-</td>
+<td>libdnetmod.so.0.2</td>
+</tr>
+<tr>
+<th><b>Win32</b></th>
+<td>dnetmod.lib</td>
+<td>dnetmodimp.lib</td>
+<td>dnetmod.dll</td>
+</tr>
+</table>
+</div>
+
+<div id="Samples">
+<p align="left" class="hdr-sml">Sample code</p>
+<p class="text">This code show how all vendor names can be extracted:<br></p>
+<pre class="code">
+...
+<i>/* Note: DNETMOD_MAX_VENDSTR_LEN and DNETMOD_MAX_VENDID
+         are defined in dnetmod.h */</i>
+<b>char</b> vname[DNETMOD_MAX_VENDSTR_LEN];
+...
+printf("DeviceNet Vendors:\n");
+<b>for</b>( <b>int</b> i=0; i&lt;DNETMOD_MAX_VENDID; i++ )
+    <b>if</b>( VendIdToStr(i, DNETMOD_MAX_VENDSTR_LEN, vname) == ERR_NOERR )
+        printf("%d - %s\n", i, vname);
+    <b>else</b> <i>/* show error */</i>;
+...
+</pre>
+</div>
+
+<div id="Validated">
+<p><a href="http://validator.w3.org/check/referer">
+<img border="0" src="http://www.w3.org/Icons/valid-html401"
+alt="Valid HTML 4.01!" height="31" width="88"></a></p>
+</div>
+
+</body>
+</html>

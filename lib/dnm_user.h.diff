@@ -1,0 +1,257 @@
+48a49,56
+> #ifdef __GNUC__
+> #ifndef PACKED
+> #define PACKED __attribute__ ((packed, aligned(1)))
+> #endif
+> #else
+> #define PACKED
+> #endif
+> 
+69c77
+<   unsigned char  bMode;               /* handshake of process data */
+---
+>   unsigned char  bMode PACKED;               /* handshake of process data */
+73,75c81,83
+<   unsigned char  bReserved[2];
+<   unsigned short usWatchDogTime;
+<   unsigned char  bExtSlaveStatus;     /* extended slave status in IO area */
+---
+>   unsigned char  bReserved[2] PACKED;
+>   unsigned short usWatchDogTime PACKED;
+>   unsigned char  bExtSlaveStatus PACKED;     /* extended slave status in IO area */
+78,79c86,87
+<   unsigned char  abReservedA[2];
+<   unsigned char  abReservedB[8];
+---
+>   unsigned char  abReservedA[2] PACKED;
+>   unsigned char  abReservedB[8] PACKED;
+91c99
+<   unsigned short  usDevParaLen;    /* length of whole parameter data set */
+---
+>   unsigned short  usDevParaLen PACKED;    /* length of whole parameter data set */
+111c119
+<   unsigned char   bUcmmGroup;       /* dynamic UCMM connection group */
+---
+>   unsigned char   bUcmmGroup PACKED;       /* dynamic UCMM connection group */
+115c123
+<   unsigned short  usRecFragTimer;   /* timeout value for reconnection
+---
+>   unsigned short  usRecFragTimer PACKED;   /* timeout value for reconnection
+117,121c125,129
+<   unsigned short  usVendorID;       /* Vendor ID */
+<   unsigned short  usDeviceType;     /* Device Type */
+<   unsigned short  usProductCode;    /* Product code */
+<   unsigned char   bMajorRevision;   /* Revision major digit */
+<   unsigned char   bMinorRevision;   /* Revision minor digit */
+---
+>   unsigned short  usVendorID PACKED;       /* Vendor ID */
+>   unsigned short  usDeviceType PACKED;     /* Device Type */
+>   unsigned short  usProductCode PACKED;    /* Product code */
+>   unsigned char   bMajorRevision PACKED;   /* Revision major digit */
+>   unsigned char   bMinorRevision PACKED;   /* Revision minor digit */
+123c131
+<   unsigned char   bOctetString[2];  /* reserved field */
+---
+>   unsigned char   bOctetString[2] PACKED;  /* reserved field */
+130c138
+<   unsigned char bDataType;      /* data type of I/O module */
+---
+>   unsigned char bDataType PACKED;      /* data type of I/O module */
+133c141
+<   unsigned char bDataSize;      /* data size of module in multiples of bytes */
+---
+>   unsigned char bDataSize PACKED;      /* data size of module in multiples of bytes */
+137c145
+<   unsigned char  bConnectionType;  /* type of connection which shall be established */
+---
+>   unsigned char  bConnectionType PACKED;  /* type of connection which shall be established */
+142c150
+<   unsigned char  bWatchdogTimeoutAction; /* behavior when watchdog times out */
+---
+>   unsigned char  bWatchdogTimeoutAction PACKED; /* behavior when watchdog times out */
+146,148c154,156
+<   unsigned short usProdInhibitTime;    /* production inhibit time im msec */
+<   unsigned short usExpPacketRate;   /* established connection supervision timer */
+<   unsigned char  bNumOfIOModules;   /* number of following I/O modules */
+---
+>   unsigned short usProdInhibitTime PACKED;    /* production inhibit time im msec */
+>   unsigned short usExpPacketRate PACKED;   /* established connection supervision timer */
+>   unsigned char  bNumOfIOModules PACKED;   /* number of following I/O modules */
+152,153c160,161
+<   DNM_PRED_MSTSL_IO_OBJ_HEADER tPredMstSlObjHeader; /* header for each connection */
+<   DNM_IO_MODULE                atIOModule[1]; /* I/O modules for connection */
+---
+>   DNM_PRED_MSTSL_IO_OBJ_HEADER tPredMstSlObjHeader PACKED; /* header for each connection */
+>   DNM_IO_MODULE                atIOModule[1] PACKED; /* I/O modules for connection */
+157,158c165,166
+<   unsigned short         usPredMstslCfgDataLen; /* length of the predef.MstSl. configuration data field*/
+<   DNM_PRED_MSTSL_CONNOBJ atConnObjInst[1];  /* connection structure */
+---
+>   unsigned short         usPredMstslCfgDataLen PACKED; /* length of the predef.MstSl. configuration data field*/
+>   DNM_PRED_MSTSL_CONNOBJ atConnObjInst[1] PACKED;  /* connection structure */
+162,165c170,173
+<   unsigned short  usAddTabLen;  /* whole length of addtional table field */
+<   unsigned char   bInputCount;  /* number of inputs in the offset table */
+<   unsigned char   bOutputCount; /* number of output in the offset table */
+<   unsigned short  ausIOOffsets[1]; /* process data offset table */
+---
+>   unsigned short  usAddTabLen PACKED;  /* whole length of addtional table field */
+>   unsigned char   bInputCount PACKED;  /* number of inputs in the offset table */
+>   unsigned char   bOutputCount PACKED; /* number of output in the offset table */
+>   unsigned short  ausIOOffsets[1] PACKED; /* process data offset table */
+172,176c180,184
+<   unsigned short  usClassID;    /* class ID to be addressed */
+<   unsigned short  usInstanceID; /* instance in this class be addressed */
+<   unsigned char   bAttributeID; /* attribute which shall be changed */
+<   unsigned char   bDataCnt;     /* size of the following data field */
+<   unsigned char   abData[1];    /* attribute value */
+---
+>   unsigned short  usClassID PACKED;    /* class ID to be addressed */
+>   unsigned short  usInstanceID PACKED; /* instance in this class be addressed */
+>   unsigned char   bAttributeID PACKED; /* attribute which shall be changed */
+>   unsigned char   bDataCnt PACKED;     /* size of the following data field */
+>   unsigned char   abData[1] PACKED;    /* attribute value */
+180,181c188,189
+<   unsigned short    usAttrDataLen;    /* length of the parameter data field */
+<   DNM_SET_ATTR_DATA atSetAttrData[1]; /* n parameter data fields */
+---
+>   unsigned short    usAttrDataLen PACKED;    /* length of the parameter data field */
+>   DNM_SET_ATTR_DATA atSetAttrData[1] PACKED; /* n parameter data fields */
+188c196
+<   unsigned short usCfgDataLen; /* second connection table */
+---
+>   unsigned short usCfgDataLen PACKED; /* second connection table */
+192,195c200,203
+<   unsigned short  usAddTabLen;   /* whole length of addtional table field */
+<   unsigned char   bInputCount;   /* number of inputs in the offset table */
+<   unsigned char   bOutputCount;  /* number of output in the offset table */
+<   unsigned short  IOOffsets[1];  /* process data offset table */
+---
+>   unsigned short  usAddTabLen PACKED;   /* whole length of addtional table field */
+>   unsigned char   bInputCount PACKED;   /* number of inputs in the offset table */
+>   unsigned char   bOutputCount PACKED;  /* number of output in the offset table */
+>   unsigned short  IOOffsets[1] PACKED;  /* process data offset table */
+205,206c213,214
+<   unsigned char  bOwnMacId;        /* MAC-ID of the DEVICE */
+<   unsigned short usVendorId;       /* = 283 for Hilscher Device */
+---
+>   unsigned char  bOwnMacId PACKED;        /* MAC-ID of the DEVICE */
+>   unsigned short usVendorId PACKED;       /* = 283 for Hilscher Device */
+208c216
+<   unsigned char  bBaudrate;        /* fixes the baudrate */
+---
+>   unsigned char  bBaudrate PACKED;        /* fixes the baudrate */
+212,214c220,222
+<   unsigned char  bReserved;        /* reserved value */
+<   unsigned short usReserved;       /* reserved value */
+<   unsigned char  bAutoClear;       /* autoclear if one device shuts down */
+---
+>   unsigned char  bReserved PACKED;        /* reserved value */
+>   unsigned short usReserved PACKED;       /* reserved value */
+>   unsigned char  bAutoClear PACKED;       /* autoclear if one device shuts down */
+217,220c225,228
+<   unsigned char  bSrvConsConnSize;  /* consumed I/O connection size as server */
+<   unsigned short usConsOffset;      /* offset adress in input area for server input data */
+<   unsigned char  bSrvProdConnSize;  /* produced I/O connection size as server */
+<   unsigned short usProdOffset;      /* offset adress in output area for server output data */
+---
+>   unsigned char  bSrvConsConnSize PACKED;  /* consumed I/O connection size as server */
+>   unsigned short usConsOffset PACKED;      /* offset adress in input area for server input data */
+>   unsigned char  bSrvProdConnSize PACKED;  /* produced I/O connection size as server */
+>   unsigned short usProdOffset PACKED;      /* offset adress in output area for server output data */
+242c250
+<   unsigned char  bDevMainState;
+---
+>   unsigned char  bDevMainState PACKED;
+290c298
+<   unsigned char  bOnlineError;
+---
+>   unsigned char  bOnlineError PACKED;
+315,317c323,325
+<   unsigned char  bGeneralErrorCode;
+<   unsigned char  bAdditionalCode;
+<   unsigned short usTimeout;
+---
+>   unsigned char  bGeneralErrorCode PACKED;
+>   unsigned char  bAdditionalCode PACKED;
+>   unsigned short usTimeout PACKED;
+343c351
+<   unsigned char   bDNM_state;
+---
+>   unsigned char   bDNM_state PACKED;
+352c360
+<     unsigned char bErrDevAdr; /* 0-63, 255 */
+---
+>     unsigned char bErrDevAdr PACKED; /* 0-63, 255 */
+355c363
+<     unsigned char bErrEvent;   /* see #defines */
+---
+>     unsigned char bErrEvent PACKED;   /* see #defines */
+386c394
+<   unsigned short  usBus_Error_Cnt;
+---
+>   unsigned short  usBus_Error_Cnt PACKED;
+389c397
+<   unsigned short  usBus_Off_Cnt;
+---
+>   unsigned short  usBus_Off_Cnt PACKED;
+401c409
+<   unsigned char   abReserved[7];
+---
+>   unsigned char   abReserved[7] PACKED;
+404,406c412,414
+<   unsigned char   abDv_cfg  [16];  /* device configuration area */
+<   unsigned char   abDv_state[16];  /* device state information area */
+<   unsigned char   abDv_diag [16];  /* device diagnostic area */
+---
+>   unsigned char   abDv_cfg  [16] PACKED;  /* device configuration area */
+>   unsigned char   abDv_state[16] PACKED;  /* device state information area */
+>   unsigned char   abDv_diag [16] PACKED;  /* device diagnostic area */
+443,445c451,453
+<    unsigned char        bReq_Add;   /* 0 */
+<    unsigned char        bArea_Code; /* 0 - 63 */
+<    unsigned short       usTimeout;  /* 0 - 65535 */
+---
+>    unsigned char        bReq_Add PACKED;   /* 0 */
+>    unsigned char        bArea_Code PACKED; /* 0 - 63 */
+>    unsigned short       usTimeout PACKED;  /* 0 - 65535 */
+449c457
+<    unsigned char        bMax_Len_Data_Unit;   /* 240 */
+---
+>    unsigned char        bMax_Len_Data_Unit PACKED;   /* 240 */
+463,466c471,474
+<    unsigned char        bReq_Add;    /* 0 */
+<    unsigned char        bArea_Code;  /* 0 - 63, 127 */
+<    unsigned short       usAdd_Offset; /* 0 - 760 */
+<    unsigned char        abData[MAX_LEN_DATA_UNIT];
+---
+>    unsigned char        bReq_Add PACKED;    /* 0 */
+>    unsigned char        bArea_Code PACKED;  /* 0 - 63, 127 */
+>    unsigned short       usAdd_Offset PACKED; /* 0 - 760 */
+>    unsigned char        abData[MAX_LEN_DATA_UNIT] PACKED;
+479,482c487,490
+<    unsigned char        bReq_Add;     /* 0 */
+<    unsigned char        bArea_Code;   /* 0 - 63 127 */
+<    unsigned short       usAdd_Offset; /* 0 - 760 */
+<    unsigned char        bData_Len;    /* 1-240 */
+---
+>    unsigned char        bReq_Add PACKED;     /* 0 */
+>    unsigned char        bArea_Code PACKED;   /* 0 - 63 127 */
+>    unsigned short       usAdd_Offset PACKED; /* 0 - 760 */
+>    unsigned char        bData_Len PACKED;    /* 1-240 */
+494c502
+<    unsigned char        bReq_Add;   /* 0 */
+---
+>    unsigned char        bReq_Add PACKED;   /* 0 */
+560,561c568,569
+<    unsigned char        bBaudrate;   
+<    unsigned char        bOwnMacId;
+---
+>    unsigned char        bBaudrate PACKED;   
+>    unsigned char        bOwnMacId PACKED;
+565,566c573,574
+<    unsigned char        abSuppFnc[DNM_MAX_NUM_DEVICES];   
+<    unsigned char        abUcmmGroup[DNM_MAX_NUM_DEVICES];
+---
+>    unsigned char        abSuppFnc[DNM_MAX_NUM_DEVICES] PACKED;   
+>    unsigned char        abUcmmGroup[DNM_MAX_NUM_DEVICES] PACKED;

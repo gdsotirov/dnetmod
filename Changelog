@@ -1,0 +1,58 @@
+$Id: Changelog,v 1.1 2002/12/15 09:31:39 gsotirov Exp $
+
+DeviceNet Module Project ChangeLog
+------------------------------------------------------------------------------
+
+0.1.1.1 (2002-08-15)
+==============================================================================
+
+    - Initial release
+
+0.1.16.1 (2002-09-03)
+==============================================================================
+
+    - A memory leak fixed for the AXES module
+    - The new NI-DNET 1.3 driver is used
+
+0.1.17.1 (2002-09-04)
+==============================================================================
+
+     - New axis types are added in AXES module (single axes)
+
+0.1.18.1 (2002-09-13)
+==============================================================================
+
+    - Ability for creating thread for a device to poll data from it
+
+0.1.19.1 (2002-09-16)
+==============================================================================
+
+    - Improvements in the error throwing and handling system
+    - In debug version all errors and warnings are logged
+
+0.1.20.1 (2002-09-19)
+==============================================================================
+
+    - New function Reset is added to the Interface object.
+
+0.1.21.1 (2002-09-25)
+==============================================================================
+
+    - A bug which makes the error log unnecessary long is fixed.
+    - New error control for the AXES module.
+    - In the AXES module before device deallocation a reset service is
+      executed.
+
+0.1.22.1 (2002-10-10)
+===============================================================================
+
+    - New class hierarchy.
+    - Support for Hilscher devices started.
+
+0.2.0 (2002-12-09)
+===============================================================================
+    - Support for Hilscher DNM* boards implemented.
+    - Changes to the error reporting.
+    - Changes to the error codes.
+    - Others.
+

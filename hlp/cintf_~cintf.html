@@ -1,0 +1,52 @@
+<!-- $Id: cintf_~cintf.html,v 1.1 2002/12/15 09:31:39 gsotirov Exp $ //-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Member CInterface::~CInterface</title>
+<meta name="Author" content="George D. Sotirov, gds@sd-bul.bg">
+<meta name="Copyright" content="Author © 2002 George D. Sotirov">
+<meta name="Date" content="2002-12-09T09:40:00Z">
+<meta name="Keywords" content="DeviceNet Module, CInterface, ~CInterface">
+<meta http-equiv="Content-Type" content="text/html">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div id="Header">
+<p align="left" class="hdr-mdl">CInterface::~CInterface</p>
+</div>
+
+<div id="Declaration">
+<p align="left" class="hdr-sml">Declaration</p>
+<pre class="code">
+<b>virtual</b> CInterface::~CInterface(<b>void</b>);
+</pre>
+</div>
+
+<div id="Description">
+<p align="left" class="hdr-sml">Description</p>
+<p class="text">Destructor. Destructor does nothing.</p>
+</div>
+
+<div id="Remarks">
+<p align="left" class="hdr-sml">Remarks</p>
+<p class="text">It is good to stop communication on the interface and
+to do finalization on it when destroying an object of class descended from
+<code>CInterface</code>. A call to <a href="cintf_close.html">Close</a>
+method, if not invoked by the user, is proposed for implementing in
+descendants destructors.</p>
+</div>
+
+<div id="Validated">
+<p><a href="http://validator.w3.org/check/referer">
+<img border="0" src="http://www.w3.org/Icons/valid-html401"
+alt="Valid HTML 4.01!" height="31" width="88"></a></p>
+</div>
+
+</body>
+</html>
+

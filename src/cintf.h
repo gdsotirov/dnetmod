@@ -1,0 +1,57 @@
+/****************************************************************************
+ *  DeviceNet Module 0.2                                                    *
+ ****************************************************************************
+ *  Author      : George D. Sotirov, gds@sd-bul.bg                          *
+ *  File        : cintf.h                   Type        : header            *
+ *  Description : CInterface class declaration.                             *
+ *  CVS         : $Id: cintf.h,v 1.1 2002/12/15 09:31:39 gsotirov Exp $
+ ****************************************************************************/
+
+#ifndef CINTERFACE_H
+#define CINTERFACE_H 1
+
+#include "dnmdefs.h"
+
+#ifndef COMPILER_CPP
+#error "error: File cintf.h reguires c++ compiler."
+#endif
+
+#include "cnode.h"
+
+/* Class   : CInterface
+ * Purpose : Base and abstract class for all DeviceNet interfaces.
+ */
+class DNETMOD_API CInterface : public CNode {
+private:
+    /* Copy constructor and assignment operator not supported for this class */
+    CInterface(const CInterface&);
+    CInterface& operator =(const CInterface&);
+protected:
+    static unsigned long ulClassID;
+    static char strClassName[];
+protected:
+    unsigned char ucBaudRate;
+public:
+    /* constructors */
+    CInterface();
+    CInterface(unsigned char ucMID, unsigned char ucCCS, unsigned char ucPCS, unsigned char ucBR);
+    /* get/set */
+    unsigned char GetBaudRate(void) const;
+    void SetBaudRate(unsigned char ucBR);
+    /* overrides */
+    virtual bool IsA(unsigned long ulCompareID) const;
+    virtual bool IsA(char *strCompareName) const;
+    /* main */
+    virtual int Open(void) = 0;
+    virtual int Close(void) = 0;
+    virtual int Reset(void * = 0) = 0;
+    /* destructor */
+    virtual ~CInterface();
+};
+
+inline unsigned char CInterface::GetBaudRate(void) const {
+    return ucBaudRate;
+}
+
+#endif /* cintf.h */
+

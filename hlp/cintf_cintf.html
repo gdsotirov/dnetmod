@@ -1,0 +1,72 @@
+<!-- $Id: cintf_cintf.html,v 1.1 2002/12/15 09:31:39 gsotirov Exp $ //-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Member CInterface::CInterface</title>
+<meta name="Author" content="George D. Sotirov, gds@sd-bul.bg">
+<meta name="Copyright" content="Author © 2002 George D. Sotirov">
+<meta name="Date" content="2002-12-09T09:30:00Z">
+<meta name="Keywords" content="DeviceNet Module, CInterface">
+<meta http-equiv="Content-Type" content="text/html">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div id="Header">
+<p align="left" class="hdr-mdl">CInterface::CInterface</p>
+</div>
+
+<div id="Declaration">
+<p align="left" class="hdr-sml">Declaration</p>
+<pre class="code">
+CInterface::CInterface();
+CInterface::CInterface(
+    <b>unsigned char</b> ucMID,
+    <b>unsigned char</b> ucCCS,
+    <b>unsigned char</b> ucPCS,
+    <b>unsigned char</b> ucBR);
+</pre>
+</div>
+
+<div id="Description">
+<p align="left" class="hdr-sml">Description</p>
+<p class="text">Constructors of the CInterface class.</p>
+</div>
+
+<div id="Parameters">
+<p align="left" class="hdr-sml">Parameters</p>
+<table width="100%">
+<tr>
+<td colspan="2">First three of function parameters are for initializing of
+<a href="cnode_cnode.html">CNode</a>.</td>
+</tr>
+<tr>
+<td valign="top" width="30%"><i>ucBR</i></td>
+<td>Baud rate for the interface. Possible values are defined as constants in
+<code>dnmdef.h</code>:
+<ul>
+<li><code>DEVICENET_BAUD_125K</code> - for 125 000 bytes per second</li>
+<li><code>DEVICENET_BAUD_250K</code> - for 250 000 bytes per second</li>
+<li><code>DEVICENET_BAUD_500K</code> - for 500 000 bytes per second</li>
+</ul></td></tr></table>
+</div>
+
+<div id="Remarks">
+<p align="left" class="hdr-sml">Remarks</p>
+<p class="text">CInterface doesn't support copy constructor and assignment
+operator. They are declared in section private and are not defined.</p>
+</div>
+
+<div id="Validated">
+<p><a href="http://validator.w3.org/check/referer">
+<img border="0" src="http://www.w3.org/Icons/valid-html401"
+alt="Valid HTML 4.01!" height="31" width="88"></a></p>
+</div>
+
+</body>
+</html>
+

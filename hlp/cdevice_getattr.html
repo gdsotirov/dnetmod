@@ -1,0 +1,87 @@
+<!-- $Id: cdevice_getattr.html,v 1.1 2002/12/15 09:31:39 gsotirov Exp $ //-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Member CDevice::GetAttribute</title>
+<meta name="Author" content="George D. Sotirov, gds@sd-bul.bg">
+<meta name="Copyright" content="Author © 2002 George D. Sotirov">
+<meta name="Date" content="2002-12-09T12:15:00Z">
+<meta name="Keywords" content="DeviceNet Module, CDevice, GetAttribute">
+<meta http-equiv="Content-Type" content="text/html">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="Header">
+<p align="left" class="hdr-mdl">CDevice::GetAttribute</p>
+</div>
+
+<div id="Declaration">
+<p align="left" class="hdr-sml">Declaration</p>
+<pre class="code"><b>virtual int</b> GetAttribute(
+    <b>unsigned short</b> usClsId,
+    <b>unsigned short</b> usInstId,
+    <b>unsigned char</b>  ucAttrId,
+    <b>unsigned short</b> usDataSz,
+    <b>void</b>           *pvData,
+    <b>unsigned short</b> *pusActDataSz) = 0;</pre>
+</div>
+
+<div id="Description">
+<p align="left" class="hdr-sml">Description</p>
+<p class="text">This function must allow the user to retrieve device's
+attribute. User must provide buffer with appropriate size for the attribute
+data.</p>
+</div>
+
+<div id="Parameters">
+<p align="left" class="hdr-sml">Parameters</p>
+<table width="100%">
+<tr>
+<td valign="top" width="30%"><i>usClsId</i></td>
+<td>Class identificator of the attribute.</td>
+</tr>
+<tr>
+<td valign="top"><i>usInstId</i></td>
+<td>Instance identificator of the attribute.</td>
+</tr>
+<tr>
+<td valign="top"><i>ucAttrId</i></td>
+<td>Attribute identificator.</td>
+</tr>
+<tr>
+<td valign="top"><i>usDataSz</i></td>
+<td>Length in bytes of the attribute data.</td>
+</tr>
+<tr>
+<td valign="top"><i>pvData</i></td>
+<td>Pointer to a buffer where to copy attribute data.</td>
+</tr>
+<tr>
+<td valign="top"><i>pusActDataSz</i></td>
+<td>Actual size of the attribute data in bytes.</td>
+</tr>
+</table>
+</div>
+
+<div id="Return">
+<p align="left" class="hdr-sml">Return values</p>
+<p class="text">Function must return an error code and to format an error
+message when error detected in process of retrieving device's attribute.
+Function must not report as an error inconsistency between <code>usDataSz</code>
+and actual size of the attribute data. Actual length of the attribute data in
+bytes must be fixed in <code>pusActDataSz</code>.</p>
+</div>
+
+<div id="Validated">
+<p><a href="http://validator.w3.org/check/referer">
+<img border="0" src="http://www.w3.org/Icons/valid-html401"
+alt="Valid HTML 4.01!" height="31" width="88"></a></p>
+</div>
+
+</body>
+</html>
+

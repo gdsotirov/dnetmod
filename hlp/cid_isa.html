@@ -1,0 +1,75 @@
+<!-- $Id: cid_isa.html,v 1.1 2002/12/15 09:31:39 gsotirov Exp $ //-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Member CIdentificator::IsA</title>
+<meta name="Author" content="George D. Sotirov, gds@sd-bul.bg">
+<meta name="Copyright" content="Author © 2002 George D. Sotirov">
+<meta name="Date" content="2002-12-09T09:00:00Z">
+<meta name="Keywords" content="IsA">
+<meta http-equiv="Content-Type" content="text/html">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div id="Header">
+<p align="left" class="hdr-mdl">CIdentificator::IsA</p>
+</div>
+
+<div id="Declaration">
+<p align="left" class="hdr-sml">Declaration</p>
+<pre class="code">
+<b>virtual bool</b> IsA(<b>unsigned long</b> ulCompareID) <b>const</b>;
+<b>virtual bool</b> IsA(<b>char</b> *strCompareName) <b>const</b>;
+</pre>
+</div>
+
+<div id="Description">
+<p align="left" class="hdr-sml">Description</p>
+<p class="text">This functions can be used to check if a class or it ancestors
+can identify themselves with the specified number or name. Thus you can check
+if the object you use is from the type you want.</p>
+</div>
+
+<div id="Parameters">
+<p align="left" class="hdr-sml">Parameters</p>
+<table width="100%">
+<tr>
+<td valign="top" width="30%" ><i>ulCompareID</i></td>
+<td>ID to be compared.</td>
+</tr>
+<tr>
+<td valign="top"><i>strCompareName</i></td>
+<td>Name to be compared.</td>
+</tr>
+</table>
+</div>
+
+<div id="Return">
+<p align="left" class="hdr-sml">Return values</p>
+<p class="text">True when match otherwise false.</p>
+</div>
+
+<div id="Remarks">
+<p align="left" class="hdr-sml">Remarks</p>
+<p class="text">It is generally a good idea to override this functions in you
+descendants when you redeclare the class identification members ClassID and
+ClassName. A common way to implement this functions is to compare the ID/Name
+of your class with the ID/Name passed as parameter to the functions and in case
+they don't match to recurse invoking the base class function. Recursion will
+end in base class CIdentificator::IsA functions where only compare is done.
+All classes from the module hierarchy have this behavior.</p>
+</div>
+
+<div id="Validated">
+<p><a href="http://validator.w3.org/check/referer">
+<img border="0" src="http://www.w3.org/Icons/valid-html401"
+alt="Valid HTML 4.01!" height="31" width="88"></a></p>
+</div>
+
+</body>
+</html>

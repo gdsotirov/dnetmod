@@ -1,0 +1,70 @@
+<!-- $Id: cdevice_allocate.html,v 1.1 2002/12/15 09:31:39 gsotirov Exp $ //-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Member CDevice::Allocate</title>
+<meta name="Author" content="George D. Sotirov, gds@sd-bul.bg">
+<meta name="Copyright" content="Author © 2002 George D. Sotirov">
+<meta name="Date" content="2002-12-09T11:05:00Z">
+<meta name="Keywords" content="DeviceNet Module, CDevice, Allocate">
+<meta http-equiv="Content-Type" content="text/html">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="Header">
+<p align="left" class="hdr-mdl">CDevice::Allocate</p>
+</div>
+
+<div id="Declaration">
+<p align="left" class="hdr-sml">Declaration</p>
+<pre class="code"><b>virtual int</b> Allocate(<b>unsigned char</b> ucFlags) = 0;
+</pre>
+</div>
+
+<div id="Description">
+<p align="left" class="hdr-sml">Description</p>
+<p class="text">This function must allow the user to allocate device on the
+network. Allocation in that sense means to make some predefined master/slave
+connections to device, e.g. I/O connections or Explicit Messaging connection.
+After invoking this function the user must be capable of communicating with
+the device.<br><br>
+After establishing connections to device object must become in 'active'
+state. Setting device class parameters at this time must be forbidden.</p>
+</div>
+
+<div id="Parameters">
+<p align="left" class="hdr-sml">Parameters</p>
+<table width="100%">
+<tr>
+<td valign="top" width="30%"><i>ucFlags</i></td>
+<td>This parameters enables the user to pass bit flags to the function
+to request some additional actions to be done by the function. Flags can
+vary from function to function depending on the interface used.</td>
+</tr></table>
+</div>
+
+<div id="Return">
+<p align="left" class="hdr-sml">Return values</p>
+<p class="text">
+An error code must be returned from this function to indicate unsuccessful
+allocation of the device on the network. If this is not possible (e.g.
+interface don't support error information at this time) this must be done when
+communication starts, e.g. when some of the communications functions
+(<a href="cdevice_readio.html">ReadIOData</a>, <a href="cdevice_writeio.html">
+WriteIOData</a>, <a href="cdevice_getattr.html">GetAttribute</a>,
+<a href="cdevice_setattr.html">SetAttribute</a>, <a href="cdevice_execs.html">
+ExecService</a>) is invoked.</p>
+</div>
+
+<div id="Validated">
+<p><a href="http://validator.w3.org/check/referer">
+<img border="0" src="http://www.w3.org/Icons/valid-html401"
+alt="Valid HTML 4.01!" height="31" width="88"></a></p>
+</div>
+
+</body>
+</html>

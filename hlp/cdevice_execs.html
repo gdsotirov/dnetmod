@@ -1,0 +1,83 @@
+<!-- $Id: cdevice_execs.html,v 1.1 2002/12/15 09:31:39 gsotirov Exp $ //-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+<meta name="vs_targetSchema" content="http://schemas.microsoft.com/intellisense/ie5">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Member CDevice::ExecService</title>
+<meta name="Author" content="George D. Sotirov, gds@sd-bul.bg">
+<meta name="Copyright" content="Author © 2002 George D. Sotirov">
+<meta name="Date" content="2002-12-09T14:30:00Z">
+<meta name="Keywords" content="DeviceNet Module, CDevice, ExecService">
+<meta http-equiv="Content-Type" content="text/html">
+<link type="text/css" rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="Header">
+<p align="left" class="hdr-mdl">CDevice::ExecService</p>
+</div>
+
+<div id="Declaration">
+<p align="left" class="hdr-sml">Declaration</p>
+<pre class="code"><b>virtual int</b> ExecService(
+    <b>unsigned char</b>  ucSrvCode,
+    <b>unsigned short</b> usClsId,
+    <b>unsigned short</b> usInstId,
+    <b>unsigned short</b> usDataSz,
+    <b>void</b>           *pvData) = 0;</pre>
+</div>
+
+<div id="Description">
+<p align="left" class="hdr-sml">Description</p>
+<p class="text">Function description.</p>
+</div>
+
+<div id="Parameters">
+<p align="left" class="hdr-sml">Parameters</p>
+<table width="100%">
+<tr>
+<td valign="top" width="30%"><i>ucSrvCode</i></td>
+<td>Service code of the service to be executed.</td>
+</tr>
+<tr>
+<td valign="top"><i>usClsId</i></td>
+<td>Class identificator for the service.</td>
+</tr>
+<tr>
+<td valign="top"><i>ucInstId</i></td>
+<td>Instance identificator for the service.</td>
+</tr>
+<tr>
+<td valign="top"><i>usDataSz</i></td>
+<td>Length of the service data in bytes.</td>
+</tr>
+<tr>
+<td valign="top"><i>pvData</i></td>
+<td>Service data buffer.</td>
+</tr>
+</table>
+</div>
+
+<div id="Return">
+<p align="left" class="hdr-sml">Return values</p>
+<p class="text">Function must return an error code and to format an error
+message when error detected in the process of executing service in device.
+Also if device responds with an error on the service request it's good to
+include error codes in the error message.<br><br>
+When the user invokes this function it must pass a pointer to a buffer with
+data for the service. After function return in this buffer must have data
+returned from the service if any.
+</p>
+</div>
+
+<div id="Validated">
+<p><a href="http://validator.w3.org/check/referer">
+<img border="0" src="http://www.w3.org/Icons/valid-html401"
+alt="Valid HTML 4.01!" height="31" width="88"></a></p>
+</div>
+
+</body>
+</html>
+
