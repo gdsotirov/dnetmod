@@ -207,6 +207,10 @@
 <     unsigned char bErrEvent;   /* see #defines */
 ---
 >     unsigned char bErrEvent PACKED;   /* see #defines */
+405c413
+<     #define TASK_F_INPUT_OFF_RANGE                  70 /* configured input offset address out of
+---
+>     #define TASK_F_INPUT_OFF_RANGE                  70 /* configured input offset address out of range */
 416c424
 <   unsigned short  usBus_Error_Cnt;
 ---
