@@ -5,20 +5,20 @@ Directory for external libraries
 Installation (Linux)
 ------------------------------------------------------------------------------
 1. Download tarball from http://hilscher.com/download.htm , section Driver,
-   File DRV-LNX (i.e. cifv2000.tgz). Unpack with tar -xvf cifv2000.tgz
+   File DRV-LNX (i.e. CIFV2100.tgz). Unpack with tar -xvf CIFV2100.tgz
 2. Download and unzip the windows driver (see below) and move file DNM_USER.H
-   to cif-V2.000/usr-inc/dnm_user.h
-3. Go to cif-V2.000/api
+   to cif-v2.100/usr-inc/dnm_user.h
+3. Go to cif-v2.100/api
 4. Run make (to generate cif_api.o object)
 5. Convert cif_user.h and dnm_user.h to UNIX format and apply patches:
-   patch cif-V2.000/usr-inc/dnm_user.h dnm_user.h.diff 
-   patch cif-V2.000/usr-inc/rcs_user.h rcs_user.h.diff 
+   patch cif-v2.100/usr-inc/dnm_user.h dnm_user.h.diff 
+   patch cif-v2.100/usr-inc/rcs_user.h rcs_user.h.diff 
 
 Installation (Windows)
 ------------------------------------------------------------------------------
 1. Download installation file from http://hilscher.com/download.htm , section
-   Driver, File DRV-WIN (i.e. cif3111.zip)
-2. Unzip with unzip cif3111.zip
+   Driver, File DRV-WIN (i.e. cif3113.zip)
+2. Unzip with unzip cif3113.zip
 
 
 * NI-DNET driver
