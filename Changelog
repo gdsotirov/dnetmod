@@ -1,4 +1,4 @@
-$Id: Changelog,v 1.1 2002/12/15 09:31:39 gsotirov Exp $
+$Id: Changelog,v 1.2 2003/08/17 11:35:41 gsotirov Exp $
 
 DeviceNet Module Project ChangeLog
 ------------------------------------------------------------------------------
@@ -55,4 +55,8 @@ DeviceNet Module Project ChangeLog
     - Changes to the error reporting.
     - Changes to the error codes.
     - Others.
+
+0.2.1 (2003-08-17)
+===============================================================================
+    - Make work with cif v2.100 driver
 
