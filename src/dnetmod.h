@@ -4,7 +4,7 @@
  *  Author      : George D. Sotirov, gds@sd-bul.bg                          *
  *  File        : dnetmod.h                 Type        : header            *
  *  Description : Main header file for the module.                          *
- *  CVS         : $Id: dnetmod.h,v 1.1 2002/12/15 09:31:39 gsotirov Exp $
+ *  CVS         : $Id: dnetmod.h,v 1.2 2007/11/25 18:40:16 gsotirov Exp $
  ****************************************************************************/
 
 #ifndef DNETMOD_H
@@ -31,7 +31,7 @@
 #endif
 
 #ifdef COMPILER_GNUC
-#define DI_PACKED __attribute__ ((packed, aligned(1)))
+#define DI_PACKED __attribute__ ((aligned(1)))
 #else
 #define DI_PACKED
 #endif
