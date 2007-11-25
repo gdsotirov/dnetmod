@@ -5,7 +5,7 @@
 36a39,46
 > #ifdef __GNUC__
 > #ifndef PACKED
-> #define PACKED __attribute__ ((packed, aligned(1)))
+> #define PACKED __attribute__ ((aligned(1)))
 > #endif
 > #else
 > #define PACKED
