@@ -1,4 +1,4 @@
-$Id: Changelog,v 1.3 2004/06/06 09:42:37 gsotirov Exp $
+$Id: Changelog,v 1.4 2007/11/25 18:41:37 gsotirov Exp $
 
 DeviceNet Module Project ChangeLog
 ------------------------------------------------------------------------------
@@ -63,4 +63,8 @@ DeviceNet Module Project ChangeLog
 0.2.2 (2004-06-06)
 ===============================================================================
     - Update patch for dnm_user.h to fix compilation issue
+
+0.2.3 (2007-11-25)
+===============================================================================
+    - Fix warnings from GCC 4.1
 
