@@ -5,7 +5,7 @@
  *  File        : dnmsd.h                   Type        : header            *
  *  Description : Static data for the module. Vendor names and device types *
  *                names (incomplete).                                       *
- *  CVS         : $Id: dnmsd.h,v 1.1 2002/12/15 09:31:39 gsotirov Exp $
+ *  CVS         : $Id: dnmsd.h,v 1.2 2008/08/17 19:06:58 gsotirov Exp $
  ****************************************************************************/
 
 #ifndef DNETMOD_STATIC_DATA_HEADER
@@ -13,7 +13,7 @@
 
 /* Vendor names as specified by ODVA (www.odva.org)
    Updated: 2002-12-04 07:45 GMT */
-char *VendStr[] = {
+const char *VendStr[] = {
     /* Vend ID  Vendor string */
     /* 000 */   "Reserved",
     /* 001 */   "Rockwell Automation/Allen-Bradley Company, Inc.",
@@ -847,7 +847,7 @@ char *VendStr[] = {
     /* 829 */   "Rockwell Samsung Automation"
 };
 
-char *DevTypeStr[] = {
+const char *DevTypeStr[] = {
     /* 00 */    "Generic Device",
     /* 01 */    "-",
     /* 02 */    "AC Drive",
