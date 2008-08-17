@@ -4,7 +4,7 @@
  *  Author      : George D. Sotirov, gds@sd-bul.bg                          *
  *  File        : cniintf.cpp               Type        : source            *
  *  Description : CNIInterface class implementation.                        *
- *  CVS         : $Id: cniintf.cpp,v 1.1 2002/12/15 09:31:39 gsotirov Exp $
+ *  CVS         : $Id: cniintf.cpp,v 1.2 2008/08/17 19:15:58 gsotirov Exp $
  ****************************************************************************/
 
 #include <stdlib.h>
@@ -60,7 +60,7 @@ bool CNIInterface::IsA(unsigned long ulCompareID) const {
     return ( ulCompareID == ulClassID ) ? true : CInterface::IsA(ulCompareID);
 }
 
-bool CNIInterface::IsA(char *strCompareName) const {
+bool CNIInterface::IsA(const char *strCompareName) const {
     return ( !strcmp(strClassName, strCompareName) ) ? true : CInterface::IsA(strCompareName);
 }
 

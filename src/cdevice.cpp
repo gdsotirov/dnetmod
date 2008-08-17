@@ -4,7 +4,7 @@
  *  Author      : George D. Sotirov, gds@sd-bul.bg                          *
  *  File        : cdevice.cpp               Type        : source            *
  *  Description : CDevice class implementation.                             *
- *  CVS         : $Id: cdevice.cpp,v 1.1 2002/12/15 09:31:39 gsotirov Exp $
+ *  CVS         : $Id: cdevice.cpp,v 1.2 2008/08/17 19:15:58 gsotirov Exp $
  ****************************************************************************/
 
 #include <string.h>
@@ -50,7 +50,7 @@ bool CDevice::IsA(unsigned long ulCompareID) const {
     return ( ulCompareID == ulClassID ) ? true : CIdentificator::IsA(ulCompareID);
 }
 
-bool CDevice::IsA(char *strCompareName) const {
+bool CDevice::IsA(const char *strCompareName) const {
     return ( !strcmp(strClassName, strCompareName) ) ? true : CIdentificator::IsA(strCompareName);
 }
 

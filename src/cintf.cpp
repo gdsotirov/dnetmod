@@ -4,7 +4,7 @@
  *  Author      : George D. Sotirov, gds@sd-bul.bg                          *
  *  File        : cintf.cpp                 Type        : source            *
  *  Description : CInterface class implementation.                          *
- *  CVS         : $Id: cintf.cpp,v 1.1 2002/12/15 09:31:39 gsotirov Exp $
+ *  CVS         : $Id: cintf.cpp,v 1.2 2008/08/17 19:15:58 gsotirov Exp $
  ****************************************************************************/
 
 #include <string.h>
@@ -42,7 +42,7 @@ bool CInterface::IsA(unsigned long ulCompareID) const {
     return (ulCompareID == ulClassID) ? true : CIdentificator::IsA(ulCompareID);
 }
 
-bool CInterface::IsA(char *strCompareName) const {
+bool CInterface::IsA(const char *strCompareName) const {
     return ( !strcmp(strClassName, strCompareName) ) ? true : CIdentificator::IsA(strCompareName);
 }
 

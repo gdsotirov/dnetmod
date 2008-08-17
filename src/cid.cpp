@@ -4,7 +4,7 @@
  *  Author      : George D. Sotirov, gds@sd-bul.bg                          *
  *  File        : cid.cpp                   Type        : source            *
  *  Description : CIdentificator class implementation.                      *
- *  CVS         : $Id: cid.cpp,v 1.1 2002/12/15 09:31:39 gsotirov Exp $
+ *  CVS         : $Id: cid.cpp,v 1.2 2008/08/17 19:15:58 gsotirov Exp $
  ****************************************************************************/
 
 #include <string.h>
@@ -24,7 +24,7 @@ bool CIdentificator::IsA(unsigned long ulCompareID) const {
     return ( ulCompareID == ulClassID );
 }
 
-bool CIdentificator::IsA(char *strCompareName) const {
+bool CIdentificator::IsA(const char *strCompareName) const {
     return ( strcmp(strCompareName, strClassName) == 0 );
 }
 

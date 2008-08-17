@@ -4,7 +4,7 @@
  *  Author      : George D. Sotirov, gds@sd-bul.bg                          *
  *  File        : cnode.cpp                 Type        : header            *
  *  Description : CNode class implementation.                               *
- *  CVS         : $Id: cnode.cpp,v 1.1 2002/12/15 09:31:39 gsotirov Exp $
+ *  CVS         : $Id: cnode.cpp,v 1.2 2008/08/17 19:15:58 gsotirov Exp $
  ****************************************************************************/
 
 #include <string.h>
@@ -46,7 +46,7 @@ bool CNode::IsA(unsigned long ulCompareID) const {
     return (ulClassID == ulCompareID) ? true : CIdentificator::IsA(ulCompareID);
 }
 
-bool CNode::IsA(char *strCompareName) const {
+bool CNode::IsA(const char *strCompareName) const {
     return (!strcmp(strClassName, strCompareName)) ? true : CIdentificator::IsA(strCompareName);
 }
 

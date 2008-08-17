@@ -4,7 +4,7 @@
  *  Author      : George D. Sotirov, gds@sd-bul.bg                          *
  *  File        : cid.h                     Type        : header            *
  *  Description : CIdentificator class declaration.                         *
- *  CVS         : $Id: cid.h,v 1.1 2002/12/15 09:31:39 gsotirov Exp $
+ *  CVS         : $Id: cid.h,v 1.2 2008/08/17 19:15:58 gsotirov Exp $
  ****************************************************************************/
 
 #ifndef CIDENTIFICATOR_H
@@ -35,7 +35,7 @@ public:
     void GetClassName(unsigned long ulStrSz, char *strName) const;
     /* identification */
     virtual bool IsA(unsigned long ulCompareID) const;
-    virtual bool IsA(char *strCompareName) const;
+    virtual bool IsA(const char *strCompareName) const;
     /* destructor */
     virtual ~CIdentificator();
 };

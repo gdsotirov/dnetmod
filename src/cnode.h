@@ -4,7 +4,7 @@
  *  Author      : George D. Sotirov, gds@sd-bul.bg                          *
  *  File        : cnode.h                   Type        : header            *
  *  Description : CNode class declaration.                                  *
- *  CVS         : $Id: cnode.h,v 1.1 2002/12/15 09:31:39 gsotirov Exp $
+ *  CVS         : $Id: cnode.h,v 1.2 2008/08/17 19:15:58 gsotirov Exp $
  ****************************************************************************/
 
 #ifndef CNODE_H
@@ -48,7 +48,7 @@ public:
     void SetProducedConnSize(unsigned char ucPCS);
     /* overrides */
     virtual bool IsA(unsigned long ulCompareID) const;
-    virtual bool IsA(char *strCompareName) const;
+    virtual bool IsA(const char *strCompareName) const;
     /* destructor */
     virtual ~CNode();
 };

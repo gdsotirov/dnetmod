@@ -4,7 +4,7 @@
  *  Author      : George D. Sotirov, gds@sd-bul.bg                          *
  *  File        : cnidevice.h               Type        : header            *
  *  Description : CNIDevice class declaration.                              *
- *  CVS         : $Id: cnidevice.h,v 1.1 2002/12/15 09:31:39 gsotirov Exp $
+ *  CVS         : $Id: cnidevice.h,v 1.2 2008/08/17 19:15:58 gsotirov Exp $
  ****************************************************************************/
 
 #ifndef CNIDEVICE_H
@@ -43,7 +43,7 @@ public:
               CInterface     *pIntf);
     /* overrides */
     virtual bool IsA(unsigned long ulCompareID) const;
-    virtual bool IsA(char *strCompareName) const;
+    virtual bool IsA(const char *strCompareName) const;
     virtual int Allocate(unsigned char ucFlags = NI_CONN_IO);
     virtual int Unallocate(void);
     virtual int ReadIOData(unsigned long ulBufSz, void *pvBuf);

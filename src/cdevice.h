@@ -4,7 +4,7 @@
  *  Author      : George D. Sotirov, gds@sd-bul.bg                          *
  *  File        : cdevice.h                 Type        : header            *
  *  Description : CDevice class declaration.                                *
- *  CVS         : $Id: cdevice.h,v 1.1 2002/12/15 09:31:39 gsotirov Exp $
+ *  CVS         : $Id: cdevice.h,v 1.2 2008/08/17 19:15:58 gsotirov Exp $
  ****************************************************************************/
 
 #ifndef CDEVICE_H
@@ -50,7 +50,7 @@ public:
     void SetEPR(unsigned short usEPR_);
     /* overrides */
     virtual bool IsA(unsigned long ulCompareID) const;
-    virtual bool IsA(char *strCompareName) const;
+    virtual bool IsA(const char *strCompareName) const;
     /* main */
     virtual int Allocate(unsigned char ucFlags) = 0;
     virtual int Unallocate(void) = 0;

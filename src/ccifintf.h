@@ -4,7 +4,7 @@
  *  Author      : George D. Sotirov, gds@sd-bul.bg                          *
  *  File        : ccifintf.h                Type        : header            *
  *  Description : CCIFInterface class declaration.                          *
- *  CVS         : $Id: ccifintf.h,v 1.1 2002/12/15 09:31:39 gsotirov Exp $
+ *  CVS         : $Id: ccifintf.h,v 1.2 2008/08/17 19:15:58 gsotirov Exp $
  ****************************************************************************/
 
 #ifndef CCIFINTF_H
@@ -56,7 +56,7 @@ public:
     void SetAutoClear(bool bAutoClr);
     /* overrides */
     virtual bool IsA(unsigned long ulCompareID) const;
-    virtual bool IsA(char *strCompareName) const;
+    virtual bool IsA(const char *strCompareName) const;
     virtual int Open(void);
     virtual int Close(void);
     virtual int Reset(void *);

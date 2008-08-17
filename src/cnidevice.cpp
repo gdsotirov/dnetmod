@@ -4,7 +4,7 @@
  *  Author      : George D. Sotirov, gds@sd-bul.bg                          *
  *  File        : cnidevice.cpp             Type        : source            *
  *  Description : CNIDevice class implementation.                           *
- *  CVS         : $Id: cnidevice.cpp,v 1.1 2002/12/15 09:31:39 gsotirov Exp $
+ *  CVS         : $Id: cnidevice.cpp,v 1.2 2008/08/17 19:15:58 gsotirov Exp $
  ****************************************************************************/
 
 #include <string.h>
@@ -40,7 +40,7 @@ bool CNIDevice::IsA(unsigned long ulCompareID) const {
     return ( ulCompareID == ulClassID ) ? true : CDevice::IsA(ulCompareID);
 }
 
-bool CNIDevice::IsA(char *strCompareName) const {
+bool CNIDevice::IsA(const char *strCompareName) const {
     return ( !strcmp(strClassName, strCompareName) ) ? true : CDevice::IsA(strCompareName);
 }
 

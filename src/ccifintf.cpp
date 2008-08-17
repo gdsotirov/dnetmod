@@ -4,7 +4,7 @@
  *  Author      : George D. Sotirov, gds@sd-bul.bg                          *
  *  File        : ccifintf.cpp              Type        : source            *
  *  Description : CCIFInterface class implementation.                       *
- *  CVS         : $Id: ccifintf.cpp,v 1.1 2002/12/15 09:31:39 gsotirov Exp $
+ *  CVS         : $Id: ccifintf.cpp,v 1.2 2008/08/17 19:15:58 gsotirov Exp $
  ****************************************************************************/
 
 #include <stdio.h>
@@ -82,7 +82,7 @@ bool CCIFInterface::IsA(unsigned long ulCompareID) const {
     return ( ulCompareID == ulClassID ) ? true : CInterface::IsA(ulCompareID);
 }
 
-bool CCIFInterface::IsA(char *strCompareName) const {
+bool CCIFInterface::IsA(const char *strCompareName) const {
     return ( !strcmp(strClassName, strCompareName) ) ? true : CInterface::IsA(strCompareName);
 }
 

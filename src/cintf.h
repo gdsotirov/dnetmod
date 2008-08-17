@@ -4,7 +4,7 @@
  *  Author      : George D. Sotirov, gds@sd-bul.bg                          *
  *  File        : cintf.h                   Type        : header            *
  *  Description : CInterface class declaration.                             *
- *  CVS         : $Id: cintf.h,v 1.1 2002/12/15 09:31:39 gsotirov Exp $
+ *  CVS         : $Id: cintf.h,v 1.2 2008/08/17 19:15:58 gsotirov Exp $
  ****************************************************************************/
 
 #ifndef CINTERFACE_H
@@ -40,7 +40,7 @@ public:
     void SetBaudRate(unsigned char ucBR);
     /* overrides */
     virtual bool IsA(unsigned long ulCompareID) const;
-    virtual bool IsA(char *strCompareName) const;
+    virtual bool IsA(const char *strCompareName) const;
     /* main */
     virtual int Open(void) = 0;
     virtual int Close(void) = 0;
