@@ -4,7 +4,7 @@
  *  Author      : George D. Sotirov, gds@sd-bul.bg                          *
  *  File        : dnetmod.cpp               Type        : source            *
  *  Description : Implementation of module functions.                       *
- *  CVS         : $Id: dnetmod.cpp,v 1.1 2002/12/15 09:31:39 gsotirov Exp $
+ *  CVS         : $Id: dnetmod.cpp,v 1.2 2010/06/13 15:54:38 gsotirov Exp $
  ****************************************************************************/
 
 #include <stdio.h>
@@ -456,7 +456,7 @@ long DNETMOD_CC SetCIFError(short sCIFError, char * strMsgFmt, va_list pArgList)
  * Purpose : Set errmsg global variable.
  */
 long DNETMOD_CC SetError(long lErrCode...) {
-    va_list pArgList = NULL;
+    va_list pArgList;
     char strErrFmt[DNETMOD_MAX_ERRMSG_LEN] = {0};
 
     va_start(pArgList, lErrCode);
