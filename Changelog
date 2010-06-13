@@ -1,4 +1,4 @@
-$Id: Changelog,v 1.6 2008/08/17 19:16:15 gsotirov Exp $
+$Id: Changelog,v 1.7 2010/06/13 15:55:14 gsotirov Exp $
 
 DeviceNet Module Project ChangeLog
 ------------------------------------------------------------------------------
@@ -75,4 +75,9 @@ DeviceNet Module Project ChangeLog
 0.2.5 (2008-08-17)
 ===============================================================================
     - Fix warnings from GCC 4.2
+
+0.2.6 (2010-06-13)
+===============================================================================
+    - Fix warnings from GCC 4.3
+    - Make work with cif v2.622 driver
 
