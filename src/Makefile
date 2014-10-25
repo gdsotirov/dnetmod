@@ -1,6 +1,6 @@
 # DeviceNet Project 0.2 Makefile
 # Written by George D. Sotirov, gds@sd-bul.bg
-# $Id: Makefile,v 1.4 2010/05/08 15:21:44 gsotirov Exp $
+# $Id: Makefile,v 1.5 2014/10/25 09:33:19 gsotirov Exp $
 
 DEBUG = 1 # comment this line to disable debug bilds
 
@@ -40,7 +40,7 @@ TESTNAME = dnmtest
 
 OBJS = cid.o cnode.o cintf.o cdevice.o ccifintf.o ccifdevice.o dnetmod.o
 OBJSDLL = $(OBJS:.o=.pic.o)
-CIFDIR = ../lib/cif2.622
+CIFDIR = ../lib/cif3.000
 CIFINC = $(CIFDIR)/usr-inc
 CIFHDRS = $(CIFINC)/cif_user.h $(CIFINC)/rcs_user.h $(CIFINC)/dnm_user.h
 CIFAPI = $(CIFDIR)/api/cif_api.o

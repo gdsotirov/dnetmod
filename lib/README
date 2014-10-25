@@ -5,15 +5,15 @@ Directory for external libraries
 Installation (Linux)
 ------------------------------------------------------------------------------
 1. Download tarball from http://www.hilscher.com/support_software.html ,
-   select category Drivers, File DRV-LNX (i.e. cif2622.tbz).
-   Unpack with tar -xvf cif2622.tbz
+   select category Drivers, File DRV-LNX (i.e. cif3000.txz).
+   Unpack with tar -xvf cif3000.txz
 2. Download and unzip the windows driver (see below) and move file DNM_USER.H
-   to cif2.622/usr-inc/dnm_user.h
-3. Go to cif2.622/api, modify Makefile and add -fPIC flag to CC
+   to cif3.000/usr-inc/dnm_user.h
+3. Go to cif3.000/api, modify Makefile and add -fPIC flag to CC
 4. Run make (to generate cif_api.o object)
 5. Convert cif_user.h and dnm_user.h to UNIX format and apply patches:
-   patch cif2.622/usr-inc/dnm_user.h dnm_user.h.diff 
-   patch cif2.622/usr-inc/rcs_user.h rcs_user.h.diff 
+   patch cif3.000/usr-inc/dnm_user.h dnm_user.h.diff 
+   patch cif3.000/usr-inc/rcs_user.h rcs_user.h.diff 
 
 Installation (Windows)
 ------------------------------------------------------------------------------
