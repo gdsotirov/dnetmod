@@ -13,6 +13,9 @@
 #include "dnmerrs.h"
 #include "dnetmod.h"
 
+#define DN_SHORTS_MAX_LEN 256
+#define DN_BYTES_MAX_LEN  256
+
 typedef enum DNTYPESTag {
     DN_SINT,
     DN_USINT,
@@ -233,7 +236,7 @@ int main(void) {
                         IOBuf = new char;
                     else IOBuf = new char[usSDLen];
                     if ( IOBuf == NULL ) {
-                        printf("Can't allocate memory for operatoin!\n");
+                        printf("Can't allocate memory for operation!\n");
                         break;
                     }
                     for ( i = 0; i < usSDLen; i++ ) {
@@ -281,7 +284,7 @@ void PrintError(int iErrCode) {
 
     GetErrMsg(sizeof(strErrMsg), strErrMsg);
     printf("*** ERROR ***\n");
-    printf("Code    : %u\n", iErrCode);
+    printf("Code    : %d\n", iErrCode);
     printf("Message : %s\n", strErrMsg);
 }
 
@@ -409,18 +412,18 @@ int SetBufferLen(void **pBuf, DNTYPES *Type, unsigned short *pusBufLen) {
                 *pusBufLen = sizeof(float);
         break;
         case 7:
-            *pBuf = new char[256];
+            *pBuf = new char[DN_SHORTS_MAX_LEN];
             *Type = DN_SHORTS;
             if ( ISPTRVALID(pusBufLen, unsigned short) )
-                *pusBufLen = 256;
+                *pusBufLen = DN_SHORTS_MAX_LEN;
         break;
         case 8:
             if ( ISPTRVALID(pusBufLen, unsigned short) ) {
                 do {
-                    printf("Count bytes [1-256]: ");
+                    printf("Count bytes [1-%d]: ", DN_BYTES_MAX_LEN);
                     scanf("%hu", pusBufLen);
                     iBufClearCR = getchar();
-                } while ( *pusBufLen < 1 || *pusBufLen > 256 );
+                } while ( *pusBufLen < 1 || *pusBufLen > DN_BYTES_MAX_LEN );
                 *pBuf = new char[*pusBufLen];
                 *Type = DN_BYTES;
             }
@@ -444,7 +447,7 @@ int SetBufferValue(void **buf, DNTYPES typ, unsigned short cbytes) {
         break;
 
         case DN_USINT : printf("USINT value: ");
-                        scanf("%ud", &lval);
+                        scanf("%d", &lval);
                         *((unsigned char*)*buf) = (unsigned char)lval;
         break;
 
@@ -454,7 +457,7 @@ int SetBufferValue(void **buf, DNTYPES typ, unsigned short cbytes) {
         break;
 
         case DN_UINT  : printf("UINT value: ");
-                        scanf("%ud", &lval);
+                        scanf("%d", &lval);
                         *((unsigned short*)*buf) = (unsigned short)lval;
         break;
 
@@ -464,7 +467,7 @@ int SetBufferValue(void **buf, DNTYPES typ, unsigned short cbytes) {
         break;
 
         case DN_UDINT : printf("UDINT value: ");
-                        scanf("%ud", &lval);
+                        scanf("%d", &lval);
                         *((unsigned int*)*buf) = (unsigned int)lval;
         break;
 
@@ -474,7 +477,7 @@ int SetBufferValue(void **buf, DNTYPES typ, unsigned short cbytes) {
         break;
 
         case DN_SHORTS: printf("String value: ");
-                        scanf("%s", ((char*)*buf) + 1);
+                        scanf("%256s", ((char*)*buf) + 1); // Scan up to DN_SHORTS_MAX_LEN
                         *((char*)*buf) = (unsigned char)strlen(((char*)*buf) + 1);
         break;
 
