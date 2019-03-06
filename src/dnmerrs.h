@@ -154,7 +154,7 @@
 #define ESTR_DRV_USR_FILE_READ_FAILED                "(USER) file read failed"
 #define ESTR_DRV_USR_INVALID_FILETYPE                "(USER) file type invalid"
 #define ESTR_DRV_USR_FILENAME_INVALID                "(USER) file name not valid"
-#define ESTR_DRV_RCS_ERROR_OFFSET                    "(RCS) RCS error %hu"
+#define ESTR_DRV_RCS_ERROR_OFFSET                    "(RCS) RCS error %hi"
 
 #define ESTR_DEV_NOT_RESPONDING                      "Device not responding"
 #define ESTR_DEV_ATTR_ACCESS_DENIED                   "Device has denied write access to configured attribute"
