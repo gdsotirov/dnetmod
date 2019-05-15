@@ -429,12 +429,12 @@ long DNETMOD_CC SetCIFError(short sCIFError, char * strMsgFmt, va_list pArgList)
     unsigned char ucTskErr = 0;
     unsigned short usBID = 0;
     unsigned short usDevMacId = 0;
-    char strMessage[80] = {0};
 
     ucTskErr   = (unsigned char)va_arg(pArgList, int);
     usBID      = (unsigned short)va_arg(pArgList, int);
     usDevMacId = (unsigned short)va_arg(pArgList, int);
     if ( sCIFError != DRV_NO_ERROR || ucTskErr != TASK_F_OK ) {
+        char strMessage[80] = {0};
         if ( sCIFError != DRV_NO_ERROR ) {
             CIFErrToString(sCIFError, sizeof(strMessage), strMessage);
             if ( ISPTRVALID(errmsg, char) )

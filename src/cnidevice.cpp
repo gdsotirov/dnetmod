@@ -48,13 +48,13 @@ bool CNIDevice::IsA(const char *strCompareName) const {
  * Purpose : Attach device to interface and open connection objects.
  */
 int CNIDevice::Allocate(unsigned char ucFlags) {
-    int iStatus = 0;
     int iErr = 0;
     unsigned long ulCurrState = 0;
 
     if ( ISPTRVALID(pInterface, CInterface) ) {
       if ( pInterface->IsA("CNIInterface") ) {
         if ( pInterface->IsActive() ) {
+            int iStatus = 0;
             char strIName[7] = {0};
             unsigned short usIID = (dynamic_cast<CNIInterface *>(pInterface))->GetIntfID();
             (dynamic_cast<CNIInterface *>(pInterface))->GetName(sizeof(strIName), strIName);
@@ -123,13 +123,13 @@ int CNIDevice::Unallocate(void) {
  * Purpose : Read data from device using I/O messaging object.
  */
 int CNIDevice::ReadIOData(unsigned long ulBufSz, void *pvBuf) {
-    int iStatus = 0;
     unsigned long ulCurrState = 0;
 
     if ( ISPTRVALID(pInterface, CInterface) ) {
       if ( pInterface->IsA("CNIInterface") ) {
         if ( pInterface->IsActive() ) {
           if ( ulHIO != 0 ) {
+            int iStatus = 0;
             int iErr = 0;
             unsigned short usIID = 0;
 
@@ -157,12 +157,11 @@ int CNIDevice::ReadIOData(unsigned long ulBufSz, void *pvBuf) {
  * Purpose : Write data to device using I/O object.
  */
 int CNIDevice::WriteIOData(unsigned long ulBufSz, void *pvBuf) {
-    int iStatus = 0;
-
     if ( ISPTRVALID(pInterface, CInterface) ) {
       if ( pInterface->IsA("CNIInterface") ) {
         if ( pInterface->IsActive() ) {
           if ( ulHIO != 0 ) {
+            int iStatus = 0;
             unsigned short usIID = 0;
 
             usIID = (dynamic_cast<CNIInterface *>(pInterface))->GetIntfID();
