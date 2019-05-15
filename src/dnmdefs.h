@@ -105,20 +105,20 @@
 /* Macro   : NULLPTR
  * Purpose : Retrive NULL pinter from any type.
  */
-#define NULLPTR(type) ( (type *)0 )
+#define NULLPTR(type) ( static_cast<type *>(0) )
 
 /* Macro   : ZERO
  * Purpose : Retrive zero value for any type.
  */
-#define ZERO(type) ( (type)0 )
+#define ZERO(type) ( static_cast<type>(0) )
 
 /* Macro   : ISPTRVALID
  * Purpose : Check for valid pointer.
  */
 #define ISPTRVALID(ptr, type) (    \
     ((ptr != NULLPTR(type))     && \
-    (ptr != (type *)0xcdcdcdcd) && \
-    (ptr != (type *)0xcccccccc))   )
+    (ptr != reinterpret_cast<type *>(0xcdcdcdcd)) && \
+    (ptr != reinterpret_cast<type *>(0xcccccccc)))   )
 
 /* Externals */
 extern long DNETMOD_CC SetError(long...);

@@ -56,8 +56,8 @@ int CNIDevice::Allocate(unsigned char ucFlags) {
       if ( pInterface->IsA("CNIInterface") ) {
         if ( pInterface->IsActive() ) {
             char strIName[7] = {0};
-            unsigned short usIID = ((CNIInterface*)pInterface)->GetIntfID();
-            ((CNIInterface*)pInterface)->GetName(sizeof(strIName), strIName);
+            unsigned short usIID = (dynamic_cast<CNIInterface *>(pInterface))->GetIntfID();
+            (dynamic_cast<CNIInterface *>(pInterface))->GetName(sizeof(strIName), strIName);
 
             if ( (ulHIO == 0) && (ucFlags & NI_CONN_IO) ) {
                 unsigned char ucCnType = 0;
@@ -102,7 +102,7 @@ int CNIDevice::Unallocate(void) {
 
     if ( ISPTRVALID(pInterface, CInterface) )
         if ( pInterface->IsA("CNIInterface") )
-            usIID = ((CNIInterface*)pInterface)->GetIntfID();
+            usIID = (dynamic_cast<CNIInterface *>(pInterface))->GetIntfID();
 
     if ( ulHIO != 0 ) {
         iStatus = ncCloseObject(ulHIO);
@@ -133,7 +133,7 @@ int CNIDevice::ReadIOData(unsigned long ulBufSz, void *pvBuf) {
             int iErr = 0;
             unsigned short usIID = 0;
 
-            usIID = ((CNIInterface*)pInterface)->GetIntfID();
+            usIID = (dynamic_cast<CNIInterface *>(pInterface))->GetIntfID();
 
             iStatus = ncWaitForState(ulHIO, NC_ST_READ_AVAIL, 10000,
                 &ulCurrState);
@@ -165,7 +165,7 @@ int CNIDevice::WriteIOData(unsigned long ulBufSz, void *pvBuf) {
           if ( ulHIO != 0 ) {
             unsigned short usIID = 0;
 
-            usIID = ((CNIInterface*)pInterface)->GetIntfID();
+            usIID = (dynamic_cast<CNIInterface *>(pInterface))->GetIntfID();
 
             iStatus = ncWriteDnetIO(ulHIO, ulBufSz, pvBuf);
             return SetError(ERR_NIDNET, iStatus, usIID, ucMacID);
@@ -198,7 +198,7 @@ int CNIDevice::GetAttribute(
             unsigned short usIID = 0;
             int iStatus = 0;
 
-            usIID = ((CNIInterface*)pInterface)->GetIntfID();
+            usIID = (dynamic_cast<CNIInterface *>(pInterface))->GetIntfID();
 
             iStatus = ncGetDnetAttribute(ulHEM, usClsId, usInstId, ucAttrId,
                 2000, usDataSz, pvData, pusActDataSz, &usDevError);
@@ -233,7 +233,7 @@ int CNIDevice::SetAttribute(
             unsigned short usIID = 0;
             int iStatus = 0;
 
-            usIID = ((CNIInterface*)pInterface)->GetIntfID();
+            usIID = (dynamic_cast<CNIInterface *>(pInterface))->GetIntfID();
 
             iStatus = ncSetDnetAttribute(ulHEM, usClsId, usInstId, ucAttrId,
                 2000, usDataSz, pvData, &usDevError);
@@ -271,7 +271,7 @@ int CNIDevice::ExecService(
             unsigned short usIID = 0;
             unsigned long ulCurrState = 0;
 
-            usIID = ((CNIInterface*)pInterface)->GetIntfID();
+            usIID = (dynamic_cast<CNIInterface *>(pInterface))->GetIntfID();
 
             iStatus = ncWriteDnetExplMsg(ulHEM, ucSrvCode, usClsId, usInstId,
                 usDataSz, pvData);

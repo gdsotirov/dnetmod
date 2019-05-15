@@ -78,7 +78,7 @@ inline int CCIFDevice::ExchangeIOData(
       if ( pInterface->IsA("CCIFInterface") ) {
         if ( pInterface->IsActive() ) {
           if ( bActive ) {
-            CCIFInterface *pCIFIntf = (CCIFInterface*)pInterface;
+            CCIFInterface *pCIFIntf = dynamic_cast<CCIFInterface *>(pInterface);
             short sStatus = 0;
 
             if ( bInput )
@@ -102,7 +102,7 @@ inline int CCIFDevice::ExchangeIOData(
 int CCIFDevice::Diagnostics(void) {
     short sStatus = 0;
     int iErr      = 0;
-    CCIFInterface           *pCIFIntf  = (CCIFInterface *)pInterface;
+    CCIFInterface           *pCIFIntf  = dynamic_cast<CCIFInterface *>(pInterface);
     RCS_MESSAGETELEGRAM_10  MsgBuff;
     DNM_DEVICE_DIAG_CONFIRM *pDiagData = (DNM_DEVICE_DIAG_CONFIRM *)MsgBuff.d;
 
@@ -154,7 +154,7 @@ int CCIFDevice::Allocate(unsigned char /*ucFlags*/) {
     if ( ISPTRVALID(pInterface, CInterface) ) {
       if ( pInterface->IsA("CCIFInterface") ) {
         if ( pInterface->IsActive() ) {
-            CCIFInterface *pCIFIntf = ((CCIFInterface*)pInterface);
+            CCIFInterface *pCIFIntf = dynamic_cast<CCIFInterface *>(pInterface);
             short                        sStatus             = 0;
             RCS_MESSAGE                  MsgBuf;
             DNM_DOWNLOAD_REQUEST         *pDownloadReq       = 0;
@@ -368,7 +368,7 @@ int CCIFDevice::Unallocate(void) {
     if ( ISPTRVALID(pInterface, CInterface)  ) {
       if ( pInterface->IsA("CCIFInterface") ) {
         if ( pInterface->IsActive() ) {
-            CCIFInterface *pCIFIntf  = (CCIFInterface*)pInterface;
+            CCIFInterface *pCIFIntf  = dynamic_cast<CCIFInterface *>(pInterface);
             unsigned char ucSSBuf[8] = {0, 0, 0, 0, 0, 0, 0, 0};
             unsigned char *ucBytePtr = ucSSBuf + (unsigned char)(ucMacID/8);
             short         sStatus    = 0;
@@ -437,7 +437,7 @@ int CCIFDevice::GetAttribute(
       if ( pInterface->IsActive() ) {
         if ( pInterface->IsA("CCIFInterface") ) {
           if ( bActive ) {
-            CCIFInterface *pCIFIntf = (CCIFInterface*)pInterface;
+            CCIFInterface *pCIFIntf = dynamic_cast<CCIFInterface *>(pInterface);
             short sStatus = 0;
             RCS_MESSAGETELEGRAM_10 MsgBuf;
 
@@ -500,7 +500,7 @@ int CCIFDevice::SetAttribute(
       if ( pInterface->IsActive() ) {
         if ( pInterface->IsA("CCIFInterface") ) {
           if ( bActive ) {
-            CCIFInterface *pCIFIntf = (CCIFInterface*)pInterface;
+            CCIFInterface *pCIFIntf = dynamic_cast<CCIFInterface *>(pInterface);
             short sStatus = 0;
             RCS_MESSAGETELEGRAM_10 MsgBuf;
 
@@ -557,7 +557,7 @@ int CCIFDevice::ExecService(
       if ( pInterface->IsActive() ) {
         if ( pInterface->IsA("CCIFInterface") ) {
           if ( bActive ) {
-            CCIFInterface *pCIFIntf = (CCIFInterface*)pInterface;
+            CCIFInterface *pCIFIntf = dynamic_cast<CCIFInterface *>(pInterface);
             short sStatus = 0;
             RCS_MESSAGETELEGRAM_10 MsgBuf;
 
