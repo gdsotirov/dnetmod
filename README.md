@@ -1,4 +1,6 @@
-Introduction
+# DNetMod (DeviceNet Module) [![Build Status](https://travis-ci.com/gdsotirov/dnetmod.svg?branch=master)](https://travis-ci.com/gdsotirov/dnetmod)
+
+## Introduction
 ------------------------------------------------------------------------------
 
 This document describes the DeviceNet(tm) Module. It's specially purposed for
@@ -15,7 +17,7 @@ DeviceNet(tm) Module has been designed to be expandable to support more and/or
 new interfaces for DeviceNet(tm). This can be done by inheriting of the module
 base classes to represent your interface and a device attached to it.
 
-Supported platforms
+## Supported platforms
 ------------------------------------------------------------------------------
 
 The module is designed to be used on Win32 and Linux platforms. The module
@@ -32,7 +34,7 @@ Note: If you wish to port the module to other platform/compiler be sure
 structures in files cif_user.h, cifuser.h, rcs_user.h and dnm_user.h to be
 packed and aligned on 1 byte boundary.
 
-Supported hardware
+## Supported hardware
 ------------------------------------------------------------------------------
 
 Currently the DeviceNet(tm) Module supports only two interfaces:
@@ -41,7 +43,7 @@ Currently the DeviceNet(tm) Module supports only two interfaces:
   * Hilscher CIF-DNM Interfaces (Tested only with CIF-50DNM! But should work
     with all other Hilscher boards.)
 
-Features
+## Features
 ------------------------------------------------------------------------------
 
 DeviceNet(tm) Module provides general functionality to the programmer who uses
@@ -56,7 +58,7 @@ your devices. With the DeviceNet(tm) Module you can do:
   * set device's attributes;
   * execute DeviceNet(tm) services.
 
-Module interface
+## Module interface
 ------------------------------------------------------------------------------
 
 Module API is provided thru functions and classes. To find more about them
@@ -64,15 +66,15 @@ please follow the links below. You can view whole class hierarchy presented
 in a tree view (see hlp/).
 
 * Functions
- - DevTypeToString
- - GetErrMsg
- - VendIdToString
+  - DevTypeToString
+  - GetErrMsg
+  - VendIdToString
 * Classes
- - CIdentificator
- - CNode
- - CInterface
- - CDevice
- - CNIInterface
- - CNIDevice
- - CCIFInterface
- - CCIFDevice
+  - CIdentificator
+  - CNode
+  - CInterface
+  - CDevice
+  - CNIInterface
+  - CNIDevice
+  - CCIFInterface
+  - CCIFDevice
