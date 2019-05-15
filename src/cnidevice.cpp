@@ -25,7 +25,7 @@
 unsigned long CNIDevice::ulClassID = 351;
 char CNIDevice::strClassName[] = "CNIDevice";
 
-CNIDevice::CNIDevice() : CDevice() {}
+CNIDevice::CNIDevice() : ulHIO(0), ulHEM(0), CDevice() {}
 
 CNIDevice::CNIDevice(
     unsigned char  ucMID,
@@ -34,7 +34,7 @@ CNIDevice::CNIDevice(
     unsigned char  ucCT,
     unsigned short usEPR,
     CInterface     *pIntf)
-: CDevice(ucMID, ucCCS, ucPCS, ucCT, usEPR, pIntf) {}
+: ulHIO(0), ulHEM(0), CDevice(ucMID, ucCCS, ucPCS, ucCT, usEPR, pIntf) {}
 
 bool CNIDevice::IsA(unsigned long ulCompareID) const {
     return ( ulCompareID == ulClassID ) ? true : CDevice::IsA(ulCompareID);
