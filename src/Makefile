@@ -63,7 +63,7 @@ $(SONAME): $(OBJSDLL)
 	$(LN) $(LNFLAGS) $(SONAME) lib$(LIBNAME).so
 
 $(TESTNAME): shared $(TESTNAME).o
-	$(CC) $(DEBUG_FLAGS) -L. -l$(LIBNAME) $(TESTNAME).o -o $(TESTNAME)
+	$(CC) $(DEBUG_FLAGS) $(TESTNAME).o -L. -l$(LIBNAME) -o $(TESTNAME)
 
 cid.o: cid.cpp dnmdefs.h cid.h
 	$(STATIC_COMPILE_CMD)
