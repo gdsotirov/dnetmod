@@ -1,0 +1,12 @@
+language: cpp
+compiler:
+  - gcc
+os:
+  - linux
+branches:
+  only:
+    - master
+before_script:
+  - pushd lib && ./get_deps.sh && popd
+script: make
+
