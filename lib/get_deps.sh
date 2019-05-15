@@ -6,14 +6,14 @@ CWD=$(pwd)
 # Check necessary programs
 WGET=$(which wget)
 
-if [ "${WGET}" == "" ]; then
+if [ ! -x "${WGET}" ]; then
   echo "Error: Program 'wget' not found!"
   exit 1
 fi
 
 UNZIP=$(which unzip)
 
-if [ "${UNZIP}" == "" ]; then
+if [ ! -x "${UNZIP}" ]; then
   echo "Error: Program 'unzip' not found!"
   exit 2
 fi
