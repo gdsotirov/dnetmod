@@ -1,0 +1,8 @@
+*.a
+*.o
+*.so*
+.cproject
+.project
+.settings
+lib/cif*
+src/dnmtest
