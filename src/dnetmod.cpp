@@ -430,9 +430,9 @@ long DNETMOD_CC SetCIFError(short sCIFError, char * strMsgFmt, va_list pArgList)
     unsigned short usBID = 0;
     unsigned short usDevMacId = 0;
 
-    ucTskErr   = (unsigned char)va_arg(pArgList, int);
-    usBID      = (unsigned short)va_arg(pArgList, int);
-    usDevMacId = (unsigned short)va_arg(pArgList, int);
+    ucTskErr   = static_cast<unsigned char>(va_arg(pArgList, int));
+    usBID      = static_cast<unsigned short>(va_arg(pArgList, int));
+    usDevMacId = static_cast<unsigned short>(va_arg(pArgList, int));
     if ( sCIFError != DRV_NO_ERROR || ucTskErr != TASK_F_OK ) {
         char strMessage[80] = {0};
         if ( sCIFError != DRV_NO_ERROR ) {
@@ -480,7 +480,7 @@ long DNETMOD_CC SetError(long lErrCode...) {
         break;
 #endif /* if defined(OS_WIN32) */
         case ERR_CIF    : {
-            short lCIFError = (short)va_arg(pArgList, int);
+            short lCIFError = static_cast<short>(va_arg(pArgList, int));
             strncpy(strErrFmt, ESTR_CIF, sizeof(strErrFmt));
             if ( SetCIFError(lCIFError, strErrFmt, pArgList) == 0 )
                 lErrCode = 0;
@@ -489,9 +489,9 @@ long DNETMOD_CC SetError(long lErrCode...) {
         case ERR_EXPLCT : {
             char strGen[DNETMOD_MAX_DERRMSG_LEN] = {0};
             char strAdd[DNETMOD_MAX_DERRMSG_LEN] = {0};
-            unsigned char ucMacID = (unsigned char)va_arg(pArgList, int);
-            unsigned char ucGen   = (unsigned char)va_arg(pArgList, int);
-            unsigned char ucAdd   = (unsigned char)va_arg(pArgList, int);
+            unsigned char ucMacID = static_cast<unsigned char>(va_arg(pArgList, int));
+            unsigned char ucGen   = static_cast<unsigned char>(va_arg(pArgList, int));
+            unsigned char ucAdd   = static_cast<unsigned char>(va_arg(pArgList, int));
 
             DevErrToString(ucGen, sizeof(strGen), strGen);
             DevErrToString(ucAdd, sizeof(strAdd), strAdd);
