@@ -94,7 +94,7 @@ int CNIInterface::Open(void) {
  * Purpose : Stop communication on the interface and close NIDNET interface
  *           object.
  */
-int CNIInterface::Close(void) {
+int CNIInterface::CloseInterface(void) {
     int iErr = 0;
 
     if ( bActive ) {
@@ -114,6 +114,10 @@ int CNIInterface::Close(void) {
     return iErr;
 }
 
+int CNIInterface::Close(void) {
+  return CloseInterface();
+}
+
 /* Function: CNIInterface::Reset
  * Purpose : Reset the NI-DNET interface.
  */
@@ -128,6 +132,6 @@ int CNIInterface::Reset(void *) {
 
 CNIInterface::~CNIInterface() {
     if ( bActive )
-        Close();
+        CloseInterface();
 }
 

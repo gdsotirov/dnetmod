@@ -29,6 +29,7 @@ private:
     /* Copy constructor and assignment operator not supported for this class */
     CNIInterface(const CNIInterface&);
     CNIInterface& operator =(const CNIInterface&);
+    int CloseInterface(void);
 protected:
     static unsigned long ulClassID;
     static char strClassName[];
