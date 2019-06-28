@@ -1,10 +1,9 @@
 /****************************************************************************
  *  DeviceNet Module 0.2                                                    *
  ****************************************************************************
- *  Author      : George D. Sotirov, gds@sd-bul.bg                          *
+ *  Copyright   : Georgi D. Sotirov, gdsotirov@gmail.com                    *
  *  File        : dnetmod.cpp               Type        : source            *
  *  Description : Implementation of module functions.                       *
- *  CVS         : $Id: dnetmod.cpp,v 1.2 2010/06/13 15:54:38 gsotirov Exp $
  ****************************************************************************/
 
 #include <stdio.h>

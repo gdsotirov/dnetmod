@@ -1,10 +1,9 @@
 /****************************************************************************
  *  DeviceNet Module 0.2                                                    *
  ****************************************************************************
- *  Author      : George D. Sotirov, gds@sd-bul.bg                          *
+ *  Copyright   : Georgi D. Sotirov, gdsotirov@gmail.com                    *
  *  File        : ccifintf.cpp              Type        : source            *
  *  Description : CCIFInterface class implementation.                       *
- *  CVS         : $Id: ccifintf.cpp,v 1.2 2008/08/17 19:15:58 gsotirov Exp $
  ****************************************************************************/
 
 #include <stdio.h>

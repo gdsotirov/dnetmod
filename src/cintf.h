@@ -1,10 +1,9 @@
 /****************************************************************************
  *  DeviceNet Module 0.2                                                    *
  ****************************************************************************
- *  Author      : George D. Sotirov, gds@sd-bul.bg                          *
+ *  Copyright   : Georgi D. Sotirov, gdsotirov@gmail.com                    *
  *  File        : cintf.h                   Type        : header            *
  *  Description : CInterface class declaration.                             *
- *  CVS         : $Id: cintf.h,v 1.2 2008/08/17 19:15:58 gsotirov Exp $
  ****************************************************************************/
 
 #ifndef CINTERFACE_H

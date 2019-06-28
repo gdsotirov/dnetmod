@@ -1,10 +1,9 @@
 /****************************************************************************
  *  DeviceNet Module 0.2                                                    *
  ****************************************************************************
- *  Author      : George D. Sotirov, gds@sd-bul.bg                          *
+ *  Copyright   : Georgi D. Sotirov, gdsotirov@gmail.com                    *
  *  File        : dnmerrs.h                 Type        : header            *
  *  Description : Error codes and error message formats for the module.     *
- *  CVS         : $Id: dnmerrs.h,v 1.1 2002/12/15 09:31:39 gsotirov Exp $
  ****************************************************************************/
 
 #ifndef DNETMOD_ERRORS_HEADER

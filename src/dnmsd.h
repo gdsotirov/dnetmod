@@ -1,11 +1,10 @@
 /****************************************************************************
  *  DeviceNet Module 0.2                                                    *
  ****************************************************************************
- *  Author      : George D. Sotirov, gds@sd-bul.bg                          *
+ *  Copyright   : Georgi D. Sotirov, gdsotirov@gmail.com                    *
  *  File        : dnmsd.h                   Type        : header            *
  *  Description : Static data for the module. Vendor names and device types *
  *                names (incomplete).                                       *
- *  CVS         : $Id: dnmsd.h,v 1.2 2008/08/17 19:06:58 gsotirov Exp $
  ****************************************************************************/
 
 #ifndef DNETMOD_STATIC_DATA_HEADER
@@ -199,7 +198,7 @@ const char *VendStr[] = {
     /* 181 */   "Pilz GmbH & Co",
     /* 182 */   "Marsh Bellofram-Bellofram PCD Division",
     /* 183 */   "Reserved",
-    /* 184 */   "M•SYSTEM Co. Ltd.",
+    /* 184 */   "M-SYSTEM Co. Ltd.",
     /* 185 */   "Nissin Electric Co., Ltd",
     /* 186 */   "Hitachi Metals, Ltd.",
     /* 187 */   "Oriental Motor Company",

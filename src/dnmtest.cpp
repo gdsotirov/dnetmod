@@ -1,10 +1,9 @@
 /****************************************************************************
  *  DeviceNet Module 0.2                                                    *
  ****************************************************************************
- *  Author      : George D. Sotirov, gds@sd-bul.bg                          *
+ *  Copyright   : Georgi D. Sotirov, gdsotirov@gmail.com                    *
  *  File        : dnmtest.h                 Type        : source            *
  *  Description : Test application for the module.                          *
- *  CVS         : $Id: dnmtest.cpp,v 1.1 2002/12/15 09:31:39 gsotirov Exp $
  ****************************************************************************/
 
 #include <stdio.h>

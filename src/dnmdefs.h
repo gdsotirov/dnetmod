@@ -1,10 +1,9 @@
 /****************************************************************************
  *  DeviceNet Module 0.2                                                    *
  ****************************************************************************
- *  Author      : George D. Sotirov, gds@sd-bul.bg                          *
+ *  Copyright   : Georgi D. Sotirov, gdsotirov@gmail.com                    *
  *  File        : dnmdefs.h                 Type        : header            *
  *  Description : Definitions for the module.                               *
- *  CVS         : $Id: dnmdefs.h,v 1.1 2002/12/15 09:31:39 gsotirov Exp $
  ****************************************************************************/
 
 #ifndef DNETMOD_DEFINITIONS_HEADER

@@ -1,10 +1,9 @@
 /****************************************************************************
  *  DeviceNet Module 0.2                                                    *
  ****************************************************************************
- *  Author      : George D. Sotirov, gds@sd-bul.bg                          *
+ *  Copyright   : Georgi D. Sotirov, gdsotirov@gmail.com                    *
  *  File        : cniintf.h                 Type        : header            *
  *  Description : CNIInterface class declaration.                           *
- *  CVS         : $Id: cniintf.h,v 1.2 2008/08/17 19:15:58 gsotirov Exp $
  ****************************************************************************/
 
 #ifndef CNIINTF_H
