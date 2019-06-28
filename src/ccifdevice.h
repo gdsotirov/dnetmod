@@ -29,6 +29,7 @@ private:
 private:
     int ExchangeIOData(bool, unsigned long, void *);
     int Diagnostics(void);
+    int UnallocateDevice(void);
 protected:
     static unsigned long ulClassID;
     static char strClassName[];

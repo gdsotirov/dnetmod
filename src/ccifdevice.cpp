@@ -362,7 +362,7 @@ int CCIFDevice::Allocate(unsigned char /*ucFlags*/) {
     return iErr;
 }
 
-int CCIFDevice::Unallocate(void) {
+int CCIFDevice::UnallocateDevice(void) {
     int iErr = 0;
 
     if ( ISPTRVALID(pInterface, CInterface)  ) {
@@ -414,6 +414,10 @@ int CCIFDevice::Unallocate(void) {
     else iErr = SetError(ERR_INVPTR, ucMacID, "pInterface", pInterface);
 
     return iErr;
+}
+
+int CCIFDevice::Unallocate(void) {
+  return UnallocateDevice();
 }
 
 int CCIFDevice::ReadIOData(unsigned long ulBufSz, void *pvBuf) {
@@ -611,6 +615,6 @@ int CCIFDevice::Reset(void) {
 
 CCIFDevice::~CCIFDevice() {
     if ( bActive )
-        Unallocate();
+        UnallocateDevice();
 }
 
