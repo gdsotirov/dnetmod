@@ -33,7 +33,7 @@ int iBufClearCR = 0;
 void PrintError(int);
 int SetBufferLen(void **, DNTYPES *, unsigned short *);
 int SetBufferValue(void **, DNTYPES, unsigned short);
-int PrintBuffer(DNTYPES, char *, unsigned short);
+int PrintBuffer(DNTYPES, void *, unsigned short);
 unsigned char BaudRate(void);
 unsigned char ConnType(void);
 
@@ -85,7 +85,7 @@ int main(void) {
                 pInterface->SetBoardNum(usBrdNum);
                 printf("Interface MACID: ");
                 scanf("%hu", &usMACID);
-                pInterface->SetMacID((unsigned char)usMACID);
+                pInterface->SetMacID(static_cast<unsigned char>(usMACID));
                 pInterface->SetBaudRate(BaudRate());
                 printf("Opening interface. Please wait...\n");
                 if ( (iErr = pInterface->Open()) != ERR_NOERR )
@@ -98,14 +98,14 @@ int main(void) {
                 else pDevice->Unallocate();
                 printf("Device MACID: ");
                 scanf("%hu", &usMACID);
-                pDevice->SetMacID((unsigned char)usMACID);
+                pDevice->SetMacID(static_cast<unsigned char>(usMACID));
                 pDevice->SetConnType(ConnType());
                 printf("Input length, B: ");
                 scanf("%hu", &usILen);
-                pDevice->SetConsumedConnSize((unsigned char)usILen);
+                pDevice->SetConsumedConnSize(static_cast<unsigned char>(usILen));
                 printf("Output length, B: ");
                 scanf("%hu", &usOLen);
-                pDevice->SetProducedConnSize((unsigned char)usOLen);
+                pDevice->SetProducedConnSize(static_cast<unsigned char>(usOLen));
                 printf("EPR, ms: ");
                 scanf("%hu", &usEPR);
                 iBufClearCR = getchar();
@@ -128,7 +128,7 @@ int main(void) {
                         printf("Data bytes returned from device:\n");
                         printf("-");
                         for ( i = 0; i < iSize; i++ ) {
-                            unsigned short usVal = *((unsigned char*)(IOBuf + i));
+                            unsigned short usVal = *(reinterpret_cast<unsigned char*>(IOBuf + i));
                             printf("%hu-", usVal);
                         }
                         printf("\n\n");
@@ -156,7 +156,7 @@ int main(void) {
                            scanf("%hu", &usVal);
                            iBufClearCR = getchar();
                        } while ( usVal > 255 );
-                       *(IOBuf + i) = (unsigned char)usVal;
+                       *(IOBuf + i) = static_cast<unsigned char>(usVal);
                    }
                    printf("Writing data. Please wait...\n");
                    if ( (iErr = pDevice->WriteIOData(iSize, IOBuf)) == ERR_NOERR )
@@ -180,10 +180,10 @@ int main(void) {
                     printf("Parameter ID: ");
                     scanf("%hu", &usParamId);
                     iBufClearCR = getchar();
-                    if ( SetBufferLen((void**)&IOBuf, &Type, &usBufLen) )
+                    if ( SetBufferLen(reinterpret_cast<void **>(&IOBuf), &Type, &usBufLen) )
                         break;
-                    if ( (iErr = pDevice->GetAttribute(usClsId, usInstId, (unsigned char)
-                        usParamId, usBufLen, IOBuf, NULL)) == ERR_NOERR ) {
+                    if ( (iErr = pDevice->GetAttribute(usClsId, usInstId, static_cast<unsigned char>
+                        (usParamId), usBufLen, IOBuf, NULL)) == ERR_NOERR ) {
                         PrintBuffer(Type, IOBuf, usBufLen);
                         printf("\n");
                     }
@@ -204,12 +204,12 @@ int main(void) {
                    printf("Parameter ID: ");
                    scanf("%hu", &usParamId);
                    iBufClearCR = getchar();
-                   if ( SetBufferLen((void**)&IOBuf, &Type, &usBufLen) )
+                   if ( SetBufferLen(reinterpret_cast<void **>(&IOBuf), &Type, &usBufLen) )
                        break;
-                   if ( SetBufferValue((void**)&IOBuf, Type, usBufLen) )
+                   if ( SetBufferValue(reinterpret_cast<void **>(&IOBuf), Type, usBufLen) )
                        break;
                    if ( (iErr = pDevice->SetAttribute(usClsId, usInstId,
-                       (unsigned char)usParamId, usBufLen, IOBuf)) == ERR_NOERR )
+                       static_cast<unsigned char>(usParamId), usBufLen, IOBuf)) == ERR_NOERR )
                        printf("Parameter set.\n");
                    else PrintError(iErr);
                    if ( IOBuf != NULL )
@@ -246,11 +246,11 @@ int main(void) {
                             scanf("%hu", &usVal);
                         }
                         while ( usVal > 255 );
-                        *(IOBuf + i) = (unsigned char)usVal;
+                        *(IOBuf + i) = static_cast<unsigned char>(usVal);
                     }
                     iBufClearCR = getchar();
                     printf("Executing service. Please wait...\n");
-                    if ( (iErr = pDevice->ExecService((unsigned char)usSrvCode,
+                    if ( (iErr = pDevice->ExecService(static_cast<unsigned char>(usSrvCode),
                         usClsId, usInstId, usSDLen, IOBuf)) == 0 ) {
                         printf("Service executed successfully!\n");
                         printf("Received data:\n");
@@ -443,42 +443,42 @@ int SetBufferValue(void **buf, DNTYPES typ, unsigned short cbytes) {
     switch ( typ ) {
         case DN_SINT  : printf("SINT value: ");
                         scanf("%d", &lval);
-                        *((char*)*buf) = (char)lval;
+                        *(static_cast<char *>(*buf)) = static_cast<char>(lval);
         break;
 
         case DN_USINT : printf("USINT value: ");
                         scanf("%d", &lval);
-                        *((unsigned char*)*buf) = (unsigned char)lval;
+                        *(static_cast<unsigned char *>(*buf)) = static_cast<unsigned char>(lval);
         break;
 
         case DN_INT   : printf("INT value: ");
                         scanf("%d", &lval);
-                        *((short*)*buf) = (short)lval;
+                        *(static_cast<short *>(*buf)) = static_cast<short>(lval);
         break;
 
         case DN_UINT  : printf("UINT value: ");
                         scanf("%d", &lval);
-                        *((unsigned short*)*buf) = (unsigned short)lval;
+                        *(static_cast<unsigned short *>(*buf)) = static_cast<unsigned short>(lval);
         break;
 
         case DN_DINT  : printf("DINT value: ");
                         scanf("%d", &lval);
-                        *((int*)*buf) = (int)lval;
+                        *(static_cast<int *>(*buf)) = static_cast<int>(lval);
         break;
 
         case DN_UDINT : printf("UDINT value: ");
                         scanf("%d", &lval);
-                        *((unsigned int*)*buf) = (unsigned int)lval;
+                        *(static_cast<unsigned int *>(*buf)) = static_cast<unsigned int>(lval);
         break;
 
         case DN_REAL  : printf("Real value: ");
                         scanf("%f", &fval);
-                        *((float*)*buf) = fval;
+                        *(static_cast<float *>(*buf)) = fval;
         break;
 
         case DN_SHORTS: printf("String value: ");
-                        scanf("%256s", ((char*)*buf) + 1); // Scan up to DN_SHORTS_MAX_LEN
-                        *((char*)*buf) = (unsigned char)strlen(((char*)*buf) + 1);
+                        scanf("%256s", (static_cast<char *>(*buf)) + 1); // Scan up to DN_SHORTS_MAX_LEN
+                        *(static_cast<char *>(*buf)) = static_cast<unsigned char>(strlen((static_cast<char *>(*buf)) + 1));
         break;
 
         case DN_BYTES:
@@ -491,7 +491,7 @@ int SetBufferValue(void **buf, DNTYPES typ, unsigned short cbytes) {
                     scanf("%hu", &val);
                 }
                 while ( val > 255 );
-                *((unsigned char*)buf + i) = (unsigned char)val;
+                *(reinterpret_cast<unsigned char *>(buf) + i) = static_cast<unsigned char>(val);
             }
         break;
     }
@@ -499,36 +499,33 @@ int SetBufferValue(void **buf, DNTYPES typ, unsigned short cbytes) {
     return 0;
 }
 
-int PrintBuffer(DNTYPES Type, char *Buf, unsigned short usBufLen) {
-    short sVal = 0;
-    unsigned short usVal = 0;
+int PrintBuffer(DNTYPES Type, void *Buf, unsigned short usBufLen) {
+    char * cBuf = NULLPTR(char);
 
     printf(" Value: ");
     switch ( Type ) {
-        case DN_SINT  : sVal = *Buf;
-                        printf("%hu", sVal);
+        case DN_SINT  : printf("%hi", *(reinterpret_cast<char *>(Buf)));
                         break;
-        case DN_USINT : usVal = *((unsigned char*)Buf);
-                        printf("%hu", usVal);
+        case DN_USINT : printf("%hu", *(reinterpret_cast<unsigned char *>(Buf)));
                         break;
-        case DN_INT   : printf("%hu", *((short*)Buf));
+        case DN_INT   : printf("%hi" , *(reinterpret_cast<short *>(Buf)));
                         break;
-        case DN_UINT  : printf("%hu", *((unsigned short*)Buf));
+        case DN_UINT  : printf("%hu" , *(reinterpret_cast<unsigned short *>(Buf)));
                         break;
-        case DN_DINT  : printf("%d", *((int*)Buf));
+        case DN_DINT  : printf("%i" , *(reinterpret_cast<int *>(Buf)));
                         break;
-        case DN_UDINT : printf("%u", *((unsigned int*)Buf));
+        case DN_UDINT : printf("%ui" , *(reinterpret_cast<unsigned int *>(Buf)));
                         break;
-        case DN_REAL  : printf("%f", *((float*)Buf));
+        case DN_REAL  : printf("%f" , *(reinterpret_cast<float *>(Buf)));
                         break;
-        case DN_SHORTS: Buf[*Buf + 1] = 0;
-                        printf("%s", &Buf[1]);
+        case DN_SHORTS: cBuf = static_cast<char *>(Buf);
+                        cBuf[*cBuf + 1] = 0;
+                        printf("%s", &cBuf[1]);
                         break;
         case DN_BYTES:
             printf("Bytes:\n");
             for ( int i = 0; i < usBufLen; i++ ) {
-                unsigned short sVal = *((unsigned char*)(Buf + i));
-                printf("#%d: %hu\n", i, sVal);
+                printf("#%d: %hu\n", i, *(reinterpret_cast<unsigned char *>(Buf) + i));
             }
         break;
     }
