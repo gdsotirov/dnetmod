@@ -37,6 +37,7 @@ private:
     int SetProtocolParameters(void);
     int ClearDEVDB(void);
     int DownloadParameters(void);
+    int CloseInterface(void);
 protected:
     static unsigned long ulClassID;
     static char strClassName[];

@@ -255,7 +255,7 @@ int CCIFInterface::Open(void) {
 /* Function: CCIFInterface::Close
  * Purpose : Stop communication and exit board.
  */
-int CCIFInterface::Close(void) {
+int CCIFInterface::CloseInterface(void) {
     int iErr = 0;
 
     if ( bActive ) {
@@ -276,6 +276,10 @@ int CCIFInterface::Close(void) {
     }
 
     return iErr;
+}
+
+int CCIFInterface::Close(void) {
+  return CloseInterface();
 }
 
 int CCIFInterface::Reset(void *vpParam) {
@@ -336,6 +340,6 @@ int CCIFInterface::Reset(void *vpParam) {
 
 CCIFInterface::~CCIFInterface() {
     if ( bActive )
-        Close();
+        CloseInterface();
 }
 
