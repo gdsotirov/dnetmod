@@ -18,7 +18,7 @@
 #if defined(OS_LINUX)
 #include "cif_user.h"
 #elif defined(OS_WIN32)
-/* APIENTRY and DWORD are definied here to break need of inclusion
+/* APIENTRY and DWORD are defined here to break need of inclusion
  * of windows.h because of cifuser.h. */
 #ifndef APIENTRY
 #if (_MSC_VER >= 800)
@@ -116,19 +116,19 @@ inline int CCIFInterface::ClearDEVDB(void) {
     RCS_MESSAGE MsgBuf;
 
     MsgBuf.rx   = 0;        // OS Task
-    MsgBuf.tx   = 16;       // PC Programm
+    MsgBuf.tx   = 16;       // PC Program
     MsgBuf.ln   = 2;        // 2 Bytes length
     MsgBuf.nr   = MsgBuf.a = MsgBuf.f = MsgBuf.e = 0;
     MsgBuf.b    = 6;        // Database access
     MsgBuf.d[0] = 4;        // Clear database
     MsgBuf.d[1] = 8;        // Offset
 
-    sStatus = DevPutMessage(usBoardNum, (MSG_STRUC*)&MsgBuf, 500L);
+    sStatus = DevPutMessage(usBoardNum, reinterpret_cast<MSG_STRUC *>(&MsgBuf), 500L);
     iErr = SetError(ERR_CIF, sStatus, 0, usBoardNum, ucMacID);
     if ( sStatus < 0 || sStatus >= DRV_RCS_ERROR_OFFSET )
         return iErr;
 
-    sStatus = DevGetMessage(usBoardNum, sizeof(MsgBuf), (MSG_STRUC*)&MsgBuf, 3000L);
+    sStatus = DevGetMessage(usBoardNum, sizeof(MsgBuf), reinterpret_cast<MSG_STRUC *>(&MsgBuf), 3000L);
     return SetError(ERR_CIF, sStatus, MsgBuf.f, usBoardNum, ucMacID);
 }
 
@@ -147,13 +147,13 @@ inline int CCIFInterface::DownloadParameters(void) {
     MsgBuf.nr = MsgBuf.a = MsgBuf.f = MsgBuf.e = 0;
     MsgBuf.b  = DNM_Download;
 
-    pDownloadReq = (DNM_DOWNLOAD_REQUEST *)&MsgBuf.d[0];
+    pDownloadReq = reinterpret_cast<DNM_DOWNLOAD_REQUEST *>(&MsgBuf.d[0]);
 
     pDownloadReq->bReq_Add     = 0;
     pDownloadReq->bArea_Code   = DNM_DEVICE_PRM;
     pDownloadReq->usAdd_Offset = 0;
 
-    pBusParam = (BUS_DNM *)&pDownloadReq->abData[0];
+    pBusParam = reinterpret_cast<BUS_DNM *>(&pDownloadReq->abData[0]);
 
     pBusParam->bOwnMacId  = ucMacID;
     pBusParam->usVendorId = 283;    // Hilscher Vendor ID
@@ -166,12 +166,12 @@ inline int CCIFInterface::DownloadParameters(void) {
 
     MsgBuf.ln = sizeof(BUS_DNM) + sizeof(DNM_DOWNLOAD_REQUEST) - MAX_LEN_DATA_UNIT;
 
-    sStatus = DevPutMessage(usBoardNum, (MSG_STRUC *)&MsgBuf, 500L);
+    sStatus = DevPutMessage(usBoardNum, reinterpret_cast<MSG_STRUC *>(&MsgBuf), 500L);
     iErr = SetError(ERR_CIF, sStatus, 0, usBoardNum, ucMacID, 0);
     if ( sStatus < 0 || sStatus >= DRV_RCS_ERROR_OFFSET )
         return iErr;
 
-    sStatus = DevGetMessage(usBoardNum, sizeof(MsgBuf), (MSG_STRUC *)&MsgBuf, 3000L);
+    sStatus = DevGetMessage(usBoardNum, sizeof(MsgBuf), reinterpret_cast<MSG_STRUC *>(&MsgBuf), 3000L);
     iErr = SetError(ERR_CIF, sStatus, MsgBuf.f, usBoardNum, ucMacID, 0);
     if ( sStatus < 0 || sStatus >= DRV_RCS_ERROR_OFFSET )
         return iErr;
@@ -281,7 +281,7 @@ int CCIFInterface::Close(void) {
 int CCIFInterface::Reset(void *vpParam) {
     short sStatus            = 0;
     int iErr                 = 0;
-    unsigned short usMode    = *((unsigned short *)vpParam);
+    unsigned short usMode    = *(static_cast<unsigned short *>(vpParam));
     unsigned long  ulTimeout = 0;
 
     if ( !bActive ) {

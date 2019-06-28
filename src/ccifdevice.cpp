@@ -82,8 +82,8 @@ inline int CCIFDevice::ExchangeIOData(
             short sStatus = 0;
 
             if ( bInput )
-                sStatus = DevExchangeIO(pCIFIntf->GetBoardNum(), 0, 0, NULL, usInputOffset, (unsigned short)ulBufSz, pvBuf, 500L);
-            else sStatus = DevExchangeIO(pCIFIntf->GetBoardNum(), usOutputOffset, (unsigned short)ulBufSz, pvBuf,0,0,NULL,500L);
+                sStatus = DevExchangeIO(pCIFIntf->GetBoardNum(), 0, 0, NULL, usInputOffset, static_cast<unsigned short>(ulBufSz), pvBuf, 500L);
+            else sStatus = DevExchangeIO(pCIFIntf->GetBoardNum(), usOutputOffset, static_cast<unsigned short>(ulBufSz), pvBuf,0,0,NULL,500L);
             iErr = SetError(ERR_CIF, sStatus, 0, pCIFIntf->GetBoardNum(), ucMacID);
             if ( sStatus < 0 || sStatus >= DRV_RCS_ERROR_OFFSET )
                 return iErr;
@@ -104,7 +104,7 @@ int CCIFDevice::Diagnostics(void) {
     int iErr      = 0;
     CCIFInterface           *pCIFIntf  = dynamic_cast<CCIFInterface *>(pInterface);
     RCS_MESSAGETELEGRAM_10  MsgBuff;
-    DNM_DEVICE_DIAG_CONFIRM *pDiagData = (DNM_DEVICE_DIAG_CONFIRM *)MsgBuff.d;
+    DNM_DEVICE_DIAG_CONFIRM *pDiagData = reinterpret_cast<DNM_DEVICE_DIAG_CONFIRM *>(MsgBuff.d);
 
     MsgBuff.rx = 3;  // DNM-Task
     MsgBuff.tx = 16; // User at HOST
@@ -114,17 +114,17 @@ int CCIFDevice::Diagnostics(void) {
     MsgBuff.device_adr = ucMacID;
 
     // Gather diagnostics data for the device
-    sStatus = DevPutMessage(pCIFIntf->GetBoardNum(), (MSG_STRUC *)&MsgBuff, 500L);
+    sStatus = DevPutMessage(pCIFIntf->GetBoardNum(), reinterpret_cast<MSG_STRUC *>(&MsgBuff), 500L);
     iErr = SetError(ERR_CIF, sStatus, 0, pCIFIntf->GetBoardNum(), ucMacID);
     if ( sStatus < 0 || sStatus >= DRV_RCS_ERROR_OFFSET )
         return iErr;
 
-    sStatus = DevGetMessage(pCIFIntf->GetBoardNum(), sizeof(MsgBuff), (MSG_STRUC *)&MsgBuff, 1000L);
+    sStatus = DevGetMessage(pCIFIntf->GetBoardNum(), sizeof(MsgBuff), reinterpret_cast<MSG_STRUC *>(&MsgBuff), 1000L);
     iErr = SetError(ERR_CIF, sStatus, MsgBuff.f, pCIFIntf->GetBoardNum(), ucMacID);
     if ( sStatus < 0 || sStatus >= DRV_RCS_ERROR_OFFSET )
         return iErr;
 
-    // Analyse data
+    // Analyze data
     if ( pDiagData->tDiagData.bDevStatus1.bDvNoResponse )
         iErr = SetError(ERR_CIF, DEV_NOT_RESPONDING, 0, pCIFIntf->GetBoardNum(), ucMacID);
     else if ( pDiagData->tDiagData.bDevStatus1.bPrmFault )
@@ -175,14 +175,14 @@ int CCIFDevice::Allocate(unsigned char /*ucFlags*/) {
             MsgBuf.nr = 8;
             MsgBuf.b  = DNM_Download; // 68dec = 44hex
 
-            pDownloadReq = (DNM_DOWNLOAD_REQUEST *)MsgBuf.d;
+            pDownloadReq = reinterpret_cast<DNM_DOWNLOAD_REQUEST *>(MsgBuf.d);
 
             // Download Request Header
             pDownloadReq->bReq_Add     = 0;                     // d[0]
             pDownloadReq->bArea_Code   = ucMacID;               // d[1]
             pDownloadReq->usAdd_Offset = 0;                     // d[2-3]
 
-            pDevPrmHdr = (DNM_DEV_PRM_HEADER *)pDownloadReq->abData;
+            pDevPrmHdr = reinterpret_cast<DNM_DEV_PRM_HEADER *>(pDownloadReq->abData);
 
             // Device Parameters Header
             pDevPrmHdr->usDevParaLen         = sizeof(DNM_DEV_PRM_HEADER);
@@ -206,12 +206,12 @@ int CCIFDevice::Allocate(unsigned char /*ucFlags*/) {
             pDevPrmHdr->bOctetString[0]      = 0;               // d[18]
             pDevPrmHdr->bOctetString[1]      = 0;               // d[19]
 
-            pPredMstslCfgData = (DNM_PRED_MSTSL_CFG_DATA *)((unsigned char *)pDevPrmHdr + pDevPrmHdr->usDevParaLen);
+            pPredMstslCfgData = reinterpret_cast<DNM_PRED_MSTSL_CFG_DATA *>(static_cast<unsigned char>(pDevPrmHdr->usDevParaLen) + pDevPrmHdr->usDevParaLen);
 
             // Predefined Master-Slave Config Data
             pPredMstslCfgData->usPredMstslCfgDataLen = sizeof(pPredMstslCfgData->usPredMstslCfgDataLen);
-            pPredMstslConnObj = (DNM_PRED_MSTSL_CONNOBJ *)pPredMstslCfgData->atConnObjInst;
-            pPredMstslIoObjHdr = (DNM_PRED_MSTSL_IO_OBJ_HEADER *)&pPredMstslConnObj->tPredMstSlObjHeader;
+            pPredMstslConnObj = static_cast<DNM_PRED_MSTSL_CONNOBJ *>(pPredMstslCfgData->atConnObjInst);
+            pPredMstslIoObjHdr = static_cast<DNM_PRED_MSTSL_IO_OBJ_HEADER *>(&pPredMstslConnObj->tPredMstSlObjHeader);
             pPredMstslCfgData->usPredMstslCfgDataLen += sizeof( DNM_PRED_MSTSL_IO_OBJ_HEADER );
 
             // Predefined Master-Slave IO Object Header
@@ -282,15 +282,15 @@ int CCIFDevice::Allocate(unsigned char /*ucFlags*/) {
             pDevPrmHdr->usDevParaLen = pDevPrmHdr->usDevParaLen + pUcmmConnObjCfgData->usCfgDataLen;
             pDevPrmHdr->usDevParaLen = pDevPrmHdr->usDevParaLen + pUcmmConnObjAddTab->usAddTabLen;
 
-            MsgBuf.ln = (unsigned char)pDevPrmHdr->usDevParaLen + sizeof(DNM_DOWNLOAD_REQUEST) - MAX_LEN_DATA_UNIT;
+            MsgBuf.ln = static_cast<unsigned char>(pDevPrmHdr->usDevParaLen) + sizeof(DNM_DOWNLOAD_REQUEST) - MAX_LEN_DATA_UNIT;
 
             /* Download data to DEVICE */
-            sStatus = DevPutMessage(pCIFIntf->GetBoardNum(), (MSG_STRUC *)&MsgBuf, 500L);
+            sStatus = DevPutMessage(pCIFIntf->GetBoardNum(), reinterpret_cast<MSG_STRUC *>(&MsgBuf), 500L);
             iErr = SetError(ERR_CIF, sStatus, 0, pCIFIntf->GetBoardNum(), ucMacID);
             if ( sStatus < 0 || sStatus >= DRV_RCS_ERROR_OFFSET )
                 return iErr;
 
-            sStatus = DevGetMessage(pCIFIntf->GetBoardNum(), sizeof(MsgBuf), (MSG_STRUC *)&MsgBuf, 3000L);
+            sStatus = DevGetMessage(pCIFIntf->GetBoardNum(), sizeof(MsgBuf), reinterpret_cast<MSG_STRUC *>(&MsgBuf), 3000L);
             iErr = SetError(ERR_CIF, sStatus, MsgBuf.f, pCIFIntf->GetBoardNum(), ucMacID);
             if ( sStatus < 0 || sStatus >= DRV_RCS_ERROR_OFFSET )
                 return iErr;
@@ -302,7 +302,7 @@ int CCIFDevice::Allocate(unsigned char /*ucFlags*/) {
                Note:
                This sleep is required here to ensure that the information
                in DevDiag will be updated by the DEVICE after its config.
-               Because the DEVICE handler cylce is betwen 400 microseconds
+               Because the DEVICE handler cycle is between 400 microseconds
                to 1 millisecond so I use 100 ms. This here must be dummy but
                I don't find other way to do this.
                =============================================================*/
@@ -370,7 +370,7 @@ int CCIFDevice::Unallocate(void) {
         if ( pInterface->IsActive() ) {
             CCIFInterface *pCIFIntf  = dynamic_cast<CCIFInterface *>(pInterface);
             unsigned char ucSSBuf[8] = {0, 0, 0, 0, 0, 0, 0, 0};
-            unsigned char *ucBytePtr = ucSSBuf + (unsigned char)(ucMacID/8);
+            unsigned char *ucBytePtr = ucSSBuf + static_cast<unsigned char>(ucMacID/8);
             short         sStatus    = 0;
 
             // Initialize slave status buffer
@@ -443,24 +443,24 @@ int CCIFDevice::GetAttribute(
 
             MsgBuf.rx = 3;
             MsgBuf.tx = 16;
-            MsgBuf.ln = sizeof(RCS_MESSAGETELEGRAMHEADER_10) + (unsigned char)usDataSz;
+            MsgBuf.ln = sizeof(RCS_MESSAGETELEGRAMHEADER_10) + static_cast<unsigned char>(usDataSz);
             MsgBuf.nr = MsgBuf.a = MsgBuf.f = MsgBuf.e = 0;
             MsgBuf.b  = DNM_Get_Set_Attribute;
 
             MsgBuf.device_adr = ucMacID;
-            MsgBuf.data_area  = (unsigned char)usClsId;
+            MsgBuf.data_area  = static_cast<unsigned char>(usClsId);
             MsgBuf.data_adr   = usInstId;
             MsgBuf.data_idx   = ucAttrId;
-            MsgBuf.data_cnt   = (unsigned char)usDataSz;
+            MsgBuf.data_cnt   = static_cast<unsigned char>(usDataSz);
             MsgBuf.data_type  = 0;
             MsgBuf.function   = TASK_TFC_READ;
 
-            sStatus = DevPutMessage(pCIFIntf->GetBoardNum(), (MSG_STRUC*)&MsgBuf, 500L);
+            sStatus = DevPutMessage(pCIFIntf->GetBoardNum(), reinterpret_cast<MSG_STRUC *>(&MsgBuf), 500L);
             iErr = SetError(ERR_CIF, sStatus, 0, pCIFIntf->GetBoardNum(), ucMacID);
             if ( sStatus < 0 || sStatus >= DRV_RCS_ERROR_OFFSET )
                 return iErr;
 
-            sStatus = DevGetMessage(pCIFIntf->GetBoardNum(), sizeof(MsgBuf), (MSG_STRUC*)&MsgBuf, 3000L);
+            sStatus = DevGetMessage(pCIFIntf->GetBoardNum(), sizeof(MsgBuf), reinterpret_cast<MSG_STRUC *>(&MsgBuf), 3000L);
 
             iErr = SetError(ERR_CIF, sStatus, MsgBuf.f, pCIFIntf->GetBoardNum(), ucMacID);
             if ( sStatus < 0 || sStatus >= DRV_RCS_ERROR_OFFSET )
@@ -506,26 +506,26 @@ int CCIFDevice::SetAttribute(
 
             MsgBuf.rx = 3;
             MsgBuf.tx = 16;
-            MsgBuf.ln = sizeof(RCS_MESSAGETELEGRAMHEADER_10) + (unsigned char)usDataSz;
+            MsgBuf.ln = sizeof(RCS_MESSAGETELEGRAMHEADER_10) + static_cast<unsigned char>(usDataSz);
             MsgBuf.nr = MsgBuf.a  = MsgBuf.f  = MsgBuf.e  = 0;
             MsgBuf.b  = DNM_Get_Set_Attribute;
 
             MsgBuf.device_adr = ucMacID;
-            MsgBuf.data_area  = (unsigned char)usClsId;
+            MsgBuf.data_area  = static_cast<unsigned char>(usClsId);
             MsgBuf.data_adr   = usInstId;
             MsgBuf.data_idx   = ucAttrId;
-            MsgBuf.data_cnt   = (unsigned char)usDataSz;
+            MsgBuf.data_cnt   = static_cast<unsigned char>(usDataSz);
             MsgBuf.data_type  = 0;
             MsgBuf.function   = TASK_TFC_WRITE;
 
             memcpy(MsgBuf.d, pvData, usDataSz);
 
-            sStatus = DevPutMessage(pCIFIntf->GetBoardNum(), (MSG_STRUC*)&MsgBuf, 500L);
+            sStatus = DevPutMessage(pCIFIntf->GetBoardNum(), reinterpret_cast<MSG_STRUC *>(&MsgBuf), 500L);
             iErr = SetError(ERR_CIF, sStatus, 0, pCIFIntf->GetBoardNum(), ucMacID);
             if ( sStatus < 0 || sStatus >= DRV_RCS_ERROR_OFFSET )
                 return iErr;
 
-            sStatus = DevGetMessage(pCIFIntf->GetBoardNum(), sizeof(MsgBuf), (MSG_STRUC*)&MsgBuf, 500L);
+            sStatus = DevGetMessage(pCIFIntf->GetBoardNum(), sizeof(MsgBuf), reinterpret_cast<MSG_STRUC *>(&MsgBuf), 500L);
             // Handle device errors
             if ( MsgBuf.f > DERR_OK && MsgBuf.f <= DERR_VENDSPEC )
                 iErr = SetError(ERR_EXPLCT, ucMacID, MsgBuf.f, MsgBuf.d[0]);
@@ -563,25 +563,25 @@ int CCIFDevice::ExecService(
 
             MsgBuf.rx = 3;
             MsgBuf.tx = 16;
-            MsgBuf.ln = sizeof(RCS_MESSAGETELEGRAMHEADER_10) + (unsigned char)usDataSz;
+            MsgBuf.ln = sizeof(RCS_MESSAGETELEGRAMHEADER_10) + static_cast<unsigned char>(usDataSz);
             MsgBuf.nr = MsgBuf.a  = MsgBuf.f  = MsgBuf.e  = 0;
             MsgBuf.b  = 79;
 
             MsgBuf.device_adr = ucMacID;
-            MsgBuf.data_area  = (unsigned char)usClsId;
+            MsgBuf.data_area  = static_cast<unsigned char>(usClsId);
             MsgBuf.data_adr   = usInstId;
             MsgBuf.data_idx   = 0;
-            MsgBuf.data_cnt   = (unsigned char)usDataSz;
+            MsgBuf.data_cnt   = static_cast<unsigned char>(usDataSz);
             MsgBuf.data_type  = 0;
             MsgBuf.function   = ucSrvCode;
             memmove(MsgBuf.d, pvData, usDataSz);
 
-            sStatus = DevPutMessage(pCIFIntf->GetBoardNum(), (MSG_STRUC*)&MsgBuf, 500L);
+            sStatus = DevPutMessage(pCIFIntf->GetBoardNum(), reinterpret_cast<MSG_STRUC *>(&MsgBuf), 500L);
             iErr = SetError(ERR_CIF, sStatus, 0, pCIFIntf->GetBoardNum(), ucMacID);
             if ( sStatus < 0 || sStatus >= DRV_RCS_ERROR_OFFSET )
                 return iErr;
 
-            sStatus = DevGetMessage(pCIFIntf->GetBoardNum(), sizeof(MsgBuf), (MSG_STRUC*)&MsgBuf, 500L);
+            sStatus = DevGetMessage(pCIFIntf->GetBoardNum(), sizeof(MsgBuf), reinterpret_cast<MSG_STRUC *>(&MsgBuf), 500L);
             // Handle device errors
             if ( MsgBuf.f > DERR_OK && MsgBuf.f <= DERR_VENDSPEC )
                 iErr = SetError(ERR_EXPLCT, ucMacID, MsgBuf.f, MsgBuf.d[0]);
