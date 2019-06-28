@@ -29,6 +29,7 @@ private:
     /* Copy constructor and assignment operator not supported for this class */
     CNIDevice(const CDevice&);
     CNIDevice& operator =(const CNIDevice&);
+    int UnallocateDevice(void);
 protected:
     static unsigned long ulClassID;
     static char strClassName[];

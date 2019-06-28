@@ -95,7 +95,7 @@ int CNIDevice::Allocate(unsigned char ucFlags) {
 /* Function: CNIDevice::Unallocate
  * Purpose : Close connection objects and release interface.
  */
-int CNIDevice::Unallocate(void) {
+int CNIDevice::UnallocateDevice(void) {
     int iStatus = 0;
     int iErr = 0;
     unsigned short usIID = 0;
@@ -117,6 +117,10 @@ int CNIDevice::Unallocate(void) {
     bActive = false;
 
     return iErr;
+}
+
+int CNIDevice::Unallocate(void) {
+  return UnallocateDevice();
 }
 
 /* Function: CNIDevice::ReadIOData
@@ -311,6 +315,6 @@ int CNIDevice::Reset(void) {
 
 CNIDevice::~CNIDevice() {
     if ( bActive )
-        Unallocate();
+        UnallocateDevice();
 }
 
