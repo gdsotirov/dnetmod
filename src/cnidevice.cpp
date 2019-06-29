@@ -6,6 +6,11 @@
  *  Description : CNIDevice class implementation.                           *
  ****************************************************************************/
 
+/**
+ * @file cnidevice.cpp
+ * CNIDevice class implementation.
+ */
+
 #include <string.h>
 
 #include "dnmdefs.h"
@@ -15,6 +20,10 @@
 
 #include "inc/nidnet.h"
 
+/**
+ * @brief Converts module connection type to National Instruments API
+ * connection type constants.
+ */
 #define CT_TO_CT(ct, ni_ct) ( ( ni_ct = 0 )                 ,   \
     (ct & DEVICENET_CONN_POLLED) ? ni_ct |= NC_CONN_POLL    :0, \
     (ct & DEVICENET_CONN_STRBED) ? ni_ct |= NC_CONN_STROBE  :0, \
@@ -24,8 +33,24 @@
 unsigned long CNIDevice::ulClassID = 351;
 char CNIDevice::strClassName[] = "CNIDevice";
 
+/**
+ * @brief Default constructor
+ *
+ * Initializes members accordingly.
+ */
 CNIDevice::CNIDevice() : ulHIO(0), ulHEM(0), CDevice() {}
 
+/**
+ * @brief Constructors with parameters.
+ *
+ * Initializes member from parameters.
+ * @param ucMID
+ * @param ucCCS
+ * @param ucPCS
+ * @param ucCT
+ * @param usEPR
+ * @param pIntf
+ */
 CNIDevice::CNIDevice(
     unsigned char  ucMID,
     unsigned char  ucCCS,
@@ -35,16 +60,32 @@ CNIDevice::CNIDevice(
     CInterface     *pIntf)
 : ulHIO(0), ulHEM(0), CDevice(ucMID, ucCCS, ucPCS, ucCT, usEPR, pIntf) {}
 
+/**
+ * Checks if class can identify itself with the specified number. If not
+ * then passes the check to the base class.
+ * @param ulCompareID ID to be compared.
+ * @return True when match otherwise false.
+ */
 bool CNIDevice::IsA(unsigned long ulCompareID) const {
     return ( ulCompareID == ulClassID ) ? true : CDevice::IsA(ulCompareID);
 }
 
+/**
+ * Checks if class can identify itself with the specified name. If not
+ * then passes the check to the base class.
+ * @param strCompareName Name to be compared.
+ * @return True when match otherwise false.
+ */
 bool CNIDevice::IsA(const char *strCompareName) const {
     return ( !strcmp(strClassName, strCompareName) ) ? true : CDevice::IsA(strCompareName);
 }
 
-/* Function: CNIDevice::Allocate
- * Purpose : Attach device to interface and open connection objects.
+/**
+ * @brief Allocates a NI device.
+ *
+ * The function attaches device to interface and opens connection objects.
+ * @param ucFlags
+ * @return Error from \ref SetError function.
  */
 int CNIDevice::Allocate(unsigned char ucFlags) {
     int iErr = 0;
@@ -91,8 +132,11 @@ int CNIDevice::Allocate(unsigned char ucFlags) {
     return iErr;
 }
 
-/* Function: CNIDevice::Unallocate
- * Purpose : Close connection objects and release interface.
+/**
+ * @brief Unallocates a NI device.
+ *
+ * The function closes connection objects and releases interface.
+ * @return
  */
 int CNIDevice::UnallocateDevice(void) {
     int iStatus = 0;
@@ -118,12 +162,24 @@ int CNIDevice::UnallocateDevice(void) {
     return iErr;
 }
 
+/**
+ * @brief Unalloates the NI device.
+ * @return Error from \ref SetError function.
+ */
 int CNIDevice::Unallocate(void) {
   return UnallocateDevice();
 }
 
 /* Function: CNIDevice::ReadIOData
  * Purpose : Read data from device using I/O messaging object.
+ */
+/**
+ * @brief Reads data from NI device.
+ *
+ * Reads data from device using I/O messaging object.
+ * @param ulBufSz Size of the buffer.
+ * @param pvBuf Pointer to the buffer where to store read I/O data.
+ * @return Error from \ref SetError function.
  */
 int CNIDevice::ReadIOData(unsigned long ulBufSz, void *pvBuf) {
     unsigned long ulCurrState = 0;
@@ -159,6 +215,14 @@ int CNIDevice::ReadIOData(unsigned long ulBufSz, void *pvBuf) {
 /* Function: CNIDevice::WriteIOData
  * Purpose : Write data to device using I/O object.
  */
+/**
+ * @brief Writes data to NI device
+ *
+ * Write data to device using I/O object.
+ * @param ulBufSz Size of the buffer.
+ * @param pvBuf Pointer to the buffer from where to read I/O data.
+ * @return Error from \ref SetError function.
+ */
 int CNIDevice::WriteIOData(unsigned long ulBufSz, void *pvBuf) {
     if ( ISPTRVALID(pInterface, CInterface) ) {
       if ( pInterface->IsA("CNIInterface") ) {
@@ -183,6 +247,18 @@ int CNIDevice::WriteIOData(unsigned long ulBufSz, void *pvBuf) {
 
 /* Function: CNIDevice::GetAttribute
  * Purpose : Read device attrubute using Get_Attribute_Single service.
+ */
+/**
+ * @brief Reads NI device attribute
+ *
+ * Reads device attribute using Get_Attribute_Single service.
+ * @param usClsId Class identifier of the attribute.
+ * @param usInstId Instance identifier of the attribute.
+ * @param ucAttrId Attribute identifier.
+ * @param usDataSz Length in bytes of the attribute data.
+ * @param pvData Pointer to a buffer where to copy attribute data.
+ * @param pusActDataSz Actual size of the attribute data in bytes.
+ * @return Error from \ref SetError function.
  */
 int CNIDevice::GetAttribute(
     unsigned short usClsId,
@@ -217,8 +293,16 @@ int CNIDevice::GetAttribute(
     else return SetError(ERR_INVPTR, ucMacID, "pInterface", pInterface);
 }
 
-/* Function: CNIDevice::SetAttribute
- * Purpose : Write device attribute with Set_Attribute_Single service.
+/**
+ * @brief Writes NI device attribute
+ *
+ * Writes device attribute with Set_Attribute_Single service.
+ * @param usClsId Class identifier of the parameter.
+ * @param usInstId Instance identifier of the parameter.
+ * @param ucAttrId Parameter identifier.
+ * @param usDataSz Size of parameter's data in bytes.
+ * @param pvData Pointer to a buffer where to copy parameter's data.
+ * @return Error from \ref SetError function.
  */
 int CNIDevice::SetAttribute(
     unsigned short usClsId,
@@ -254,6 +338,18 @@ int CNIDevice::SetAttribute(
 
 /* Function: CNIDevice::ExecService
  * Purpose : Execute DeviceNet service for the device.
+ */
+/**
+ * @brief Execute DeviceNet™ service in the NI device.
+ *
+ * Writes and explicit message to the NI device, waits for read and reads
+ * status.
+ * @param ucSrvCode Service code.
+ * @param usClsId Class identifier of the service.
+ * @param usInstId Instance identifier of the service.
+ * @param usDataSz Size of service's data in bytes.
+ * @param pvData Pointer to a buffer where to copy service's data.
+ * @return Error from \ref SetError function.
  */
 int CNIDevice::ExecService(
     unsigned char  ucSrvCode,
@@ -306,12 +402,23 @@ int CNIDevice::ExecService(
     else return SetError(ERR_INVPTR, ucMacID, "pInterface", pInterface);
 }
 
+/**
+ * @brief Resets the NI device.
+ *
+ * Executes service 5 with empty character buffer. Calls CNIDevice::ExecService.
+ * @return
+ */
 int CNIDevice::Reset(void) {
     char cBuf = 0;
 
     return ExecService(5, 1, 1, sizeof(cBuf), &cBuf);
 }
 
+/**
+ * @brief Destructor
+ *
+ * Unallocats device if active.
+ */
 CNIDevice::~CNIDevice() {
     if ( bActive )
         UnallocateDevice();

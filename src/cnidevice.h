@@ -6,6 +6,11 @@
  *  Description : CNIDevice class declaration.                              *
  ****************************************************************************/
 
+/**
+ * @file cnidevice.h
+ * CNIDevice class declaration.
+ */
+
 #ifndef CNIDEVICE_H
 #define CNIDEVICE_H 1
 
@@ -17,20 +22,30 @@
 
 #include "cdevice.h"
 
+/** I/O connection type */
 #define NI_CONN_IO          0x0001
+/** Explicit message connection type */
 #define NI_CONN_EM          0x0002
 
+/**
+ * @brief Represents a device connected to a National Instruments board.
+ *
+ * This class is a shell for a slave device attached to National Instruments
+ * interfaces.
+ * @remark Copy constructor and assignment operator not supported for this class.
+ */
 class DNETMOD_API CNIDevice : public CDevice {
 private:
     unsigned long ulHIO;
     unsigned long ulHEM;
 private:
-    /* Copy constructor and assignment operator not supported for this class */
     CNIDevice(const CDevice&);
     CNIDevice& operator =(const CNIDevice&);
     int UnallocateDevice(void);
 protected:
+    /** Class's ID */
     static unsigned long ulClassID;
+    /** Class's name */
     static char strClassName[];
 public:
     /* constructors */
