@@ -6,6 +6,11 @@
  *  Description : CCIFInterface class implementation.                       *
  ****************************************************************************/
 
+/**
+ * @file ccifintf.cpp
+ * CCIFInterface class implementation.
+ */
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -48,12 +53,27 @@ typedef unsigned long       DWORD;
 unsigned long CCIFInterface::ulClassID = 402;
 char CCIFInterface::strClassName[] = "CCIFInterface";
 
+/**
+ * @brief Default constructor
+ *
+ * Initializes members accordingly.
+ */
 CCIFInterface::CCIFInterface() : CInterface() {
     usBoardNum = 0;
     bAutoClear = false; /* default */
     usInputOffset = usOutputOffset = 0;
 }
 
+/**
+ * @brief Constructor with parameters
+ *
+ * Initializes members from parameters.
+ * @param ucMID MAC ID of the interface node.
+ * @param ucCCS Consumed connection size of the interface node.
+ * @param ucPCS Produced connection size of the interface node.
+ * @param ucBR Baud rate for interface.
+ * @param usBrdNum Board number. Must be a number between 0 and 3.
+ */
 CCIFInterface::CCIFInterface(
     unsigned char  ucMID,
     unsigned char  ucCCS,
@@ -67,26 +87,53 @@ CCIFInterface::CCIFInterface(
     usInputOffset = usOutputOffset = 0;
 }
 
+/**
+ * @brief Sets Hilscher board number.
+ *
+ * Used to set the number of the Hilscher board.
+ * @param usBrdNum Hilscher board number. Must be a value between 0 and 3.
+ */
 void CCIFInterface::SetBoardNum(unsigned short usBrdNum) {
     if ( !bActive && (usBrdNum < MAX_DEV_BOARDS) )
         usBoardNum = usBrdNum;
 }
 
+/**
+ * @brief Sets AutoClear flag
+ *
+ * Used to set the value of AutoClear flag.
+ * @param bAutoClr True or false.
+ */
 void CCIFInterface::SetAutoClear(bool bAutoClr) {
     if ( !bActive )
         bAutoClr ? bAutoClear = DNM_ACLR_ACTIVE : bAutoClear = DNM_ACLR_INACTIVE;
 }
 
+/**
+ * Checks if class can identify itself with the specified number. If not
+ * then passes the check to the base class.
+ * @param ulCompareID ID to be compared.
+ * @return True when match otherwise false.
+ */
 bool CCIFInterface::IsA(unsigned long ulCompareID) const {
     return ( ulCompareID == ulClassID ) ? true : CInterface::IsA(ulCompareID);
 }
 
+/**
+ * Checks if class can identify itself with the specified name. If not
+ * then passes the check to the base class.
+ * @param strCompareName Name to be compared.
+ * @return True when match otherwise false.
+ */
 bool CCIFInterface::IsA(const char *strCompareName) const {
     return ( !strcmp(strClassName, strCompareName) ) ? true : CInterface::IsA(strCompareName);
 }
 
-/* Function: CCIFInterface::SetProtocolParameters
- * Purpose : Set protocol parameters in DEVICE.
+/**
+ * @brief Writes communication protocol parameters in device
+ *
+ * Prepares communication parameters and writes them to the board.
+ * @return Error from \ref SetError function.
  */
 inline int CCIFInterface::SetProtocolParameters(void) {
     short sStatus = 0;
@@ -106,8 +153,11 @@ inline int CCIFInterface::SetProtocolParameters(void) {
     return SetError(ERR_CIF, sStatus, 0, usBoardNum, ucMacID);
 }
 
-/* Function: CCIFInterface::ClearDEVDB
- * Purpose : Clear the DEVICE DataBase.
+/**
+ * @brief Clears device's DataBase
+ *
+ * Prepares RCS message for clearing of database and sends it to device.
+ * @return Error from \ref SetError function.
  */
 inline int CCIFInterface::ClearDEVDB(void) {
     int   iErr    = 0;
@@ -131,8 +181,12 @@ inline int CCIFInterface::ClearDEVDB(void) {
     return SetError(ERR_CIF, sStatus, MsgBuf.f, usBoardNum, ucMacID);
 }
 
-/* Function: CCIFInterface::DownloadParameters
- * Purpose : Download parameters to DEVICE.
+/**
+ * @brief Downloads parameters to device.
+ *
+ * Prepares RCS message with download request for setting bus parameters and
+ * sends the message to devlice.
+ * @return Error from \ref SetError function.
  */
 inline int CCIFInterface::DownloadParameters(void) {
     short                sStatus       = 0;
@@ -178,11 +232,13 @@ inline int CCIFInterface::DownloadParameters(void) {
     return iErr;
 }
 
-/* Function: CCIFInterface::Open
- * Purpose : Configure and get operative a CIF DEVICE.
- * Remarks : This function uses algorithm for configuring and getting operative
- *           a CIF DEVICE described in the document "DeviceNet Master -
- *           Protocol Interface Manual" (dnm_pim.pdf) on page 85 (7.1).
+/**
+ * @brief Configures and gets operative a CIF device.
+ *
+ * This function uses algorithm for configuring and getting operative
+ * a CIF DEVICE described in the document "DeviceNet Master -
+ * Protocol Interface Manual" (dnm_pim.pdf) on page 85 (7.1).
+ * @return Error from \ref SetError function.
  */
 int CCIFInterface::Open(void) {
     short           sStatus = 0;
@@ -251,8 +307,12 @@ int CCIFInterface::Open(void) {
     return iErr;
 }
 
-/* Function: CCIFInterface::Close
- * Purpose : Stop communication and exit board.
+/**
+ * @brief Stops communication and exits the board.
+ *
+ * The function sets host's state to 'not ready', closes the connection to
+ * the device board and closes the connection to the driver.
+ * @return Error from \ref SetError function.
  */
 int CCIFInterface::CloseInterface(void) {
     int iErr = 0;
@@ -277,10 +337,25 @@ int CCIFInterface::CloseInterface(void) {
     return iErr;
 }
 
+/**
+ * @brief Stops communication on interface
+ * @return Error from \ref SetError function.
+ */
 int CCIFInterface::Close(void) {
   return CloseInterface();
 }
 
+/**
+ * @brief Resets the device board
+ *
+ * If not active this function opens a connection to the device driver and
+ * initializes the board. Then makes reset of the device with the specified
+ * reset mode. Finally if not active closes the connection to the board and
+ * the device driver.
+ * @param vpParam Reset mode. Could be either BOOTSTART, COLDSTART or
+ * WARMSTART (defined in cif_user.h).
+ * @return Error from \ref SetError function.
+ */
 int CCIFInterface::Reset(void *vpParam) {
     short sStatus            = 0;
     int iErr                 = 0;
@@ -337,6 +412,11 @@ int CCIFInterface::Reset(void *vpParam) {
     return iErr;
 }
 
+/**
+ * @brief Destructor.
+ *
+ * Closes the interface if active.
+ */
 CCIFInterface::~CCIFInterface() {
     if ( bActive )
         CloseInterface();
