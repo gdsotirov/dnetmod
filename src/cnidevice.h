@@ -30,8 +30,9 @@
 /**
  * @brief Represents a device connected to a National Instruments board.
  *
- * This class is a shell for a slave device attached to National Instruments
- * interfaces.
+ * This class is a shell for a slave device attached to NationalInstruments
+ * NI-DNET™ interface. It is designed to be used with CNIInterface class and
+ * the NI-DNET™ driver. This class is only available on Win32 platform.
  * @remark Copy constructor and assignment operator not supported for this class.
  */
 class DNETMOD_API CNIDevice : public CDevice {

@@ -25,9 +25,11 @@
 /**
  * @brief Representation of National Instruments DeviceNet interface
  *
- * This class is shell for the National Instruments interface boards. It is based
- * on CInterface class and uses NI device drivers for Win32.
- * @remark Copy constructor and assignment operator not supported for this class.
+ * This class is a shell for NationalInstruments NI-DNET™ interface. It is
+ * based on CInterface class and is available only on Win32 platform, because
+ * the C API of the interface driver is only for this platform.
+ * @remark Copy constructor and assignment operator not supported for
+ * this class.
  */
 class DNETMOD_API CNIInterface : public CInterface {
 private:
