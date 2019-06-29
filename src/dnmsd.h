@@ -7,11 +7,18 @@
  *                names (incomplete).                                       *
  ****************************************************************************/
 
+/**
+ * @file dnmsd.h
+ * @brief Vendor names and device types names (incomplete).
+ */
+
 #ifndef DNETMOD_STATIC_DATA_HEADER
 #define DNETMOD_STATIC_DATA_HEADER 1
 
-/* Vendor names as specified by ODVA (www.odva.org)
-   Updated: 2002-12-04 07:45 GMT */
+/**
+ * Vendor names as specified by ODVA (www.odva.org)
+ * @remark Updated: 2002-12-04 07:45 GMT
+ */
 const char *VendStr[] = {
     /* Vend ID  Vendor string */
     /* 000 */   "Reserved",
@@ -846,6 +853,9 @@ const char *VendStr[] = {
     /* 829 */   "Rockwell Samsung Automation"
 };
 
+/**
+ * Device types
+ */
 const char *DevTypeStr[] = {
     /* 00 */    "Generic Device",
     /* 01 */    "-",

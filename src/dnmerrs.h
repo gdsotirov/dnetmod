@@ -6,6 +6,11 @@
  *  Description : Error codes and error message formats for the module.     *
  ****************************************************************************/
 
+/**
+ * @file dnmerrs.h
+ * @brief Error codes and error message formats for the module.
+ */
+
 #ifndef DNETMOD_ERRORS_HEADER
 #define DNETMOD_ERRORS_HEADER 1
 
@@ -87,7 +92,7 @@
 #define DESTR_ALRREQ        "Already in request mode"
 #define DESTR_STATCONFL     "Object state conflict"
 #define DESTR_ATTNOTSET     "Attribute not settable"
-#define DESTR_PERM          "Permision check failed"
+#define DESTR_PERM          "Permission check failed"
 #define DESTR_SPE           "State prohibits the execution"
 #define DESTR_NORESP        "No response from device"
 #define DESTR_NED           "Not enough data received"
@@ -103,13 +108,13 @@
 #define ESTR_DRV_INIT_STATE_ERROR                    "(DRIVER) Error in internal init state"
 #define ESTR_DRV_READ_STATE_ERROR                    "(DRIVER) Error in internal read state"
 #define ESTR_DRV_CMD_ACTIVE                          "(DRIVER) Command on this channel is active"
-#define ESTR_DRV_PARAMETER_UNKNOWN                   "(DRIVER) Unknown parameter in function occured"
+#define ESTR_DRV_PARAMETER_UNKNOWN                   "(DRIVER) Unknown parameter in function occurred"
 #define ESTR_DRV_WRONG_DRIVER_VERSION                "(DRIVER) Version is incompatible with DLL"
 #define ESTR_DRV_PCI_SET_CONFIG_MODE                 "(DRIVER) Error during PCI set run mode"
 #define ESTR_DRV_PCI_READ_DPM_LENGTH                 "(DRIVER) Could not read PCI dual port memory length"
 #define ESTR_DRV_PCI_SET_RUN_MODE                    "(DRIVER) Error during PCI set run mode"
 
-#define ESTR_DRV_DEV_DPM_ACCESS_ERROR                "(DEVICE) Dual port ram not accessable(board not found)"
+#define ESTR_DRV_DEV_DPM_ACCESS_ERROR                "(DEVICE) Dual port ram not accessible (board not found)"
 #define ESTR_DRV_DEV_NOT_READY                       "(DEVICE) Not ready (ready flag failed)"
 #define ESTR_DRV_DEV_NOT_RUNNING                     "(DEVICE) Not running (running flag failed)"
 #define ESTR_DRV_DEV_WATCHDOG_FAILED                 "(DEVICE) Watchdog test failed"
@@ -157,10 +162,10 @@
 
 #define ESTR_DEV_NOT_RESPONDING                      "Device not responding"
 #define ESTR_DEV_ATTR_ACCESS_DENIED                   "Device has denied write access to configured attribute"
-#define ESTR_DEV_CONN_LEN_DIFF                       "Configured and actual connection lenghts differs"
+#define ESTR_DEV_CONN_LEN_DIFF                       "Configured and actual connection lengths differs"
 
 #define ESTR_TASK_F_UNKNOWN_MODE                     "Unknown handshake mode configured"
-#define ESTR_TASK_F_BAUDRATE_OUT_RANGE               "Configured baudrate not supported"
+#define ESTR_TASK_F_BAUDRATE_OUT_RANGE               "Configured baud rate not supported"
 #define ESTR_TASK_F_OWN_MAC_ID_OUT_RANGE             "DEVICE MAC-ID out of range"
 #define ESTR_TASK_F_DUPLICATE_MAC_ID                 "Duplicate MAC-ID detected"
 #define ESTR_TASK_F_NO_DEV_TAB                       "Data base in the DEVICE has no entries included"
@@ -179,7 +184,7 @@
 #define ESTR_TASK_F_WRONG_TYPE_OF_CONNECTION         "One predefined connection type is unknown"
 #define ESTR_TASK_F_TYPE_CONNECTION_REDEFINITION     "Multiple connections defined in parallel"
 #define ESTR_TASK_F_EXP_PACKET_LESS_PROD_INHIBIT     "Configured EXP_PCKT_RATE less then PROD_INHIBIT_TIME"
-#define ESTR_TASK_F_PRM_FIELD_LEN_INCONSISTENT       "Parameter field DNM_SET_ATTR_DATA in data set inconsitent"
+#define ESTR_TASK_F_PRM_FIELD_LEN_INCONSISTENT       "Parameter field DNM_SET_ATTR_DATA in data set inconsistent"
 #define ESTR_TASK_F_NO_CAN                           "No device responding on CAN network at cfgured baudrate"
 #define ESTR_TASK_F_DATA_AREA                        "Illegal address area"
 #define ESTR_TASK_F_DATA_ADR                         "Overflow in the buffer length"
