@@ -170,9 +170,6 @@ int CNIDevice::Unallocate(void) {
   return UnallocateDevice();
 }
 
-/* Function: CNIDevice::ReadIOData
- * Purpose : Read data from device using I/O messaging object.
- */
 /**
  * @brief Reads data from NI device.
  *
@@ -212,9 +209,6 @@ int CNIDevice::ReadIOData(unsigned long ulBufSz, void *pvBuf) {
     else return SetError(ERR_INVPTR, ucMacID, "pInterface", pInterface);
 }
 
-/* Function: CNIDevice::WriteIOData
- * Purpose : Write data to device using I/O object.
- */
 /**
  * @brief Writes data to NI device
  *
@@ -245,9 +239,6 @@ int CNIDevice::WriteIOData(unsigned long ulBufSz, void *pvBuf) {
     else return SetError(ERR_INVPTR, ucMacID, "pInterface", pInterface);
 }
 
-/* Function: CNIDevice::GetAttribute
- * Purpose : Read device attrubute using Get_Attribute_Single service.
- */
 /**
  * @brief Reads NI device attribute
  *
@@ -336,9 +327,6 @@ int CNIDevice::SetAttribute(
     else return SetError(ERR_INVPTR, ucMacID, "pInterface", pInterface);
 }
 
-/* Function: CNIDevice::ExecService
- * Purpose : Execute DeviceNet service for the device.
- */
 /**
  * @brief Execute DeviceNet™ service in the NI device.
  *

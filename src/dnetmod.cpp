@@ -63,9 +63,6 @@ int DNETMOD_CC VendIdToString(
     }
 }
 
-/* Function: DevTypeToString
- * Purpose : Retrive device type string from device type ID.
- */
 /**
  * @brief Retrieves device type string from device type ID
  * @param usDvType Device type identifier.

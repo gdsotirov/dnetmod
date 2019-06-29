@@ -115,9 +115,6 @@ bool CNIInterface::IsA(const char *strCompareName) const {
     return ( !strcmp(strClassName, strCompareName) ) ? true : CInterface::IsA(strCompareName);
 }
 
-/* Function: CNIInterface::Open
- * Purpose : Open NI-DNET interface object and start communication.
- */
 /**
  * @brief Configure interface and start communication
  *
@@ -147,9 +144,11 @@ int CNIInterface::Open(void) {
     return iErr;
 }
 
-/* Function: CNIInterface::Close
- * Purpose : Stop communication on the interface and close NIDNET interface
- *           object.
+/**
+ * @brief Stops communication on NI-DNET™ interface
+ *
+ * Stops communication on the interface and closes NIDNET interface object.
+ * @return
  */
 int CNIInterface::CloseInterface(void) {
     int iErr = 0;
@@ -171,12 +170,17 @@ int CNIInterface::CloseInterface(void) {
     return iErr;
 }
 
+/**
+ * @brief Stops communication on interface
+ * @return Error from \ref SetError function.
+ */
 int CNIInterface::Close(void) {
   return CloseInterface();
 }
 
-/* Function: CNIInterface::Reset
- * Purpose : Reset the NI-DNET interface.
+/**
+ * @brief Reset the NI-DNET™ interface
+ * @return Error from \ref SetError function.
  */
 int CNIInterface::Reset(void *) {
     int iStatus = 0;
@@ -187,6 +191,11 @@ int CNIInterface::Reset(void *) {
     return SetError(ERR_NIDNET, iStatus, ucIntfID, ucMacID);
 }
 
+/**
+ * @brief Destructor
+ *
+ * Closes the NI-DNET™ interface if active.
+ */
 CNIInterface::~CNIInterface() {
     if ( bActive )
         CloseInterface();
