@@ -6,6 +6,11 @@
  *  Description : CNIInterface class implementation.                        *
  ****************************************************************************/
 
+/**
+ * @file cniintf.cpp
+ * CNIInterface class implementation.
+ */
+
 #include <stdlib.h>
 #include <string.h>
 
@@ -15,10 +20,16 @@
 
 #include "nidnet.h"
 
+/** Baud rate 125 Kb */
 #define BAUD_125K           1
+/** Baud rate 250 Kb */
 #define BAUD_250K           2
+/** Baud rate 500 Kb */
 #define BAUD_500K           3
 
+/**
+ * @brief Converts module baud rate to NI constant
+ */
 #define BR_TO_CONST(br) (                                   \
     (br == DEVICENET_BAUD_500K) ? BAUD_500K :               \
     (br == DEVICENET_BAUD_250K) ? BAUD_250K : BAUD_125K )
@@ -26,11 +37,24 @@
 unsigned long CNIInterface::ulClassID = 401;
 char CNIInterface::strClassName[] = "CNIInterface";
 
+/**
+ * @brief Default constructor.
+ *
+ * Initializes members accordingly.
+ */
 CNIInterface::CNIInterface() : CInterface() {
     ucIntfID = 0;
     ulNIDNET_ID = 0;
 }
 
+/**
+ * @brief Constructor with parameters.
+ *
+ * Initializes members from parameters.
+ * @param ucMID MAC ID of the interface node.
+ * @param ucBR Boud rate.
+ * @param ucIID Interface's identifier.
+ */
 CNIInterface::CNIInterface(
     unsigned char ucMID,
     unsigned char ucBR,
@@ -41,11 +65,24 @@ CNIInterface::CNIInterface(
     ulNIDNET_ID = 0;
 }
 
+/**
+ * @brief Sets interface's identifier
+ *
+ * Sets interface's identifier if not active and lower then 32.
+ * @param ucIID Interface's identifier
+ */
 void CNIInterface::SetIntfID(unsigned char ucIID) {
     if ( !bActive && (ucIID < 32) )
         ucIntfID = ucIID;
 }
 
+/**
+ * @brief Retrieves interface's name
+ *
+ * Construct interface's name as dnetNN, where NN is interface's identifier.
+ * @param ulStrSz Size of the character buffer provided as next parameter.
+ * @param strName Character buffer for the name.
+ */
 void CNIInterface::GetName(unsigned long ulStrSz, char *strName) {
     char strIName[7] = "dnet";
     char strID[3] = {0};
@@ -55,16 +92,34 @@ void CNIInterface::GetName(unsigned long ulStrSz, char *strName) {
     strncpy(strName, strIName, ulStrSz);
 }
 
+/**
+ * Checks if class can identify itself with the specified number. If not
+ * then passes the check to the base class.
+ * @param ulCompareID ID to be compared.
+ * @return True when match otherwise false.
+ */
 bool CNIInterface::IsA(unsigned long ulCompareID) const {
     return ( ulCompareID == ulClassID ) ? true : CInterface::IsA(ulCompareID);
 }
 
+/**
+ * Checks if class can identify itself with the specified name. If not
+ * then passes the check to the base class.
+ * @param strCompareName Name to be compared.
+ * @return True when match otherwise false.
+ */
 bool CNIInterface::IsA(const char *strCompareName) const {
     return ( !strcmp(strClassName, strCompareName) ) ? true : CInterface::IsA(strCompareName);
 }
 
 /* Function: CNIInterface::Open
  * Purpose : Open NI-DNET interface object and start communication.
+ */
+/**
+ * @brief Configure interface and start communication
+ *
+ * Open NI-DNET interface object and starts communication.
+ * @return Error from \ref SetError function.
  */
 int CNIInterface::Open(void) {
     int iErr = 0;

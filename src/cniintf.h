@@ -6,6 +6,11 @@
  *  Description : CNIInterface class declaration.                           *
  ****************************************************************************/
 
+/**
+ * @file cniintf.h
+ * CNIInterface class declaration.
+ */
+
 #ifndef CNIINTF_H
 #define CNIINTF_H 1
 
@@ -17,20 +22,25 @@
 
 #include "cintf.h"
 
-/* Class   : CNIInterface
- * Purpose : Representation of National Instruments DeviceNet interface.
+/**
+ * @brief Representation of National Instruments DeviceNet interface
+ *
+ * This class is shell for the National Instruments interface boards. It is based
+ * on CInterface class and uses NI device drivers for Win32.
+ * @remark Copy constructor and assignment operator not supported for this class.
  */
 class DNETMOD_API CNIInterface : public CInterface {
 private:
     unsigned char ucIntfID;
     unsigned long ulNIDNET_ID;
 private:
-    /* Copy constructor and assignment operator not supported for this class */
     CNIInterface(const CNIInterface&);
     CNIInterface& operator =(const CNIInterface&);
     int CloseInterface(void);
 protected:
+    /** Class's ID */
     static unsigned long ulClassID;
+    /** Class's name */
     static char strClassName[];
 public:
     /* constructors */
@@ -50,6 +60,10 @@ public:
     virtual ~CNIInterface();
 };
 
+/**
+ * @brief Retrieves interface's identifier
+ * @return Interface's identifier
+ */
 inline unsigned char CNIInterface::GetIntfID(void) const {
     return ucIntfID;
 }
