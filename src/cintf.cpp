@@ -6,10 +6,18 @@
  *  Description : CInterface class implementation.                          *
  ****************************************************************************/
 
+/**
+ * @file cintf.cpp
+ * CInterface class implementation.
+ */
+
 #include <string.h>
 
 #include "cintf.h"
 
+/**
+ * @brief Validates baud rate values
+ */
 #define VALID_BR(br) ( ucBR == DEVICENET_BAUD_125K ||\
                        ucBR == DEVICENET_BAUD_250K ||\
                        ucBR == DEVICENET_BAUD_500K )
@@ -17,10 +25,29 @@
 unsigned long CInterface::ulClassID = 301;
 char CInterface::strClassName[] = "CInterface";
 
+/**
+ * @brief Default constructor
+ *
+ * Initializes members accordingly.
+ */
 CInterface::CInterface() : CNode() {
     ucBaudRate = 0;
 }
 
+/**
+ * @brief Constructor with parameters
+ *
+ * First three parameters are for initializing of CNode.
+ * @param ucMID MAC ID of the node.
+ * @param ucCCS Consumed connection size of the node.
+ * @param ucPCS Produced connection size of the node.
+ * @param ucBR Baud rate for the interface. Possible values are defined as constants in dnmdefs.h:
+ * <ul>
+ * <li><code>DEVICENET_BAUD_125K</code> - for 125 000 bytes per second</li>
+ * <li><code>DEVICENET_BAUD_250K</code> - for 250 000 bytes per second</li>
+ * <li><code>DEVICENET_BAUD_500K</code> - for 500 000 bytes per second</li>
+ * </ul>
+ */
 CInterface::CInterface(
     unsigned char ucMID,
     unsigned char ucCCS,
@@ -31,19 +58,48 @@ CInterface::CInterface(
     SetBaudRate(ucBR);
 }
 
+/**
+ * @brief Set baud rate for the interface
+ *
+ * Use this functions to set baud rate of the interface.
+ * @remark The function will set the new value only if the interface is not
+ * active.
+ * @param ucBR New baud rate of the interface.
+ */
 void CInterface::SetBaudRate(unsigned char ucBR) {
     if ( !bActive && VALID_BR(ucBR) )
         ucBaudRate = ucBR;
     else ucBaudRate = DEVICENET_BAUD_250K; /* default */
 }
 
+/**
+ * Checks if class can identify itself with the specified number. If not
+ * then passes the check to the base class.
+ * @param ulCompareID ID to be compared.
+ * @return True when match otherwise false.
+ */
 bool CInterface::IsA(unsigned long ulCompareID) const {
     return (ulCompareID == ulClassID) ? true : CIdentificator::IsA(ulCompareID);
 }
 
+/**
+ * Checks if class can identify itself with the specified name. If not
+ * then passes the check to the base class.
+ * @param strCompareName Name to be compared.
+ * @return True when match otherwise false.
+ */
 bool CInterface::IsA(const char *strCompareName) const {
     return ( !strcmp(strClassName, strCompareName) ) ? true : CIdentificator::IsA(strCompareName);
 }
 
+/**
+ * @brief Destructor
+ *
+ * Does nothing.
+ * @remarks It is good to stop communication on the interface and to do
+ * finalization on it when destroying an object of class descended from
+ * CInterface. A call to Close method, if not invoked by the user, is proposed
+ * for implementing in descendants destructors.
+ */
 CInterface::~CInterface() {}
 
