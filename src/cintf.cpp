@@ -18,9 +18,9 @@
 /**
  * @brief Validates baud rate values
  */
-#define VALID_BR(br) ( ucBR == DEVICENET_BAUD_125K ||\
-                       ucBR == DEVICENET_BAUD_250K ||\
-                       ucBR == DEVICENET_BAUD_500K )
+#define VALID_BR(br) ( br == DEVICENET_BAUD_125K ||\
+                       br == DEVICENET_BAUD_250K ||\
+                       br == DEVICENET_BAUD_500K )
 
 unsigned long CInterface::ulClassID = 301;
 char CInterface::strClassName[] = "CInterface";
@@ -41,12 +41,7 @@ CInterface::CInterface() : CNode() {
  * @param ucMID MAC ID of the node.
  * @param ucCCS Consumed connection size of the node.
  * @param ucPCS Produced connection size of the node.
- * @param ucBR Baud rate for the interface. Possible values are defined as constants in dnmdefs.h:
- * <ul>
- * <li><code>DEVICENET_BAUD_125K</code> - for 125 000 bytes per second</li>
- * <li><code>DEVICENET_BAUD_250K</code> - for 250 000 bytes per second</li>
- * <li><code>DEVICENET_BAUD_500K</code> - for 500 000 bytes per second</li>
- * </ul>
+ * @param ucBR Baud rate for the interface. Possible values are same as for CInterface::SetBaudRate.
  */
 CInterface::CInterface(
     unsigned char ucMID,
@@ -61,10 +56,16 @@ CInterface::CInterface(
 /**
  * @brief Set baud rate for the interface
  *
- * Use this functions to set baud rate of the interface.
+ * Use this functions to set baud rate of the interface. If provided baud rate
+ * is invalid the function sets baud rate of 250 Kb.
  * @remark The function will set the new value only if the interface is not
  * active.
- * @param ucBR New baud rate of the interface.
+ * @param ucBR New baud rate of the interface. Possible values are defined as constants in dnmdefs.h:
+ * <ul>
+ * <li><code>DEVICENET_BAUD_125K</code> - for 125 000 bytes per second</li>
+ * <li><code>DEVICENET_BAUD_250K</code> - for 250 000 bytes per second</li>
+ * <li><code>DEVICENET_BAUD_500K</code> - for 500 000 bytes per second</li>
+ * </ul>
  */
 void CInterface::SetBaudRate(unsigned char ucBR) {
     if ( !bActive && VALID_BR(ucBR) )
