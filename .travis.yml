@@ -3,10 +3,17 @@ compiler:
   - gcc
 os:
   - linux
+addons:
+  apt:
+    packages:
+    - doxygen
+    - graphviz
 branches:
   only:
     - master
 before_script:
   - pushd lib && ./get_deps.sh && popd
 script: make
+after_success:
+  - doxygen Doxyfile
 
