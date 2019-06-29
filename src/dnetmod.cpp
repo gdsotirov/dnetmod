@@ -8,7 +8,7 @@
 
 /**
  * @file dnetmod.cpp
- * Implementation of common module functions.
+ * @brief Implementation of common module functions.
  */
 
 #include <stdio.h>

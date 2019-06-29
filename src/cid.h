@@ -8,7 +8,7 @@
 
 /**
  * @file cid.h
- * CIdentificator class declaration.
+ * @brief CIdentificator class declaration.
  */
 
 #ifndef CIDENTIFICATOR_H

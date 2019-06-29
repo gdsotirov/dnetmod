@@ -8,7 +8,7 @@
 
 /**
  * @file cintf.h
- * CInterface class declaration.
+ * @brief CInterface class declaration.
  */
 
 #ifndef CINTERFACE_H

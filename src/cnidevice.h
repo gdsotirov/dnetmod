@@ -8,7 +8,7 @@
 
 /**
  * @file cnidevice.h
- * CNIDevice class declaration.
+ * @brief CNIDevice class declaration.
  */
 
 #ifndef CNIDEVICE_H

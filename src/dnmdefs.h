@@ -8,7 +8,7 @@
 
 /**
  * @file dnmdefs.h
- * Definitions for the module.
+ * @brief Definitions for the module.
  */
 
 #ifndef DNETMOD_DEFINITIONS_HEADER

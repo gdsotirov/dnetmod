@@ -8,7 +8,7 @@
 
 /**
  * @file cniintf.cpp
- * CNIInterface class implementation.
+ * @brief CNIInterface class implementation.
  */
 
 #include <stdlib.h>
@@ -96,8 +96,9 @@ void CNIInterface::GetName(unsigned long ulStrSz, char *strName) {
 }
 
 /**
- * Checks if class can identify itself with the specified number. If not
- * then passes the check to the base class.
+ * @brief Checks if class can identify itself with the specified number.
+ *
+ * If not then passes the check to the base class.
  * @param ulCompareID ID to be compared.
  * @return True when match otherwise false.
  */
@@ -106,8 +107,9 @@ bool CNIInterface::IsA(unsigned long ulCompareID) const {
 }
 
 /**
- * Checks if class can identify itself with the specified name. If not
- * then passes the check to the base class.
+ * @brief Checks if class can identify itself with the specified name.
+ *
+ * If not then passes the check to the base class.
  * @param strCompareName Name to be compared.
  * @return True when match otherwise false.
  */

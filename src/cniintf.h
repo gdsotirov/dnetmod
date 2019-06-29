@@ -8,7 +8,7 @@
 
 /**
  * @file cniintf.h
- * CNIInterface class declaration.
+ * @brief CNIInterface class declaration.
  */
 
 #ifndef CNIINTF_H

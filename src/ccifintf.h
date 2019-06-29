@@ -8,7 +8,7 @@
 
 /**
  * @file ccifintf.h
- * CCIFInterface class declaration.
+ * @brief CCIFInterface class declaration.
  */
 
 #ifndef CCIFINTF_H

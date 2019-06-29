@@ -8,7 +8,7 @@
 
 /**
  * @file ccifdevice.cpp
- * CCIFDevice class implementation.
+ * @brief CCIFDevice class implementation.
  */
 
 #include <string.h>
@@ -181,8 +181,9 @@ int CCIFDevice::Diagnostics(void) {
 }
 
 /**
- * Checks if class can identify itself with the specified number. If not
- * then passes the check to the base class.
+ * @brief Checks if class can identify itself with the specified number.
+ *
+ * If not then passes the check to the base class.
  * @param ulCompareID ID to be compared.
  * @return True when match otherwise false.
  */
@@ -191,8 +192,9 @@ bool CCIFDevice::IsA(unsigned long ulCompareID) const {
 }
 
 /**
- * Checks if class can identify itself with the specified name. If not
- * then passes the check to the base class.
+ * @brief Checks if class can identify itself with the specified name.
+ *
+ * If not then passes the check to the base class.
  * @param strCompareName Name to be compared.
  * @return True when match otherwise false.
  */

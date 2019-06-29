@@ -8,7 +8,7 @@
 
 /**
  * @file cdevice.h
- * CDevice class declaration.
+ * @brief CDevice class declaration.
  */
 
 #ifndef CDEVICE_H

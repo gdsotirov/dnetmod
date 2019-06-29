@@ -8,7 +8,7 @@
 
 /**
  * @file cid.cpp
- * CIdentificator class implementation.
+ * @brief CIdentificator class implementation.
  */
 
 #include <string.h>

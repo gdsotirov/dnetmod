@@ -8,7 +8,7 @@
 
 /**
  * @file ccifdevice.h
- * CCIFDevice class declaration.
+ * @brief CCIFDevice class declaration.
  */
 
 #ifndef CCIFDEVICE_H

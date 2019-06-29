@@ -8,7 +8,7 @@
 
 /**
  * @file dnetmod.h
- * Main header file for the module.
+ * @brief Main header file for the module.
  */
 
 #ifndef DNETMOD_H

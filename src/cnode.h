@@ -8,7 +8,7 @@
 
 /**
  * @file cnode.h
- * CNode class declaration.
+ * @brief CNode class declaration.
  */
 
 #ifndef CNODE_H
