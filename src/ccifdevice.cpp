@@ -6,6 +6,11 @@
  *  Description : CCIFDevice class implementation.                          *
  ****************************************************************************/
 
+/**
+ * @file ccifdevice.cpp
+ * CCIFDevice class implementation.
+ */
+
 #include <string.h>
 
 #include "dnmdefs.h"
@@ -30,17 +35,25 @@
 #include "rcs_user.h"
 #include "dnm_user.h"
 
+/** Device 0 mask */
 #define DEV_0       0x01
+/** Device 1 mask */
 #define DEV_1       0x02
+/** Device 2 mask */
 #define DEV_2       0x04
+/** Device 3 mask */
 #define DEV_3       0x08
+/** Device 4 mask */
 #define DEV_4       0x10
+/** Device 5 mask */
 #define DEV_5       0x20
+/** Device 6 mask */
 #define DEV_6       0x40
+/** Device 7 mask */
 #define DEV_7       0x80
 
-/* Macro   : CT_TO_CT
- * Purpose : Translate DNetMod connection types to CIF connection types.
+/**
+ * @brief Translate DNetMod connection types to CIF connection types.
  */
 #define CT_TO_CT(ct, cif_ct) ( ( cif_ct = 0 )                        ,   \
     ( ct & DEVICENET_CONN_POLLED ) ? cif_ct |= DNM_TYPE_POLLED       :0, \
@@ -51,10 +64,26 @@
 unsigned long CCIFDevice::ulClassID = 352;
 char CCIFDevice::strClassName[] = "CCIFDevice";
 
+/**
+ * @brief Default constructor.
+ *
+ * Initializes members accordingly.
+ */
 CCIFDevice::CCIFDevice() : CDevice() {
     usInputOffset = usOutputOffset = 0;
 }
 
+/**
+ * @brief Constructor with parameters.
+ *
+ * Initializes members from parameters.
+ * @param ucMID MAC ID of the interface node.
+ * @param ucCCS Consumed connection size of the interface node.
+ * @param ucPCS Produced connection size of the interface node.
+ * @param ucCT Connection type.
+ * @param usEPR Expected Packed Rate (EPR) from device.
+ * @param pIntf Pointer to a CIF interface.
+ */
 CCIFDevice::CCIFDevice(
     unsigned char  ucMID,
     unsigned char  ucCCS,
@@ -66,6 +95,14 @@ CCIFDevice::CCIFDevice(
     usInputOffset = usOutputOffset = 0;
 }
 
+/**
+ * @brief Exchanges I/O data with the device
+ * @param bInput Flag determining whether to receive (true) or send (false)
+ * data from/to device.
+ * @param ulBufSz Exchange buffer size.
+ * @param pvBuf Pointer to exchange buffer.
+ * @return Error from \ref SetError function.
+ */
 inline int CCIFDevice::ExchangeIOData(
     bool          bInput,
     unsigned long ulBufSz,
@@ -98,6 +135,10 @@ inline int CCIFDevice::ExchangeIOData(
     return iErr;
 }
 
+/**
+ * @brief Gathers diagnostics data from the device and analyzes the output.
+ * @return Error from \ref SetError function.
+ */
 int CCIFDevice::Diagnostics(void) {
     short sStatus = 0;
     int iErr      = 0;
@@ -139,14 +180,34 @@ int CCIFDevice::Diagnostics(void) {
     return iErr;
 }
 
+/**
+ * Checks if class can identify itself with the specified number. If not
+ * then passes the check to the base class.
+ * @param ulCompareID ID to be compared.
+ * @return True when match otherwise false.
+ */
 bool CCIFDevice::IsA(unsigned long ulCompareID) const {
     return ( ulCompareID == ulClassID ) ? true : CDevice::IsA(ulCompareID);
 }
 
+/**
+ * Checks if class can identify itself with the specified name. If not
+ * then passes the check to the base class.
+ * @param strCompareName Name to be compared.
+ * @return True when match otherwise false.
+ */
 bool CCIFDevice::IsA(const char *strCompareName) const {
     return ( !strcmp(strClassName, strCompareName) ) ? true : CDevice::IsA(strCompareName);
 }
 
+/**
+ * @brief Allocates a CIF device on the network
+ *
+ * The function prepares an RCS message with a download request to set device
+ * parameters and sends it to device. Then checks whether device is configured
+ * and I/O connection is established to set the active flag.
+ * @return Error from \ref SetError function.
+ */
 int CCIFDevice::Allocate(unsigned char /*ucFlags*/) {
     int iErr = 0;
 
@@ -361,6 +422,13 @@ int CCIFDevice::Allocate(unsigned char /*ucFlags*/) {
     return iErr;
 }
 
+/**
+ * @brief Unallocates the CIF device.
+ *
+ * The function initializes slave status buffer, changes device I/O connection
+ * status bit to 0 (off) and writes slave status buffer to the board.
+ * @return Error from \ref SetError function.
+ */
 int CCIFDevice::UnallocateDevice(void) {
     int iErr = 0;
 
@@ -378,7 +446,7 @@ int CCIFDevice::UnallocateDevice(void) {
             if ( sStatus < 0 || sStatus >= DRV_RCS_ERROR_OFFSET )
                 return iErr;
 
-            // Change device I/O connection status bit ot 0 (off)
+            // Change device I/O connection status bit to 0 (off)
             switch ( ucMacID % 8 ) {
                 case 0: *ucBytePtr &= ~DEV_0;
                         break;
@@ -415,18 +483,47 @@ int CCIFDevice::UnallocateDevice(void) {
     return iErr;
 }
 
+/**
+ * @brief Unalloates the CIF device.
+ * @return Error from \ref SetError function.
+ */
 int CCIFDevice::Unallocate(void) {
   return UnallocateDevice();
 }
 
+/**
+ * @brief Reads I/O data from the CIF device
+ * @param ulBufSz Size of the buffer.
+ * @param pvBuf Pointer to the buffer where to store read I/O data.
+ * @return Error from \ref SetError function.
+ */
 int CCIFDevice::ReadIOData(unsigned long ulBufSz, void *pvBuf) {
     return ExchangeIOData(true, ulBufSz, pvBuf);
 }
 
+/**
+ * @brief Writes I/O data to the CIF device
+ * @param ulBufSz Size of the buffer.
+ * @param pvBuf Pointer to the buffer from where to read I/O data.
+ * @return Error from \ref SetError function.
+ */
 int CCIFDevice::WriteIOData(unsigned long ulBufSz, void *pvBuf) {
     return ExchangeIOData(false, ulBufSz, pvBuf);
 }
 
+/**
+ * @brief Reads attribute from the CIF device
+ *
+ *  The function prepares a message telegram with function TASK_TFC_READ and
+ * sends it to device.
+ * @param usClsId Class identifier of the attribute.
+ * @param usInstId Instance identifier of the attribute.
+ * @param ucAttrId Attribute identifier.
+ * @param usDataSz Length in bytes of the attribute data.
+ * @param pvData Pointer to a buffer where to copy attribute data.
+ * @param pusActDataSz Actual size of the attribute data in bytes.
+ * @return Error from \ref SetError function.
+ */
 int CCIFDevice::GetAttribute(
     unsigned short usClsId,
     unsigned short usInstId,
@@ -491,6 +588,18 @@ int CCIFDevice::GetAttribute(
     return iErr;
 }
 
+/**
+ * @brief Writes attribute in the CIF device
+ *
+ * The function prepares a message telegram with function TASK_TFC_WRITE and
+ * sends it to device.
+ * @param usClsId Class identifier of the parameter.
+ * @param usInstId Instance identifier of the parameter.
+ * @param ucAttrId Parameter identifier.
+ * @param usDataSz Size of parameter's data in bytes.
+ * @param pvData Pointer to a buffer where to copy parameter's data.
+ * @return Error from \ref SetError function.
+ */
 int CCIFDevice::SetAttribute(
     unsigned short usClsId,
     unsigned short usInstId,
@@ -548,6 +657,18 @@ int CCIFDevice::SetAttribute(
     return iErr;
 }
 
+/**
+ * @brief Execute DeviceNet™ service in the CIF device.
+ *
+ * The function prepares a message telegram with function's code and sends
+ * it to device.
+ * @param ucSrvCode Service code.
+ * @param usClsId Class identifier of the service.
+ * @param usInstId Instance identifier of the service.
+ * @param usDataSz Size of service's data in bytes.
+ * @param pvData Pointer to a buffer where to copy service's data.
+ * @return Error from \ref SetError function.
+ */
 int CCIFDevice::ExecService(
     unsigned char  ucSrvCode,
     unsigned short usClsId,
@@ -606,12 +727,23 @@ int CCIFDevice::ExecService(
     return iErr;
 }
 
+/**
+ * @brief Resets the CIF device.
+ *
+ * Executes service 5 with empty character buffer. Calls CCIFDevice::ExecService.
+ * @return
+ */
 int CCIFDevice::Reset(void) {
     char cBuf = 0;
 
     return ExecService(5, 1, 1, sizeof(cBuf), &cBuf);
 }
 
+/**
+ * @brief Destructor
+ *
+ * Unallocats device if active.
+ */
 CCIFDevice::~CCIFDevice() {
     if ( bActive )
         UnallocateDevice();

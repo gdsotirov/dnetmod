@@ -6,6 +6,11 @@
  *  Description : CCIFDevice class declaration.                             *
  ****************************************************************************/
 
+/**
+ * @file ccifdevice.h
+ * CCIFDevice class declaration.
+ */
+
 #ifndef CCIFDEVICE_H
 #define CCIFDEVICE_H 1
 
@@ -17,12 +22,19 @@
 
 #include "cdevice.h"
 
+/**
+ * @brief Represents a device connected to a Hilscher CIF board.
+ *
+ * This class is a shell for a slave device attached to the Hilscher
+ * CIF-*DNM interfaces.
+ * @remark Copy constructor and assignment operator not supported for
+ * this class.
+ */
 class DNETMOD_API CCIFDevice : public CDevice {
 private:
     unsigned short usInputOffset;
     unsigned short usOutputOffset;
 private:
-    /* Copy constructor and assignment operator not supported for this class */
     CCIFDevice(const CCIFDevice&);
     CCIFDevice& operator =(const CCIFDevice&);
 private:
@@ -30,7 +42,9 @@ private:
     int Diagnostics(void);
     int UnallocateDevice(void);
 protected:
+    /** Class's ID */
     static unsigned long ulClassID;
+    /** Class's name */
     static char strClassName[];
 public:
     /* constructors */
