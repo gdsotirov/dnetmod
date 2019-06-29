@@ -17,6 +17,14 @@
 
 #include "cdevice.h"
 
+/**
+ * @brief Validates connection type values
+ */
+#define VALID_CT(ct) ( ct == DEVICENET_CONN_POLLED ||\
+                       ct == DEVICENET_CONN_STRBED ||\
+                       ct == DEVICENET_CONN_COS    ||\
+                       ct == DEVICENET_CONN_CYCLIC )
+
 unsigned long CDevice::ulClassID = 351;
 char CDevice::strClassName[] = "CDevice";
 
@@ -61,7 +69,8 @@ CDevice::CDevice(
  * @brief Sets connection type
  *
  * This functions can be used set the I/O connection type established to
- * device with CDevice::Allocate function.
+ * device with CDevice::Allocate function. If the provided connection type is
+ * invalid the function sets connection type Polled.
  * @remark Connection type can be set only if device is not active on
  * the network (i.e. not allocated).
  * @param ucCT Connection type to be set. Possible values for this parameter
@@ -74,8 +83,9 @@ CDevice::CDevice(
  * </ul>
  */
 void CDevice::SetConnType(unsigned char ucCT) {
-    if ( !bActive )
+    if ( !bActive && VALID_CT(ucCT) )
         ucConnType = ucCT;
+    else ucConnType = DEVICENET_CONN_POLLED; /* default */
 }
 
 /**
