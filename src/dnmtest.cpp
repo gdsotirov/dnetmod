@@ -6,27 +6,41 @@
  *  Description : Test application for the module.                          *
  ****************************************************************************/
 
+/**
+ * @file dnmtest.cpp
+ * @brief Test application for the module.
+ *
+ * Provides and interface to configure interface and device, read and write
+ * data, read and write of attributes and executions of services.
+ */
+
 #include <stdio.h>
 #include <string.h>
 
 #include "dnmerrs.h"
 #include "dnetmod.h"
 
+/** Maximum length of short values */
 #define DN_SHORTS_MAX_LEN 256
+/** Maximum length of bytes */
 #define DN_BYTES_MAX_LEN  256
 
+/**
+ * DeviceNet data types
+ */
 typedef enum DNTYPESTag {
-    DN_SINT,
-    DN_USINT,
-    DN_INT,
-    DN_UINT,
-    DN_DINT,
-    DN_UDINT,
-    DN_REAL,
-    DN_SHORTS,
-    DN_BYTES
+    DN_SINT,  //!< DN_SINT
+    DN_USINT, //!< DN_USINT
+    DN_INT,   //!< DN_INT
+    DN_UINT,  //!< DN_UINT
+    DN_DINT,  //!< DN_DINT
+    DN_UDINT, //!< DN_UDINT
+    DN_REAL,  //!< DN_REAL
+    DN_SHORTS,//!< DN_SHORTS
+    DN_BYTES  //!< DN_BYTES
 } DNTYPES;
 
+/** Accepts the result of getchar function called to clear the input buffer */
 int iBufClearCR = 0;
 
 void PrintError(int);
@@ -36,6 +50,10 @@ int PrintBuffer(DNTYPES, void *, unsigned short);
 unsigned char BaudRate(void);
 unsigned char ConnType(void);
 
+/**
+ * @brief Main test program
+ * @return Zero on success, non-zero otherwise.
+ */
 int main(void) {
     int i = 0;
     int iMRes = 0;
@@ -278,6 +296,12 @@ int main(void) {
     while ( iMRes != 'q' );
 } /* main */
 
+/**
+ * @brief Prints error message by code
+ *
+ * Prints the corresponding to the error code message.
+ * @param iErrCode Error code
+ */
 void PrintError(int iErrCode) {
     char strErrMsg[DNETMOD_MAX_ERRMSG_LEN];
 
@@ -287,6 +311,12 @@ void PrintError(int iErrCode) {
     printf("Message : %s\n", strErrMsg);
 }
 
+/**
+ * @brief Selects baud rate
+ *
+ * Manages proper selection of baud rate by the user.
+ * @return Baud rate identifier
+ */
 unsigned char BaudRate(void) {
     short val = 0;
 
@@ -311,6 +341,12 @@ unsigned char BaudRate(void) {
          else return DEVICENET_BAUD_125K;
 }
 
+/**
+ * @brief Selects connection type
+ *
+ * Manages proper selection of connection type by the user.
+ * @return Connection type identifier
+ */
 unsigned char ConnType(void) {
     unsigned short usChoice = 0;
     unsigned char  ucResult = 0;
@@ -343,6 +379,16 @@ unsigned char ConnType(void) {
     return ucResult;
 }
 
+/**
+ * @brief Sets buffer length
+ *
+ * Manages proper selection of data type by the user and allocates
+ * the necessary buffer.
+ * @param pBuf Pointer to the buffer.
+ * @param Type Data type identifier.
+ * @param pusBufLen Size of the buffer in bytes.
+ * @return Zero on success, non-zero otherwise.
+ */
 int SetBufferLen(void **pBuf, DNTYPES *Type, unsigned short *pusBufLen) {
     int iRes = 0;
 
@@ -435,6 +481,16 @@ int SetBufferLen(void **pBuf, DNTYPES *Type, unsigned short *pusBufLen) {
     return 0;
 }
 
+/**
+ * @brief Sets buffer value
+ *
+ * Manages reading data for the buffer depending on the data type and stores
+ * the value in the buffer.
+ * @param buf Pinter to the buffer.
+ * @param typ Data type identifier.
+ * @param cbytes Size of the buffer in bytes.
+ * @return
+ */
 int SetBufferValue(void **buf, DNTYPES typ, unsigned short cbytes) {
     int lval;
     float fval;
@@ -498,6 +554,15 @@ int SetBufferValue(void **buf, DNTYPES typ, unsigned short cbytes) {
     return 0;
 }
 
+/**
+ * @brief Prints buffer
+ *
+ * Prints the value from the buffer properly depending on the data type.
+ * @param Type Data type.
+ * @param Buf Pointer to the buffer.
+ * @param usBufLen Size of the buffer in bytes.
+ * @return
+ */
 int PrintBuffer(DNTYPES Type, void *Buf, unsigned short usBufLen) {
     char * cBuf = NULLPTR(char);
 
