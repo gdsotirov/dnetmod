@@ -1,0 +1,13 @@
+# Doxyfile 1.8.9.1
+
+DOXYFILE_ENCODING      = UTF-8
+PROJECT_NAME           = "DNetMod (DeviceNet Module)"
+PROJECT_BRIEF          = "DNetMod provides a universal C++ interface for communication between your application, the interface and the devices in your DeviceNet(tm) network"
+USE_MDFILE_AS_MAINPAGE = README.md
+INPUT                  = . src
+OUTPUT_DIRECTORY       = doc
+CLASS_DIAGRAMS         = YES
+CALL_GRAPH             = YES
+CALLER_GRAPH           = YES
+GENERATE_HTML          = YES
+
