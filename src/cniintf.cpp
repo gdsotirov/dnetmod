@@ -66,10 +66,11 @@ CNIInterface::CNIInterface(
 }
 
 /**
- * @brief Sets interface's identifier
+ * @brief Sets NI-DNET™ interface identifier
  *
- * Sets interface's identifier if not active and lower then 32.
- * @param ucIID Interface's identifier
+ * Used to set NI-DNET™ interface identifier.
+ * @param ucIID NI-DNET™ interface identifier. Must be a number between 0
+ * and 31.
  */
 void CNIInterface::SetIntfID(unsigned char ucIID) {
     if ( !bActive && (ucIID < 32) )
@@ -77,11 +78,13 @@ void CNIInterface::SetIntfID(unsigned char ucIID) {
 }
 
 /**
- * @brief Retrieves interface's name
+ * @brief Retrieves NI-DNET™ interface name
  *
- * Construct interface's name as dnetNN, where NN is interface's identifier.
- * @param ulStrSz Size of the character buffer provided as next parameter.
- * @param strName Character buffer for the name.
+ * Used to retrieve NI-DNET™ interface name. Name is a string with
+ * format "dnetXX", where XX is the interface identifier. So valid names
+ * are dnet1, dnet2, dnet3, ... dnet31.
+ * @param ulStrSz   Size in bytes of the string passed as next parameter.
+ * @param strName Pointer to a string where to copy interface name.
  */
 void CNIInterface::GetName(unsigned long ulStrSz, char *strName) {
     char strIName[7] = "dnet";

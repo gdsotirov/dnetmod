@@ -63,8 +63,10 @@ public:
 };
 
 /**
- * @brief Retrieves interface's identifier
- * @return Interface's identifier
+ * @brief Retrieves NI-DNET™ interface identifier
+ *
+ * Used to retrieve or set NI-DNET™ interface identifier.
+ * @return NI-DNET™ interface identifier. A number between 0 and 31.
  */
 inline unsigned char CNIInterface::GetIntfID(void) const {
     return ucIntfID;
