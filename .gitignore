@@ -4,5 +4,6 @@
 .cproject
 .project
 .settings
+doc/*
 lib/cif*
 src/dnmtest
