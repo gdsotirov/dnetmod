@@ -3,8 +3,13 @@
  ****************************************************************************
  *  Copyright   : Georgi D. Sotirov, gdsotirov@gmail.com                    *
  *  File        : dnetmod.cpp               Type        : source            *
- *  Description : Implementation of module functions.                       *
+ *  Description : Implementation of common module functions.                *
  ****************************************************************************/
+
+/**
+ * @file dnetmod.cpp
+ * Implementation of common module functions.
+ */
 
 #include <stdio.h>
 #include <stdarg.h>
@@ -34,10 +39,15 @@
 #include "dnm_user.h"
 
 /* Globals */
+/** Contains the last error message */
 char errmsg[DNETMOD_MAX_ERRMSG_LEN];
 
-/* Function: VendIdToString
- * Purpose : Retrive vendor identification string from vendor ID.
+/**
+ * @brief Retrieves vendor identification string from vendor ID
+ * @param usVendId Vendor identifier.
+ * @param ulStrSz Size of the buffer provided as next parameter.
+ * @param strName Character buffer for the name.
+ * @return Error code from \ref SetError function.
  */
 int DNETMOD_CC VendIdToString(
     unsigned short usVendId,
@@ -56,6 +66,13 @@ int DNETMOD_CC VendIdToString(
 /* Function: DevTypeToString
  * Purpose : Retrive device type string from device type ID.
  */
+/**
+ * @brief Retrieves device type string from device type ID
+ * @param usDvType Device type identifier.
+ * @param ulStrSz Size of the buffer provided as next parameter.
+ * @param strName Character buffer for the name.
+ * @return Error code from \ref SetError function.
+ */
 int DNETMOD_CC DevTypeToString(
     unsigned short usDvType,
     unsigned long  ulStrSz,
@@ -70,8 +87,11 @@ int DNETMOD_CC DevTypeToString(
     }
 }
 
-/* Function: DevErrToString
- * Purpose : Retrive device error message from error id.
+/**
+ * @brief Retrieves device error message from error id
+ * @param ucErrId Error identifier.
+ * @param ulStrSz Size of the buffer provided as next parameter.
+ * @param pstrEStr Character buffer for error message.
  */
 void DNETMOD_CC DevErrToString(
     unsigned char ucErrId,
@@ -116,8 +136,11 @@ void DNETMOD_CC DevErrToString(
     }
 }
 
-/* Function: CIFErrToString
- * Purpose : Retrive CIF error description.
+/**
+ * @brief Retrieves CIF error description
+ * @param sErr Error code.
+ * @param ulStrSz Size of the buffer provided as next parameter.
+ * @param strMsg Character buffer for the message.
  */
 void DNETMOD_CC CIFErrToString(
     short         sErr,
@@ -299,8 +322,11 @@ void DNETMOD_CC CIFErrToString(
     }
 }
 
-/* Function: CIFTskErrToString
- * Purpose : Retrieve CIF task error description.
+/**
+ * @brief Retrieves CIF task error description
+ * @param ucTskError Error code.
+ * @param ulStrSz Size of the buffer provided as next parameter.
+ * @param strTskErrStr Character buffer for the error message.
  */
 void DNETMOD_CC CIFTskErrToString(
     unsigned char ucTskError,
@@ -399,8 +425,11 @@ void DNETMOD_CC CIFTskErrToString(
 }
 
 #if defined(OS_WIN32)
-/* Function: SetNIError
- * Purpose : Process NI-DNET error code.
+/**
+ * @brief Processes NI-DNET error code.
+ * @param sCIFError Error code.
+ * @param strMsgFmt Format string.
+ * @param pArgList Arguments list (variable).
  */
 long DNETMOD_CC SetNIError(long lError, char *strMsgFmt, va_list pArgList) {
     if ( lError != 0 ) {
@@ -421,8 +450,11 @@ long DNETMOD_CC SetNIError(long lError, char *strMsgFmt, va_list pArgList) {
 }
 #endif /* if defined(OS_WIN32) */
 
-/* Function: SetCIFError
- * Purpose : Process CIF error code.
+/**
+ * @brief Processes CIF error code
+ * @param sCIFError Error code.
+ * @param strMsgFmt Format string.
+ * @param pArgList Arguments list (variable).
  */
 long DNETMOD_CC SetCIFError(short sCIFError, char * strMsgFmt, va_list pArgList) {
     unsigned char ucTskErr = 0;
@@ -451,8 +483,10 @@ long DNETMOD_CC SetCIFError(short sCIFError, char * strMsgFmt, va_list pArgList)
     return ERR_NOERR;
 }
 
-/* Function: SetError
- * Purpose : Set errmsg global variable.
+/**
+ * @brief Sets #errmsg global variable
+ * @param lErrCode Error code
+ * @return THe error code passed as first parameter.
  */
 long DNETMOD_CC SetError(long lErrCode...) {
     va_list pArgList;
@@ -544,8 +578,10 @@ long DNETMOD_CC SetError(long lErrCode...) {
     return lErrCode;
 }
 
-/* Function: GetErrMsg
- * Purpose : Retrieve error message string.
+/**
+ * @brief Retrieves error message string
+ * @param ulStrSz Length of the buffer provided as second parameter
+ * @param strMsg Pointer to a character buffer
  */
 void DNETMOD_CC GetErrMsg(unsigned long ulStrSz, char *strMsg) {
     strncpy(strMsg, errmsg, ulStrSz);
