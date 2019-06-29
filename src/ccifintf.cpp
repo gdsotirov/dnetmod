@@ -41,11 +41,18 @@ typedef unsigned long       DWORD;
 #include "rcs_user.h"
 #include "dnm_user.h"
 
+/** Flag communication error */
 #define F_COMERR    0x08
+/** Flag communication */
 #define F_COM       0x20
+/** Flag run */
 #define F_RUN       0x40
+/** Flag ready */
 #define F_RDY       0x80
 
+/**
+ * @brief Converts module baud rate to CIF constants
+ */
 #define BR_TO_CONST(br) (                                       \
     (br == DEVICENET_BAUD_500K) ? DNM_BAUD_500 :                \
     (br == DEVICENET_BAUD_500K) ? DNM_BAUD_250 : DNM_BAUD_125 )
