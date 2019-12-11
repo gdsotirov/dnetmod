@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.com/gdsotirov/dnetmod.svg?branch=master)](https://travis-ci.com/gdsotirov/dnetmod)
-![](https://github.com/gdsotirov/dnetmod/workflows/C/C++%20CI/badge.svg)
+[![Action Status](https://github.com/gdsotirov/dnetmod/workflows/C/C++%20CI/badge.svg)](https://github.com/gdsotirov/dnetmod/actions?query=workflow%3A%22C%2FC%2B%2B+CI%22)
 
 # DNetMod (DeviceNet Module)
 
