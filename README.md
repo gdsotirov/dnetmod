@@ -1,4 +1,7 @@
-# DNetMod (DeviceNet Module) [![Build Status](https://travis-ci.com/gdsotirov/dnetmod.svg?branch=master)](https://travis-ci.com/gdsotirov/dnetmod)
+[![Build Status](https://travis-ci.com/gdsotirov/dnetmod.svg?branch=master)](https://travis-ci.com/gdsotirov/dnetmod)
+![](https://github.com/gdsotirov/dnetmod/workflows/C/C++%20CI/badge.svg)
+
+# DNetMod (DeviceNet Module)
 
 ## Introduction
 ------------------------------------------------------------------------------
