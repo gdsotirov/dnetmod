@@ -1,0 +1,20 @@
+name: C/C++ CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install required packages
+      run: sudo apt-get -yq --no-install-suggests --no-install-recommends install doxygen graphviz
+    - name: Get dependencies
+      run: pushd lib && ./get_deps.sh && popd
+    - name: Build
+      run: make
+    - name: Generate documentation
+      run: doxygen Doxyfile
+
