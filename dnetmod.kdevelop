@@ -1,8 +1,8 @@
 <!DOCTYPE kdevelop>
 <kdevelop>
   <general>
-    <author>George D. Sotirov</author>
-    <email>gds@sd-bul.bg</email>
+    <author>Georgi D. Sotirov</author>
+    <email>gdsotirov@gmail.com</email>
     <projectmanagement>KDevCustomProject</projectmanagement>
     <primarylanguage>C++</primarylanguage>
     <keywords/>

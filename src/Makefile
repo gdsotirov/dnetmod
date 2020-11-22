@@ -1,5 +1,5 @@
 # DeviceNet Project 0.2 Makefile
-# Written by George D. Sotirov, gds@sd-bul.bg
+# Written by Georgi D. Sotirov, gdsotirov@gmail.com
 # $Id: Makefile,v 1.5 2014/10/25 09:33:19 gsotirov Exp $
 
 DEBUG = 1 # comment this line to disable debug bilds
