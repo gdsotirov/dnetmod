@@ -10,7 +10,7 @@ addons:
     - graphviz
 branches:
   only:
-    - master
+    - main
 before_script:
   - pushd lib && ./get_deps.sh && popd
 script: make
